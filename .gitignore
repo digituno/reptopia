@@ -1,0 +1,10 @@
+uploads/
+*.pyc
+__pycache__/
+../migrations/
+db.sqlite3
+*.log
+.DS_Store
+*~
+venv
+.python-version
