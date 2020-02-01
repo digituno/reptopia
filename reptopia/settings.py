@@ -108,6 +108,15 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+# User Setting
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_URL = '/accounts/logout/'
+LOGOUT_REDIRECT_URL = '/'
+# AUTH_USER_MODEL = 'home.Account'
+SESSION_COOKIE_AGE = 1200  # 20 Minute = 1200 MS
+SESSION_SAVE_EVERY_REQUEST = True
+
 # Email Setting
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
