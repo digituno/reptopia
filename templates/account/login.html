@@ -36,25 +36,45 @@
       border-top-left-radius: 0;
       border-top-right-radius: 0;
     }
+    .div-signin {
+      margin-top:10px;
+    }
   </style>
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-      <form class="form-signin" method="post" action="{% url 'login' %}">
-        {% csrf_token %}
-        <h2 class="form-signin-heading">로그인</h2>
-        <label for="inputUsername" class="sr-only">Username</label>
-        <input type="text" name="username" class="form-control" placeholder="Username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" name="password" class="form-control" placeholder="Password" autocomplete="current-password" required id="id_password">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
-        <input type="hidden" name="next" value="{{ next }}">
-      </form>
+  <div class="container">
+    <form class="form-signin" method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      <h2 class="form-signin-heading">로그인</h2>
+      <label for="inputUsername" class="sr-only">Username</label>
+      <input type="text" name="username" class="form-control" placeholder="Username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input type="password" name="password" class="form-control" placeholder="Password" autocomplete="current-password" required id="id_password">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="remember-me"> ID 기억하기 
+        </label>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
+      <input type="hidden" name="next" value="{{ next }}">
+      <hr>
+      <div class="div-signin">
+        비밀번호를 잊어버리셨나요?
+        <a data-toggle="modal" href="#myModal"> 비밀번호 찾기 </a>
+      </div>
+      <div class="div-signin">
+        아직 Reptopia 회원이 아니세요 ?
+        <a class="" href="{% url 'index' %}">
+          회원가입하기
+        </a>
+      </div>
+      <div class="div-signin">
+        그냥 둘러보시겠습니까 ?
+        <a class="" href="{% url 'index' %}">
+          홈으로 돌아가기
+        </a>
+      </div>
+    </form>
   </div>
 {% endblock %}
