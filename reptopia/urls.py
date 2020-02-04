@@ -22,9 +22,10 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/login/', auth_views.LoginView.as_view(template_name='account/login.html'), name='login'),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('', TemplateView.as_view(template_name='index.html'), name='index'),
+    path('account/login/', auth_views.LoginView.as_view(template_name='account/login.html.j2'), name='login'),
+    path('account/', include('account.urls')),
+    path('account/', include('django.contrib.auth.urls')),
+    path('', TemplateView.as_view(template_name='index.html.j2'), name='index'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

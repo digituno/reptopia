@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends 'base.html.j2' %}
 
 {% block stylesheet %}
   <style type="text/css">
@@ -53,7 +53,7 @@
       <input type="password" name="password" class="form-control" placeholder="Password" autocomplete="current-password" required id="id_password">
       <div class="checkbox">
         <label>
-          <input type="checkbox" value="remember-me"> ID 기억하기 
+          <input type="checkbox" value="remember-me"> ID 기억하기
         </label>
       </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
@@ -65,7 +65,7 @@
       </div>
       <div class="div-signin">
         아직 Reptopia 회원이 아니세요 ?
-        <a class="" href="{% url 'index' %}">
+        <a class="" href="{% url 'signup' %}">
           회원가입하기
         </a>
       </div>
