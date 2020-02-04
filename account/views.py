@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 class SignupView(CreateView):
     template_name = 'account/signup.html.j2'
     form_class = UserCreationForm
-    success_url = reverse_lazy('create_user_done')
+    success_url = reverse_lazy('signup_done')
 
 
 class SignupDoneView(TemplateView):
