@@ -110,9 +110,9 @@ USE_L10N = True
 USE_TZ = True
 
 # User Setting
-LOGIN_URL = '/accounts/login/'
+LOGIN_URL = '/account/login/'
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_URL = '/accounts/logout/'
+LOGOUT_URL = '/account/logout/'
 LOGOUT_REDIRECT_URL = '/'
 # AUTH_USER_MODEL = 'home.Account'
 SESSION_COOKIE_AGE = 1200  # 20 Minute = 1200 MS
