@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from django.views.generic.edit import CreateView
 from django.views.generic import TemplateView
-from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
+from .forms import AccountCreationForm
 
 class SignupView(CreateView):
     template_name = 'account/signup.html.j2'
-    form_class = UserCreationForm
+    form_class = AccountCreationForm
     success_url = reverse_lazy('signup_done')
 
 

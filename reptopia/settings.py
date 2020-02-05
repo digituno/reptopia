@@ -114,7 +114,7 @@ LOGIN_URL = '/account/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_URL = '/account/logout/'
 LOGOUT_REDIRECT_URL = '/'
-# AUTH_USER_MODEL = 'home.Account'
+AUTH_USER_MODEL = 'account.Account'
 SESSION_COOKIE_AGE = 1200  # 20 Minute = 1200 MS
 SESSION_SAVE_EVERY_REQUEST = True
 

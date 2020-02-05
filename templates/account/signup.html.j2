@@ -5,11 +5,33 @@
   <div class="page-header">
     <h1>회원가입</h1>
   </div>
-  <form method="post" action="{% url 'signup' %}">
+  <form method="post" action="{% url 'signup' %}" class="form-horizontal">
     {% csrf_token %}
     <input type="hidden" name="next" value="" />
-      {{ form.as_p }}
-    <button type="submit">회원가입</button>
+    {% for field in form %}
+    <div class="form-group">
+      <label for="cname" class="col-sm-2 control-label">{{ field.label_tag }}</label>
+      <div class="col-sm-10">
+        {% if field.errors %}
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                {{ field.errors }}
+            </div>
+        {% endif %}
+        {{ field }}
+        <br />
+        {{ field.help_text }}
+      </div>
+    </div>
+    {% endfor %}
+    <div class="form-group last">
+        <div class="col-lg-offset-2 col-lg-10">
+            <button type="submit" class="btn btn-primary">회원가입</button>
+            <a href="{% url 'index' %}">
+                <button type="button" class="btn btn-warning">돌아가기</button>
+            </a>
+        </div>
+    </div>
   </form>
 </div>
 
