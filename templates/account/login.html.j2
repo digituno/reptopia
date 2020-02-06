@@ -61,7 +61,7 @@
       <hr>
       <div class="div-signin">
         비밀번호를 잊어버리셨나요?
-        <a data-toggle="modal" href="#myModal"> 비밀번호 찾기 </a>
+        <a data-toggle="modal" href="#password_reset_modal"> 비밀번호 찾기 </a>
       </div>
       <div class="div-signin">
         아직 Reptopia 회원이 아니세요 ?
@@ -76,5 +76,28 @@
         </a>
       </div>
     </form>
+    <!-- Modal -->
+    <div aria-hidden="true" aria-labelledby="password_reset_modal" role="dialog" tabindex="-1" id="password_reset_modal" class="modal fade">
+        <form method="post" action="{% url 'password_reset' %}">
+            {% csrf_token %}
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">비밀번호를 잊어버리셨나요 ?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>회원 가입 시 사용한 E-mail 주소를 입력하세요. 새로운 비밀번호를 보내드립니다.</p>
+                        <input type="text" name="email" id="id_email" placeholder="E-mail" autocomplete="off" class="form-control placeholder-no-fix">
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit">메일보내기</button>
+                        <button data-dismiss="modal" class="btn btn-warning" type="button">돌아가기</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- modal -->
   </div>
 {% endblock %}
