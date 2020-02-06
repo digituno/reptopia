@@ -22,11 +22,12 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('account/login/', auth_views.LoginView.as_view(template_name='account/login.html.j2'), name='login'),
-    path('account/password_reset/done/', auth_views.LoginView.as_view(template_name='account/password_reset_done.html.j2'), name='password_reset_done'),
-    path('account/reset/<uidb64>/<token>/', auth_views.LoginView.as_view(template_name='account/password_reset_confirm.html.j2'), name='password_reset_confirm'),
-    path('account/reset/done/', auth_views.LoginView.as_view(template_name='account/password_reset_complete.html.j2'), name='password_reset_complete'),
     path('', include('account.urls')),
+    path('account/login/', auth_views.LoginView.as_view(template_name='account/login.html.j2'), name='login'),
+    path('account/password_reset/', auth_views.PasswordResetView.as_view(email_template_name='account/password_reset_email.html.j2'), name='password_reset'),
+    path('account/password_reset/done/', auth_views.PasswordResetView.as_view(template_name='account/password_reset_done.html.j2'), name='password_reset_done'),
+    path('account/reset/<uidb64>/<token>/', auth_views.PasswordResetView.as_view(template_name='account/password_reset_confirm.html.j2'), name='password_reset_confirm'),
+    path('account/reset/done/', auth_views.PasswordResetView.as_view(template_name='account/password_reset_complete.html.j2'), name='password_reset_complete'),
     path('account/', include('django.contrib.auth.urls')),
     path('', TemplateView.as_view(template_name='index.html.j2'), name='index'),
 ]
