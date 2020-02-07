@@ -49,7 +49,7 @@ class UserActivateView(TemplateView):
     def get(self, request, *args, **kwargs):
         # self.logger.debug('UserActivateView.get()')
 
-        uid = force_text(urlsafe_base64_decode(self.kwargs['uid64']))
+        uid = force_text(urlsafe_base64_decode(self.kwargs['uidb64']))
         token = self.kwargs['token']
 
         # self.logger.debug('uid: %s, token: %s' % (uid, token))

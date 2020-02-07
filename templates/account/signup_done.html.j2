@@ -5,8 +5,12 @@
   <div class="page-header">
     <h1>회원가입이 완료되었습니다.</h1>
   </div>
+  <p>입력하신 Email 주소로 회원인증 메일이 발송되었습니다.</p>
+  <p>Email 인증 후 Reptopia 에 로그인해주세요.</p>
   <br>
-  <a href="{% url 'login' %}">로그인하기</a>
+  <a href="{% url 'index' %}">
+      <button type="button" class="btn btn-warning">돌아가기</button>
+  </a>
 </div>
 
 {% endblock %}
