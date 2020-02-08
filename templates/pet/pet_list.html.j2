@@ -1,0 +1,90 @@
+{% extends 'base.html.j2' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="{% static 'lib/magnific-popup/css/magnific-popup.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <!-- Begin page content -->
+  <div class="container">
+    <div class="page-header">
+      <div class="pull-right">
+        <div class="form-inline">
+          <a href="#" style="margin-left:10px;">
+            <button type="button" class="btn btn-default">등록하기</button>
+          </a>
+        </div>
+       </div>
+       <h1>팻</h1>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col" class="d-none d-sm-table-cell">#</th>
+          <th scope="col">종이름</th>
+          <th scope="col" class="d-none d-sm-table-cell">성별</th>
+          <th scope="col">펫이름</th>
+          <th scope="col" class="d-none d-sm-table-cell">펫사진</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for owned in owned_list %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ owned.pet.species.common_name_kor}}</td>
+          <td>{{ owned.pet.gender.item_name }}</td>
+          <td>{{ owned.name}}</td>
+          <td>
+            <a class="image-popup-no-margins" href="{{ owned.image.url }}"><img src="{{ owned.image.url }}" width="75" height="75"></a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+
+  </div>
+{% endblock %}
+
+
+{% block script_content %}
+    <script src="{% static 'lib/magnific-popup/jquery.magnific-popup.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.image-popup-vertical-fit').magnificPopup({
+                type: 'image',
+                closeOnContentClick: true,
+                mainClass: 'mfp-img-mobile',
+                image: {
+                    verticalFit: true
+                }
+
+            });
+
+            $('.image-popup-fit-width').magnificPopup({
+                type: 'image',
+                closeOnContentClick: true,
+                image: {
+                    verticalFit: false
+                }
+            });
+
+            $('.image-popup-no-margins').magnificPopup({
+                type: 'image',
+                closeOnContentClick: true,
+                closeBtnInside: false,
+                fixedContentPos: true,
+                mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
+                image: {
+                    verticalFit: true
+                },
+                zoom: {
+                    enabled: true,
+                    duration: 300 // don't foget to change the duration also in CSS
+                }
+            });
+        });
+    </script>
+{% endblock%}

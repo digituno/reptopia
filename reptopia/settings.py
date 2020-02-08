@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'account',
+    'dict',
+    'pet',
 ]
 
 MIDDLEWARE = [
@@ -100,9 +102,30 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+        },
+        'reptopia.log': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+        },
+    },
+}
+
 
 # Internationalization
-# https://docs.djangoproject.com/en/3.0/topics/i18n/
+#
 LANGUAGE_CODE = 'ko'
 TIME_ZONE = 'Asia/Seoul'
 USE_I18N = True
