@@ -60,8 +60,9 @@
                 <div class="input-group">
                     <span class="input-group-btn">
                         <span class="btn btn-default btn-file">
-                          파일선택<input type="file" id="imgInp">
+                          <i class="fa fa-camera-retro"></i>{{ field }}
                         </span>
+                        <span class="btn btn-default" id="id_file_trash"><i class="fa fa-trash"></i></span>
                     </span>
                     <input type="text" class="form-control" readonly>
                 </div>
@@ -86,43 +87,45 @@
 {% block script_content %}
   <script>
     $(document).ready( function() {
-      	$(document).on('change', '.btn-file :file', function() {
-  		var input = $(this),
-  			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-  		input.trigger('fileselect', [label]);
+      $(document).on('change', '.btn-file :file', function() {
+  		  var input = $(this), label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+  		  input.trigger('fileselect', [label]);
   		});
 
   		$('.btn-file :file').on('fileselect', function(event, label) {
+		    var input = $(this).parents('.input-group').find(':text'), log = label;
 
-  		    var input = $(this).parents('.input-group').find(':text'),
-  		        log = label;
-
-  		    if( input.length ) {
-  		        input.val(log);
-  		    } else {
-  		        if( log ) alert(log);
-  		    }
+		    if( input.length ) {
+	        input.val(log);
+		    } else {
+	        if( log ) alert(log);
+		    }
 
   		});
-  		function readURL(input) {
-  		    if (input.files && input.files[0]) {
-  		        var reader = new FileReader();
 
-  		        reader.onload = function (e) {
-  		            $('#img-upload').attr('src', e.target.result);
-                  $('#img-upload').attr('class', 'img-thumbnail');
-  		        }
-
-  		        reader.readAsDataURL(input.files[0]);
-  	 	    } else {
-            $('#img-upload').attr('src', '');
-            $('#img-upload').removeClass('img-thumbnail');
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $('#img-upload').attr('src', e.target.result);
+            $('#img-upload').attr('class', 'img-thumbnail');
           }
-  		}
+          reader.readAsDataURL(input.files[0]);
+        } else {
+          $('#img-upload').attr('src', '');
+          $('#img-upload').removeClass('img-thumbnail');
+        }
+      }
 
-  		$("#imgInp").change(function(){
+  		$("#id_image").change(function(){
   		    readURL(this);
   		});
+
+      $("#id_file_trash").click(function() {
+        $("#id_image").val('');
+        $('.input-group :text').val('');
+        readURL($("#id_image"));
+      });
   	});
   </script>
 {% endblock%}
