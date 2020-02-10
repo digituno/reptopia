@@ -1,0 +1,33 @@
+{% extends 'base.html.j2' %}
+
+{% block content %}
+  <!-- Begin page content -->
+  <div class="container">
+    <div class="page-header">
+      <div class="pull-right">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          {% if user.is_authenticated and user == pet.owner %}
+          <button type="button" class="btn btn-default">정보수정</button>
+          <button type="button" class="btn btn-danger">삭제</button>
+          {% endif %}
+          <button type="button" class="btn btn-default">목록으로</button>
+        </div>
+      </div>
+       <h1>펫 상세보기</h1>
+    </div>
+    <div class="row mt">
+       <div class="col-xs-6 col-sm-4">
+           <img src="{{ pet.image.url }}" class="img-responsive">
+       </div>
+       <div class="col-xs-6 col-sm-8">
+           <h4 class="title">{{ pet.name }}</h4>
+           <hr />
+           <h5>동물분류 종 :  {{ pet.species.common_name_kor }} </h5>
+           <h5>성별 : {{ pet.gender.item_name }} </h5>
+           <h5>출생년월일 : {{ pet.bod }} </h5>
+           <hr />
+           <pre><h5>{{ pet.desc }}<h5></pre>
+       </div>
+     </div>
+  </div>
+{% endblock %}

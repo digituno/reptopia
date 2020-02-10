@@ -7,6 +7,8 @@ import reptopia
 
 class Pet(models.Model):
     species = models.ForeignKey(AnimalDictionary, on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, blank=True)
     gender = models.ForeignKey(
         Dictionary,
         related_name='gender',
@@ -16,33 +18,19 @@ class Pet(models.Model):
         limit_choices_to={'category': reptopia._GENDER_},
     )
     bod = models.DateField()
+    image = models.ImageField(upload_to='pet/%Y/%m/%d')
+    desc = models.TextField(blank=True)
     # father = models.ForeignKey('Pet', related_name='pet_father', on_delete=models.SET_NULL, blank=True, null=True)
     # mother = models.ForeignKey('Pet', related_name='pet_mother', on_delete=models.SET_NULL, blank=True, null=True)
     # design = 모프 기능 추가 후 구현 예정
-    # 최초 등록일시
-    created_at = models.DateTimeField(auto_now_add=True)
+    is_public = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.species.common_name_kor;
+        return '[' + self.species.common_name_kor + ']' + self.name;
 
     # def get_absolute_url(self):
     #     return reverse('pet-detail', kwargs={'userid': self.owner.pk, 'pk': self.pk})
 
-
-class Owned(models.Model):
-    pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, blank=True)
-    is_public = models.BooleanField(default=True)
-    is_live = models.BooleanField(default=True)
-    image = models.ImageField(upload_to='pet/%Y/%m/%d')
-    desc = models.TextField(blank=True)
-    have_start_date = models.DateField(default=date.today)
-    have_end_date = models.DateField(default='9999-12-31')
-
     def delete(self, *args, **kwargs):
         self.image.delete()
         super(Pet, self).delete(*args, **kwargs)
-
-    def __str__(self):
-        return '[' + self.pet.species.common_name_kor + ']' + self.name;

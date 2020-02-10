@@ -1,20 +1,23 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from account.models import Account
-from .models import Owned
+from .models import Pet
+from .forms import PetCreateForm
 import logging
 
 logger = logging.getLogger('reptopia.log')
 
 class PetListView(ListView):
-    model = Owned
+    model = Pet
     template_name = 'pet/pet_list.html.j2'
-    context_object_name = 'owned_list'
+    context_object_name = 'pet_list'
     paginate_by = 10
 
     def get_queryset(self):
-        user = get_object_or_404(Account, name=self.kwargs['username'])
-        query_set = Owned.objects.filter(user=user) # 사육기간 필터입력추가
+        current_user = get_object_or_404(Account, name=self.kwargs['username'])
+        query_set = Pet.objects.filter(owner=current_user) # 사육기간 필터입력추가
 
         """
         if 'speciesid' in self.request.GET:
@@ -35,12 +38,21 @@ class PetListView(ListView):
 
         return context
     """
-"""
-class PetCreateView(LoginRequiredMixin, CreateView):
-    model = Owned
+
+class PetCreateView(CreateView):
+    model = Pet
     form_class = PetCreateForm
+    template_name = 'pet/pet_form.html.j2'
+    success_url = reverse_lazy('index')
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
-"""
+
+    def get_absolute_url(self):
+        return reverse('pet-detail', kwargs={'pk': self.pk})
+
+
+class PetDetailView(DetailView):
+    model = Pet
+    template_name = 'pet/pet_detail.html.j2'

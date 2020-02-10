@@ -49,3 +49,6 @@ class Account(AbstractUser):
     REQUIRED_FIELDS = ['name']
 
     objects = AccountManager()
+
+    def __str__(self):
+        return self.name;

@@ -11,12 +11,12 @@
     <div class="page-header">
       <div class="pull-right">
         <div class="form-inline">
-          <a href="#" style="margin-left:10px;">
+          <a href="{% url 'pet-add' username=user.name %}" style="margin-left:10px;">
             <button type="button" class="btn btn-default">등록하기</button>
           </a>
         </div>
-       </div>
-       <h1>팻</h1>
+      </div>
+      <h1>팻</h1>
     </div>
     <div class="table-responsive">
       <table class="table table-hover">
@@ -30,14 +30,14 @@
         </tr>
       </thead>
       <tbody>
-        {% for owned in owned_list %}
+        {% for pet in pet_list %}
         <tr>
           <th scope="row">{{ forloop.counter }}</th>
-          <td>{{ owned.pet.species.common_name_kor}}</td>
-          <td>{{ owned.pet.gender.item_name }}</td>
-          <td>{{ owned.name}}</td>
+          <td><a href="{% url 'pet-detail' username=pet.owner.name pk=pet.pk%}">{{ pet.species.common_name_kor}}</a></td>
+          <td>{{ pet.gender.item_name }}</td>
+          <td>{{ pet.name}}</td>
           <td>
-            <a class="image-popup-no-margins" href="{{ owned.image.url }}"><img src="{{ owned.image.url }}" width="75" height="75"></a>
+            <a class="image-popup-no-margins" href="{{ pet.image.url }}"><img src="{{ pet.image.url }}" width="75" height="75"></a>
           </td>
         </tr>
         {% endfor %}
