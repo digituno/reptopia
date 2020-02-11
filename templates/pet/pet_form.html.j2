@@ -1,6 +1,8 @@
 {% extends 'base.html.j2' %}
+{% load static %}
 
 {% block stylesheet %}
+  <link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css' %}" />
   <style type="text/css">
     .btn-file {
         position: relative;
@@ -71,6 +73,15 @@
           </div>
         {% endif %}
       {% endfor %}
+      <div class="form-group">
+      <div class="input-group date" data-provide="datepicker">
+    <input type="text" class="form-control"> 
+    <div class="input-group-addon">
+        <span class="glyphicon glyphicon-th"></span>
+    </div>
+</div>
+      </div>
+
       <div class="form-group last">
         <div class="col-lg-offset-2 col-lg-10">
             <button type="submit" class="btn btn-primary">등록하기</button>
@@ -85,23 +96,24 @@
 
 
 {% block script_content %}
+  <script src="{% static 'lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+  <script src="{% static 'lib/bootstrap-datepicker/locales/bootstrap-datepicker.kr.min.js' %}" charset="UTF-8"></script>
   <script>
     $(document).ready( function() {
       $(document).on('change', '.btn-file :file', function() {
-  		  var input = $(this), label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-  		  input.trigger('fileselect', [label]);
-  		});
+        var input = $(this), label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [label]);
+      });
 
-  		$('.btn-file :file').on('fileselect', function(event, label) {
-		    var input = $(this).parents('.input-group').find(':text'), log = label;
+      $('.btn-file :file').on('fileselect', function(event, label) {
+        var input = $(this).parents('.input-group').find(':text'), log = label;
 
-		    if( input.length ) {
-	        input.val(log);
-		    } else {
-	        if( log ) alert(log);
-		    }
-
-  		});
+        if( input.length ) {
+          input.val(log);
+        } else {
+          if( log ) alert(log);
+        }
+      });
 
       function readURL(input) {
         if (input.files && input.files[0]) {
@@ -117,15 +129,21 @@
         }
       }
 
-  		$("#id_image").change(function(){
-  		    readURL(this);
-  		});
+      $("#id_image").change(function(){
+        readURL(this);
+      });
 
       $("#id_file_trash").click(function() {
         $("#id_image").val('');
         $('.input-group :text').val('');
         readURL($("#id_image"));
       });
-  	});
+
+      $('.datepicker').datepicker({
+        format: 'yyyy-mm-dd',
+        language: 'kr',
+        startDate: '-3d'
+      });
+    });
   </script>
 {% endblock%}
