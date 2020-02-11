@@ -70,7 +70,10 @@ class SpeciesSearchTemplateView(View):
 
         results  = []
         for r in search_qs:
-            results.append(r.common_name_kor)
+            value = {}
+            value['value'] =r.id
+            value['label'] =r.common_name_kor
+            results.append(value)
         logger.debug(results)
         data = json.dumps(results)
         mimetype = 'application/json'

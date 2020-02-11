@@ -154,19 +154,9 @@
         minLength: 2,
         open: function(){
           setTimeout(function () {
-              $('.ui-autocomplete').css('z-index', 99);
-          }, 0);
-      }
-      });
-
-      $("#species_autocomplete").autocomplete({
-        source: $("#form_pet").attr("data-species-autocomplete_url"),
-        minLength: 2,
-        open: function(){
-          setTimeout(function () {
             $('.ui-autocomplete').css('z-index', 99);
           }, 0);
-        }
+        },
       });
     });
   </script>
