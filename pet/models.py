@@ -20,10 +20,9 @@ class Pet(models.Model):
     bod = models.DateField()
     image = models.ImageField(upload_to='pet/%Y/%m/%d')
     desc = models.TextField(blank=True)
-    # father = models.ForeignKey('Pet', related_name='pet_father', on_delete=models.SET_NULL, blank=True, null=True)
-    # mother = models.ForeignKey('Pet', related_name='pet_mother', on_delete=models.SET_NULL, blank=True, null=True)
     # design = 모프 기능 추가 후 구현 예정
     is_public = models.BooleanField(default=True)
+    is_keeping  = models.BooleanField(default=True) 
 
     def __str__(self):
         return '[' + self.species.common_name_kor + ']' + self.name;

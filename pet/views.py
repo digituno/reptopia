@@ -1,11 +1,14 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import View, ListView, DetailView
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
 from account.models import Account
 from .models import Pet
+from dict.models import AnimalDictionary
 from .forms import PetCreateForm
 import logging
+import json
 
 logger = logging.getLogger('reptopia.log')
 
@@ -56,3 +59,19 @@ class PetCreateView(CreateView):
 class PetDetailView(DetailView):
     model = Pet
     template_name = 'pet/pet_detail.html.j2'
+
+
+class SpeciesSearchTemplateView(View):
+    def get(self, request):
+        q = request.GET.get('term', '').capitalize()
+        logger.debug(q)
+        # animal_dict_list = AnimalDictionary.objects.filter(Q(common_name_kor_icontains=item)|Q(common_name_kor_icontains=item))
+        search_qs = AnimalDictionary.objects.filter(common_name_kor__icontains=q)
+
+        results  = []
+        for r in search_qs:
+            results.append(r.common_name_kor)
+        logger.debug(results)
+        data = json.dumps(results)
+        mimetype = 'application/json'
+        return HttpResponse(data, mimetype)
