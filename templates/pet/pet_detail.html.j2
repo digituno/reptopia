@@ -10,7 +10,7 @@
           <a href="{% url 'pet-update' userid=pet.owner.pk pk=pet.pk%}">
             <button type="button" class="btn btn-default">정보수정</button>
           </a>
-          <a href="#">
+          <a href="{% url 'pet-delete' userid=pet.owner.pk pk=pet.pk %}">
             <button type="button" class="btn btn-danger">삭제</button>
           </a>
           {% endif %}

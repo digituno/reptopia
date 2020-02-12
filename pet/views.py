@@ -1,7 +1,7 @@
 from django.views.generic import View, ListView, DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from account.models import Account
@@ -63,6 +63,13 @@ class PetUpdateView(LoginRequiredMixin, UpdateView):
         pet = get_object_or_404(Pet, pk=self.kwargs['pk'])
 
         return context
+
+
+class PetDeleteView(LoginRequiredMixin, View):
+    def get(self, request, userid, pk):
+        pet = get_object_or_404(Pet, pk=pk)
+        pet.delete()
+        return redirect('pet-list', userid=userid)
 
 
 class PetDetailView(DetailView):
