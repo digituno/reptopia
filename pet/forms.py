@@ -15,7 +15,7 @@ class PetCreateForm(forms.ModelForm):
         self.fields['species'].widget.attrs.update({'class': 'form-control'})
         self.fields['name'].widget.attrs.update({'class': 'form-control'})
         self.fields['gender'].widget.attrs.update({'class': 'form-control'})
-        self.fields['bod'].widget.attrs.update({'class': 'form-control'})
+        self.fields['bod'].widget.attrs.update({'class': 'form-control datepicker'})
         self.fields['desc'].widget.attrs.update({'class': 'form-control'})
         self.fields['image'].widget.attrs.update({'class': 'form-control'})
         self.fields['is_public'].widget.attrs.update({'class': 'form-control'})
