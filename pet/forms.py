@@ -12,7 +12,7 @@ class PetCreateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['species'].widget.attrs.update({'class': 'form-control'})
+        self.fields['species'].widget.attrs.update({'style': 'visibility:hidden; width:0px; height:0px;'})
         self.fields['name'].widget.attrs.update({'class': 'form-control'})
         self.fields['gender'].widget.attrs.update({'class': 'form-control'})
         self.fields['bod'].widget.attrs.update({'class': 'form-control datepicker'})
