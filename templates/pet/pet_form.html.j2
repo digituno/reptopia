@@ -160,6 +160,7 @@
         select: function(event, ui) {
           $("#species_autocomplete").val(ui.item.label);
           $("#id_species").val(ui.item.value);
+          return false;
         }
       });
     });
