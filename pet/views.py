@@ -1,8 +1,9 @@
 from django.views.generic import View, ListView, DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from account.models import Account
 from .models import Pet
 from dict.models import AnimalDictionary
@@ -42,18 +43,26 @@ class PetListView(ListView):
         return context
     """
 
-class PetCreateView(CreateView):
+class PetCreateView(LoginRequiredMixin, CreateView):
     model = Pet
     form_class = PetCreateForm
     template_name = 'pet/pet_form.html.j2'
-    success_url = reverse_lazy('index')
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
-    def get_absolute_url(self):
-        return reverse('pet-detail', kwargs={'pk': self.pk})
+
+class PetUpdateView(LoginRequiredMixin, UpdateView):
+    model = Pet
+    form_class = PetCreateForm
+    template_name = 'pet/pet_form.html.j2'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pet = get_object_or_404(Pet, pk=self.kwargs['pk'])
+
+        return context
 
 
 class PetDetailView(DetailView):
