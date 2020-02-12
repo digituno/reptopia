@@ -11,7 +11,7 @@
     <div class="page-header">
       <div class="pull-right">
         <div class="form-inline">
-          <a href="{% url 'pet-add' username=user.name %}" style="margin-left:10px;">
+          <a href="{% url 'pet-add' userid=user.pk %}" style="margin-left:10px;">
             <button type="button" class="btn btn-default">등록하기</button>
           </a>
         </div>
@@ -33,7 +33,7 @@
         {% for pet in pet_list %}
         <tr>
           <th scope="row">{{ forloop.counter }}</th>
-          <td><a href="{% url 'pet-detail' username=pet.owner.name pk=pet.pk%}">{{ pet.species.common_name_kor}}</a></td>
+          <td><a href="{% url 'pet-detail' userid=pet.owner.pk pk=pet.pk%}">{{ pet.species.common_name_kor}}</a></td>
           <td>{{ pet.gender.item_name }}</td>
           <td>{{ pet.name}}</td>
           <td>

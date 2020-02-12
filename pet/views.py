@@ -19,7 +19,7 @@ class PetListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        current_user = get_object_or_404(Account, name=self.kwargs['username'])
+        current_user = get_object_or_404(Account, pk=self.kwargs['userid'])
         query_set = Pet.objects.filter(owner=current_user) # 사육기간 필터입력추가
 
         """
@@ -71,7 +71,7 @@ class SpeciesSearchTemplateView(View):
         results  = []
         for r in search_qs:
             value = {}
-            value['value'] =r.id
+            value['id'] =r.id
             value['label'] =r.common_name_kor
             results.append(value)
         logger.debug(results)

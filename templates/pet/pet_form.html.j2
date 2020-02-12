@@ -87,8 +87,8 @@
       <div class="form-group last">
         <div class="col-lg-offset-2 col-lg-10">
             <button type="submit" class="btn btn-primary">등록하기</button>
-            <a href="#">
-                <button type="button" class="btn btn-warning">돌아가기</button>
+            <a href="{% url 'pet-list' userid=user.pk %}">
+                <button type="button" class="btn btn-default">돌아가기</button>
             </a>
         </div>
       </div>
@@ -158,9 +158,15 @@
           }, 0);
         },
         select: function(event, ui) {
-          $("#species_autocomplete").val(ui.item.label);
-          $("#id_species").val(ui.item.value);
-          return false;
+          $("#id_species").val(ui.item.id);
+        },
+        change: function(event, ui) {
+          if ($("#id_species option:selected").text() !== $(this).val()) {
+            for (var i = 0; i <= $("#id_species option").length; i++) {
+              if ($(this).val() === $("#id_species option:eq(" + i + ")").text())
+                $("#id_species").val(i);
+            }
+          }
         }
       });
     });
