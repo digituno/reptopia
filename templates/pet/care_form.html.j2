@@ -1,10 +1,143 @@
 {% extends 'base.html.j2' %}
 {% load static %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-datepicker/css/bootstrap-datepicker.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'lib/jquery-ui/css/jquery-ui.min.css' %}" />
+  <style type="text/css">
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+    }
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+    }
+
+    #img-upload{
+        width: 100%;
+    }
+  </style>
+{% endblock %}
+
 {% block content %}
 <div class="container">
     <div class="page-header">
-       <h1>Care Log 등록하기</h1>
+       <h1>사육일지 등록하기</h1>
     </div>
-    {{ form.as_p }}
+    <form method="post" action="" class="form-horizontal" enctype="multipart/form-data" id="form_pet" data-species-autocomplete_url="{% url 'ajax-search-species' %}">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="" />
+
+        {% for field in form %}
+            <div class="form-group">
+                <label for="cname" class="col-sm-2 control-label">{{ field.label_tag }}</label>
+                <div class="col-sm-10">
+                {% if field.errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+                {% if field == form.image %}
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <span class="btn btn-default btn-file">
+                                <i class="fa fa-camera-retro"></i>{{ field }}
+                            </span>
+                            <span class="btn btn-default" id="id_file_trash"><i class="fa fa-trash"></i></span>
+                        </span>
+                        <input type="text" class="form-control" readonly>
+                    </div>
+                    <img id='img-upload'/>
+                {% elif field == form.date %}
+                    <div class="input-group">
+                        {{ field }}
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                        </div>
+                    </div>
+                {% else %}
+                    {{ field }}
+                {% endif %}
+                <br />
+                {{ field.help_text }}
+                </div>
+            </div>
+        {% endfor %}
+        <div class="form-group last">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-success">등록하기</button>
+                <a href="{% url 'pet-list' userid=user.pk %}">
+                    <button type="button" class="btn btn-default">돌아가기</button>
+                </a>
+            </div>
+        </div>
+    </form>
 </div>
 {% endblock %}
+
+{% block script_content %}
+<script src="{% static 'lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+<script src="{% static 'lib/bootstrap-datepicker/locales/bootstrap-datepicker.ko.min.js' %}" charset="UTF-8"></script>
+
+<script>
+    $(document).ready( function() {
+        $(document).on('change', '.btn-file :file', function() {
+            var input = $(this), label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function(event, label) {
+            var input = $(this).parents('.input-group').find(':text'), log = label;
+
+            if( input.length ) {
+                input.val(log);
+            } else {
+                if( log ) alert(log);
+            }
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#img-upload').attr('src', e.target.result);
+                    $('#img-upload').attr('class', 'img-thumbnail');
+                }
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                $('#img-upload').attr('src', '');
+                $('#img-upload').removeClass('img-thumbnail');
+            }
+        }
+
+        $("#id_image").change(function(){
+            readURL(this);
+        });
+
+        $("#id_file_trash").click(function() {
+            $("#id_image").val('');
+            $('.input-group :text').val('');
+            readURL($("#id_image"));
+        });
+
+        $('.datepicker').datepicker({
+            format: "yyyy-mm-dd",
+            language: "ko",
+            todayHighlight: "true"
+        });
+    });
+</script>
+{% endblock%}
