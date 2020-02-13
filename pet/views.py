@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
+from conf import settings
 from account.models import Account
 from .models import Pet, Care
 from dict.models import AnimalDictionary
@@ -14,6 +15,7 @@ import json
 logger = logging.getLogger('reptopia.log')
 
 class PetListView(LoginRequiredMixin, ListView):
+    login_url = settings.LOGIN_URL
     model = Pet
     template_name = 'pet/pet_list.html.j2'
     context_object_name = 'pet_list'
@@ -44,6 +46,7 @@ class PetListView(LoginRequiredMixin, ListView):
     """
 
 class PetCreateView(LoginRequiredMixin, CreateView):
+    login_url = settings.LOGIN_URL
     model = Pet
     form_class = PetCreateForm
     template_name = 'pet/pet_form.html.j2'
@@ -54,6 +57,7 @@ class PetCreateView(LoginRequiredMixin, CreateView):
 
 
 class PetUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = settings.LOGIN_URL
     model = Pet
     form_class = PetCreateForm
     template_name = 'pet/pet_form.html.j2'
@@ -66,13 +70,16 @@ class PetUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class PetDeleteView(LoginRequiredMixin, View):
+    login_url = settings.LOGIN_URL
+
     def get(self, request, userid, pk):
         pet = get_object_or_404(Pet, pk=pk)
         pet.delete()
         return redirect('pet-list', userid=userid)
 
 
-class PetDetailView(DetailView):
+class PetDetailView(LoginRequiredMixin, DetailView):
+    login_url = settings.LOGIN_URL
     model = Pet
     template_name = 'pet/pet_detail.html.j2'
 
