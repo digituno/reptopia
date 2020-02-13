@@ -13,7 +13,7 @@ import json
 
 logger = logging.getLogger('reptopia.log')
 
-class PetListView(ListView):
+class PetListView(LoginRequiredMixin, ListView):
     model = Pet
     template_name = 'pet/pet_list.html.j2'
     context_object_name = 'pet_list'
