@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, HiddenInput
 from .models import Pet, Care
 # from home.models import Dictionary
 # import reptopia
@@ -39,7 +39,7 @@ class CareCreateForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['date'].widget.attrs.update({'class': 'form-control datepicker', 'readonly': 'true'})
-        self.fields['pet'].widget.attrs.update({'class': 'form-control'})
+        self.fields['pet'].widget.attrs.update({'class': 'form-control', 'readonly': 'true'})
         self.fields['type'].widget.attrs.update({'class': 'form-control'})
         self.fields['desc'].widget.attrs.update({'class': 'form-control'})
         self.fields['image'].widget.attrs.update({'class': 'form-control'})

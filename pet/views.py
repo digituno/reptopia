@@ -76,14 +76,52 @@ class PetDetailView(DetailView):
     model = Pet
     template_name = 'pet/pet_detail.html.j2'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pet = get_object_or_404(Pet, pk=self.kwargs['pk'])
+        # weight = get_object_or_404(Dictionary, item=reptopia._WEIGHT_)
+
+        """
+        from_date = '2019-01-01'
+        to_date = '2019-11-13'
+        if 'from_date' in self.request.GET and 'to_date' in self.request.GET:
+            from_date = self.request.GET['from_date']
+            to_date = self.request.GET['to_date']
+            care_list = Care.objects.filter(pet=pet).filter(date__range=[from_date, to_date]).order_by('-date', '-created_datetime')
+        """
+        care_list = Care.objects.filter(pet=pet)
+
+        """
+        if 'care_type' in self.request.GET:
+            care_list = care_list.filter(type_id=self.request.GET['care_type'])
+
+        weight_list = Care.objects.filter(pet=pet).filter(type=weight).order_by('date')
+        care_type_list = Dictionary.objects.filter(category=reptopia._CARE_)
+        """
+
+        context['care_list'] = care_list
+
+        """
+        context['weight_list'] = weight_list
+        context['care_type_list'] = care_type_list
+        """
+        return context
+
 
 class CareCreateView(LoginRequiredMixin, CreateView):
     model = Care
     form_class = CareCreateForm
     template_name = 'pet/care_form.html.j2'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pet = get_object_or_404(Pet, pk=self.kwargs['petid'])
+        context['pet'] = pet
+        return context
+
+
     def form_valid(self, form):
-        form.instance.pet = get_object_or_404(Pet, pk=self.kwargs['petid'])  
+        logger.debug(form)
         return super().form_valid(form)
 
 
