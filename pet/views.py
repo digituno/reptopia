@@ -5,9 +5,9 @@ from django.shortcuts import get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from account.models import Account
-from .models import Pet
+from .models import Pet, Care
 from dict.models import AnimalDictionary
-from .forms import PetCreateForm
+from .forms import PetCreateForm, CareCreateForm
 import logging
 import json
 
@@ -75,6 +75,16 @@ class PetDeleteView(LoginRequiredMixin, View):
 class PetDetailView(DetailView):
     model = Pet
     template_name = 'pet/pet_detail.html.j2'
+
+
+class CareCreateView(LoginRequiredMixin, CreateView):
+    model = Care
+    form_class = CareCreateForm
+    template_name = 'pet/care_form.html.j2'
+
+    def form_valid(self, form):
+        form.instance.pet = get_object_or_404(Pet, pk=self.kwargs['petid'])  
+        return super().form_valid(form)
 
 
 class SpeciesSearchTemplateView(View):
