@@ -34,3 +34,27 @@ class Pet(models.Model):
     def delete(self, *args, **kwargs):
         self.image.delete()
         super(Pet, self).delete(*args, **kwargs)
+
+class Care(models.Model):
+    date = models.DateField(default=timezone.now, blank=False)
+    pet = models.ForeignKey(Pet, on_delete=models.PROTECT)
+    type = models.ForeignKey(
+        Dictionary,
+        related_name='care_type',
+        on_delete=models.CASCADE,
+        limit_choices_to={'category': reptopia._CARE_},
+    )
+    image = models.ImageField(upload_to='care/%Y/%m/%d', blank=True)
+    desc = models.TextField(blank=True)
+    created_datetime = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.pet.name + " : " + localize(self.date) + " : " + self.type.item
+
+    def delete(self, *args, **kwargs):
+        self.image.delete()
+        super(Care, self).delete(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('pet-detail', kwargs={'userid': self.pet.owner.pk, 'pk': self.pet.pk})
+
