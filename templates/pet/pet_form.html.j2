@@ -85,7 +85,7 @@
         </div>
       {% endfor %}
       <div class="form-group last">
-        <div class="col-lg-offset-2 col-lg-10">
+        <div class="col-sm-offset-2 col-sm-10">
             <button type="submit" class="btn btn-primary">등록하기</button>
             <a href="{% url 'pet-list' userid=user.pk %}">
                 <button type="button" class="btn btn-default">돌아가기</button>
@@ -104,6 +104,10 @@
 
   <script>
     $(document).ready( function() {
+      {% if pet != None %}
+        $('#species_autocomplete').val($('#id_species option:selected').text());
+      {% endif %}
+      //정보수정일 경우 처리
       $(document).on('change', '.btn-file :file', function() {
         var input = $(this), label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
         input.trigger('fileselect', [label]);
