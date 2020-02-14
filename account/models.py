@@ -44,6 +44,7 @@ class Account(AbstractUser):
     name = models.CharField(max_length=50)
     bio = models.TextField(max_length=500, blank=True, null=True)
     image = models.ImageField(upload_to='account/%Y/%m/%d', blank=True, null=True)
+    is_public = models.BooleanField(default=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name']

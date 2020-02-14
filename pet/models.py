@@ -22,7 +22,6 @@ class Pet(models.Model):
     image = models.ImageField(upload_to='pet/%Y/%m/%d', blank=True, null=True)
     desc = models.TextField(blank=True)
     # design = 모프 기능 추가 후 구현 예정
-    is_public = models.BooleanField(default=True)
     is_keeping  = models.BooleanField(default=True)
 
     def __str__(self):
@@ -57,4 +56,3 @@ class Care(models.Model):
 
     def get_absolute_url(self):
         return reverse('pet-detail', kwargs={'userid': self.pet.owner.pk, 'pk': self.pet.pk})
-

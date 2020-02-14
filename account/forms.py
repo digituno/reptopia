@@ -24,3 +24,6 @@ class AccountCreationForm(UserCreationForm):
         self.fields['name'].label = "이름"
         self.fields['bio'].label = "소개"
         self.fields['image'].label = "대표사진"
+        # self.fields['is_public'].label = "공개여부"
+
+        # self.fields['is_public'].help_text = "공개여부를 체크하시면 다른 사육자에게 해당 펫 및 사육일지가 공개됩니다."

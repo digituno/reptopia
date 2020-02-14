@@ -7,7 +7,7 @@ from .models import Pet, Care
 class PetCreateForm(ModelForm):
     class Meta:
         model = Pet
-        fields = ('species', 'name', 'gender', 'bod', 'desc', 'image', 'is_public')
+        fields = ('species', 'name', 'gender', 'bod', 'desc', 'image')
 
 
     def __init__(self, *args, **kwargs):
@@ -26,9 +26,6 @@ class PetCreateForm(ModelForm):
         self.fields['bod'].label = "출생년월일"
         self.fields['image'].label = "대표사진"
         self.fields['desc'].label = "펫 설명"
-        self.fields['is_public'].label = "공개여부"
-
-        self.fields['is_public'].help_text = "공개여부를 체크하시면 다른 사육자에게 해당 펫 및 사육일지가 공개됩니다."
 
 
 class CareCreateForm(ModelForm):
