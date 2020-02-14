@@ -129,6 +129,16 @@ class CareCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         return super().form_valid(form)
+    
+
+class CareDeleteView(LoginRequiredMixin, View):
+    login_url = settings.LOGIN_URL
+    
+    def get(self, request, userid, petid, careid):
+        care = get_object_or_404(Care, pk=careid)
+        care.delete()
+        return redirect('pet-detail', userid=userid, pk=petid)
+
 
 
 class SpeciesSearchTemplateView(View):

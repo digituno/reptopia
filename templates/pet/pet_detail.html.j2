@@ -63,6 +63,7 @@
                             <th scope="col" class="d-none d-sm-table-cell">일지유형</th>
                             <th scope="col">추가내용</th>
                             <th scope="col" class="d-none d-sm-table-cell">사진</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,6 +77,11 @@
                                 {% if care.image %}
                                     <a class="image-popup-no-margins" href="{{ care.image.url }}"><img src="{{ care.image.url }}" width="75" height="75"></a>
                                 {% endif %}
+                            </td>
+                            <td>
+                                <a href="{% url 'care-delete' userid=pet.owner.pk petid=pet.pk careid=care.pk %}">
+                                    <button class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}
