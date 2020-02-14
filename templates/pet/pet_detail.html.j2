@@ -73,7 +73,9 @@
                             <td>{{ care.type.item_name }}</td>
                             <td>{{ care.desc}}</td>
                             <td>
-                                <a class="image-popup-no-margins" href="{{ care.image.url }}"><img src="{{ care.image.url }}" width="75" height="75"></a>
+                                {% if care.image %}
+                                    <a class="image-popup-no-margins" href="{{ care.image.url }}"><img src="{{ care.image.url }}" width="75" height="75"></a>
+                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}

@@ -19,7 +19,7 @@ class Pet(models.Model):
         limit_choices_to={'category': reptopia._GENDER_},
     )
     bod = models.DateField()
-    image = models.ImageField(upload_to='pet/%Y/%m/%d')
+    image = models.ImageField(upload_to='pet/%Y/%m/%d', blank=True, null=True)
     desc = models.TextField(blank=True)
     # design = 모프 기능 추가 후 구현 예정
     is_public = models.BooleanField(default=True)
@@ -44,7 +44,7 @@ class Care(models.Model):
         on_delete=models.CASCADE,
         limit_choices_to={'category': reptopia._CARE_},
     )
-    image = models.ImageField(upload_to='care/%Y/%m/%d', blank=True)
+    image = models.ImageField(upload_to='care/%Y/%m/%d', blank=True, null=True)
     desc = models.TextField(blank=True)
     created_datetime = models.DateTimeField(default=timezone.now)
 
