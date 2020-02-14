@@ -1,4 +1,9 @@
 {% extends 'base.html.j2' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" type="text/css" href="{% static 'lib/magnific-popup/css/magnific-popup.css' %}" />
+{% endblock %}
 
 {% block content %}
 <!-- Begin page content -->
@@ -49,7 +54,32 @@
     </div>
     <div class="tab-content">
         <div id="carelog" class="tab-pane active">
-            a
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="d-none d-sm-table-cell">#</th>
+                            <th scope="col">등록일자</th>
+                            <th scope="col" class="d-none d-sm-table-cell">일지유형</th>
+                            <th scope="col">추가내용</th>
+                            <th scope="col" class="d-none d-sm-table-cell">사진</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for care in care_list %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ care.date}}</td>
+                            <td>{{ care.type.item_name }}</td>
+                            <td>{{ care.desc}}</td>
+                            <td>
+                                <a class="image-popup-no-margins" href="{{ care.image.url }}"><img src="{{ care.image.url }}" width="75" height="75"></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div id="careinfo" class="tab-pane">
             b
@@ -58,3 +88,44 @@
 </div>
 
 {% endblock %}
+
+{% block script_content %}
+    <script src="{% static 'lib/magnific-popup/jquery.magnific-popup.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+            /*
+            $('.image-popup-vertical-fit').magnificPopup({
+                type: 'image',
+                closeOnContentClick: true,
+                mainClass: 'mfp-img-mobile',
+                image: {
+                    verticalFit: true
+                }
+
+            });
+
+            $('.image-popup-fit-width').magnificPopup({
+                type: 'image',
+                closeOnContentClick: true,
+                image: {
+                    verticalFit: false
+                }
+            });
+            */
+            $('.image-popup-no-margins').magnificPopup({
+                type: 'image',
+                closeOnContentClick: true,
+                closeBtnInside: false,
+                fixedContentPos: true,
+                mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
+                image: {
+                    verticalFit: true
+                },
+                zoom: {
+                    enabled: true,
+                    duration: 300 // don't foget to change the duration also in CSS
+                }
+            });
+        });
+    </script>
+{% endblock%}

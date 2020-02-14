@@ -1,10 +1,9 @@
 from django.views.generic import View, ListView, DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
-from conf import settings
+from django.conf import settings
 from account.models import Account
 from .models import Pet, Care
 from dict.models import AnimalDictionary
@@ -65,6 +64,7 @@ class PetUpdateView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         pet = get_object_or_404(Pet, pk=self.kwargs['pk'])
+        context['pet'] = pet
 
         return context
 
