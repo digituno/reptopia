@@ -1,6 +1,34 @@
 {% extends 'base.html.j2' %}
 {% block content %}
 
+{% block stylesheet %}
+  <style type="text/css">
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+    }
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+    }
+
+    #img-upload{
+        width: 100%;
+    }
+  </style>
+{% endblock %}
+
 <div class="container">
   <div class="page-header">
     <h1>회원가입</h1>
@@ -18,7 +46,20 @@
                 {{ field.errors }}
             </div>
         {% endif %}
-        {{ field }}
+        {% if field == form.image %}
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <span class="btn btn-default btn-file">
+                        <i class="fa fa-camera-retro"></i>{{ field }}
+                    </span>
+                    <span class="btn btn-default" id="id_file_trash"><i class="fa fa-trash"></i></span>
+                </span>
+                <input type="text" class="form-control" readonly>
+            </div>
+            <img id='img-upload'/>
+        {% else %}
+            {{ field }}
+        {% endif %}`
         <br />
         {{ field.help_text }}
       </div>
@@ -36,3 +77,49 @@
 </div>
 
 {% endblock %}
+
+
+{% block script_content %}
+<script>
+    $(document).ready( function() {
+        $(document).on('change', '.btn-file :file', function() {
+            var input = $(this), label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function(event, label) {
+            var input = $(this).parents('.input-group').find(':text'), log = label;
+
+            if( input.length ) {
+                input.val(log);
+            } else {
+                if( log ) alert(log);
+            }
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#img-upload').attr('src', e.target.result);
+                    $('#img-upload').attr('class', 'img-thumbnail');
+                }
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                $('#img-upload').attr('src', '');
+                $('#img-upload').removeClass('img-thumbnail');
+            }
+        }
+
+        $("#id_image").change(function(){
+            readURL(this);
+        });
+
+        $("#id_file_trash").click(function() {
+            $("#id_image").val('');
+            $('.input-group :text').val('');
+            readURL($("#id_image"));
+        });
+    });
+</script>
+{% endblock%}

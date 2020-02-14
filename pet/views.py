@@ -85,7 +85,7 @@ class PetDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        pet = get_object_or_404(Pet, pk=self.kwargs['pk'])
+        pet = get_object_or_404(Pet, pk=self.kwargs['pk']);
         # weight = get_object_or_404(Dictionary, item=reptopia._WEIGHT_)
 
         """
@@ -96,7 +96,7 @@ class PetDetailView(LoginRequiredMixin, DetailView):
             to_date = self.request.GET['to_date']
             care_list = Care.objects.filter(pet=pet).filter(date__range=[from_date, to_date]).order_by('-date', '-created_datetime')
         """
-        care_list = Care.objects.filter(pet=pet)
+        care_list = Care.objects.filter(pet=pet).order_by('-date', '-created_datetime')
 
         """
         if 'care_type' in self.request.GET:
@@ -128,7 +128,6 @@ class CareCreateView(LoginRequiredMixin, CreateView):
 
 
     def form_valid(self, form):
-        logger.debug(form)
         return super().form_valid(form)
 
 
