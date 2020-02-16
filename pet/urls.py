@@ -10,4 +10,5 @@ urlpatterns = [
     path('<int:userid>/pets/<int:petid>/cares/add', pet_views.CareCreateView.as_view(), name='care-add'),
     path('<int:userid>/pets/<int:petid>/cares/<int:careid>/delete', pet_views.CareDeleteView.as_view(), name='care-delete'),
     path('ajax/ajax-search-species', pet_views.SpeciesSearchTemplateView.as_view(), name='ajax-search-species'),
+    # path('ajax/ajax-search-dict', pet_views.DictionaryItemTemplateView.as_view(), name='ajax-dict-item-list'),
 ]

@@ -18,7 +18,6 @@ class PetCreateForm(ModelForm):
         self.fields['bod'].widget.attrs.update({'class': 'form-control datepicker', 'readonly': 'true'})
         self.fields['desc'].widget.attrs.update({'class': 'form-control'})
         self.fields['image'].widget.attrs.update({'class': 'form-control'})
-        self.fields['is_public'].widget.attrs.update({'class': 'form-control'})
 
         self.fields['species'].label = "개체종류"
         self.fields['name'].label = "펫 이름"

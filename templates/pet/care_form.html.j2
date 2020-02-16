@@ -76,6 +76,13 @@
             </div>
         </div>
 
+        <div class="form-group" id="id_type_detail" style="display: none;">
+            <label id="id_type_detail_label" for="cname" class="col-sm-2 control-label"></label>
+            <div id="id_type_detail_field" class="col-sm-10">
+
+            </div>
+        </div>
+
         <div class="form-group">
             <label for="cname" class="col-sm-2 control-label">{{ form.desc.label_tag }}</label>
             <div class="col-sm-10">
@@ -131,7 +138,29 @@
 
 <script>
     $(document).ready( function() {
-        $('#id_pet').val('{{ pet.id }}');
+
+        $('#{{ form.type.id_for_label}}').change(function(){
+            /*
+            $.ajax({
+                url: '',
+                data: {
+                    'type': $(this).val()
+                },
+                success: function (data) {
+                    alert('success')
+                }
+            });
+            */
+            if ($(this).val() == 6) {
+                $('#id_type_detail').show()
+                $('#id_type_detail_label').text($('#{{ form.type.id_for_label}} option:selected').text() + ':')
+                $('#id_type_detail_field').html('<input type="text" name="weight" maxlength="100" class="form-control" id="id_weight">');
+            } else {
+                $('#id_type_detail').hide()
+            }
+        });
+
+        $('#{{ form.pet.id_for_label}}').val('{{ pet.id }}');
 
         $(document).on('change', '.btn-file :file', function() {
             var input = $(this), label = input.val().replace(/\\/g, '/').replace(/.*\//, '');

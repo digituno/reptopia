@@ -97,6 +97,7 @@ class PetDetailView(LoginRequiredMixin, DetailView):
             care_list = Care.objects.filter(pet=pet).filter(date__range=[from_date, to_date]).order_by('-date', '-created_datetime')
         """
         care_list = Care.objects.filter(pet=pet).order_by('-date', '-created_datetime')
+        logger.debug(care_list)
 
         """
         if 'care_type' in self.request.GET:
@@ -126,14 +127,18 @@ class CareCreateView(LoginRequiredMixin, CreateView):
         context['pet'] = pet
         return context
 
+    def post(self, request, *args, **kwargs):
+        if 'weight' in request.POST:
+            care = get_object_or_404(Care, pk=self.kwargs['petid'])
+            weight = CareWeight(care=care, weight=request.POST.get('weight'))
+            weight.save()
+        return super().post(self, request, *args, **kwargs)
 
-    def form_valid(self, form):
-        return super().form_valid(form)
-    
+
 
 class CareDeleteView(LoginRequiredMixin, View):
     login_url = settings.LOGIN_URL
-    
+
     def get(self, request, userid, petid, careid):
         care = get_object_or_404(Care, pk=careid)
         care.delete()

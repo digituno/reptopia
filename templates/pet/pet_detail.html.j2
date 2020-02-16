@@ -71,7 +71,9 @@
                         <tr>
                             <th scope="row">{{ forloop.counter }}</th>
                             <td>{{ care.date}}</td>
-                            <td>{{ care.type.item_name }}</td>
+                            <td>
+                                {{ care.type.item_name }}
+                            </td>
                             <td>{{ care.desc}}</td>
                             <td>
                                 {% if care.image %}
@@ -103,25 +105,6 @@
     <script src="{% static 'lib/magnific-popup/jquery.magnific-popup.js' %}"></script>
     <script>
         $(document).ready(function() {
-            /*
-            $('.image-popup-vertical-fit').magnificPopup({
-                type: 'image',
-                closeOnContentClick: true,
-                mainClass: 'mfp-img-mobile',
-                image: {
-                    verticalFit: true
-                }
-
-            });
-
-            $('.image-popup-fit-width').magnificPopup({
-                type: 'image',
-                closeOnContentClick: true,
-                image: {
-                    verticalFit: false
-                }
-            });
-            */
             $('.image-popup-no-margins').magnificPopup({
                 type: 'image',
                 closeOnContentClick: true,

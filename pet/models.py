@@ -34,15 +34,17 @@ class Pet(models.Model):
         self.image.delete()
         super(Pet, self).delete(*args, **kwargs)
 
+
 class Care(models.Model):
     date = models.DateField(default=timezone.now, blank=False)
-    pet = models.ForeignKey(Pet, on_delete=models.PROTECT)
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
     type = models.ForeignKey(
         Dictionary,
         related_name='care_type',
         on_delete=models.CASCADE,
         limit_choices_to={'category': reptopia._CARE_},
     )
+    # care_value = models.IntegerField(blank=True, null=True)
     image = models.ImageField(upload_to='care/%Y/%m/%d', blank=True, null=True)
     desc = models.TextField(blank=True)
     created_datetime = models.DateTimeField(default=timezone.now)
