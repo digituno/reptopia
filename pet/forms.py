@@ -30,12 +30,13 @@ class PetCreateForm(ModelForm):
 class CareCreateForm(ModelForm):
     class Meta:
         model = Care
-        fields = ('date', 'pet', 'type', 'desc', 'image')
+        fields = ('date', 'pet', 'type', 'care_value', 'desc', 'image')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['date'].widget.attrs.update({'class': 'form-control datepicker', 'readonly': 'true'})
         self.fields['pet'].widget.attrs.update({'class': 'form-control'})
         self.fields['type'].widget.attrs.update({'class': 'form-control'})
+        self.fields['care_value'].widget.attrs.update({'class': 'form-control'})
         self.fields['desc'].widget.attrs.update({'class': 'form-control'})
         self.fields['image'].widget.attrs.update({'class': 'form-control'})

@@ -127,13 +127,14 @@ class CareCreateView(LoginRequiredMixin, CreateView):
         context['pet'] = pet
         return context
 
+    """
     def post(self, request, *args, **kwargs):
         if 'weight' in request.POST:
             care = get_object_or_404(Care, pk=self.kwargs['petid'])
             weight = CareWeight(care=care, weight=request.POST.get('weight'))
             weight.save()
         return super().post(self, request, *args, **kwargs)
-
+    """
 
 
 class CareDeleteView(LoginRequiredMixin, View):

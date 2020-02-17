@@ -76,10 +76,16 @@
             </div>
         </div>
 
-        <div class="form-group" id="id_type_detail" style="display: none;">
-            <label id="id_type_detail_label" for="cname" class="col-sm-2 control-label"></label>
-            <div id="id_type_detail_field" class="col-sm-10">
-
+        <div class="form-group" id="div_care_value" style="display: none;">
+            <label for="cname" class="col-sm-2 control-label">{{ form.care_value.label_tag }}</label>
+            <div class="col-sm-10">
+                {% if form.care_value.errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ form.care_value.errors }}
+                    </div>
+                {% endif %}
+                {{ form.care_value }}
             </div>
         </div>
 
@@ -121,7 +127,7 @@
         <div class="form-group last">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-success">등록하기</button>
-                <a href="{% url 'pet-list' userid=user.pk %}">
+                <a href="{% url 'pet-detail' userid=pet.owner.pk pk=pet.pk%}">
                     <button type="button" class="btn btn-default">돌아가기</button>
                 </a>
             </div>
@@ -152,11 +158,9 @@
             });
             */
             if ($(this).val() == 6) {
-                $('#id_type_detail').show()
-                $('#id_type_detail_label').text($('#{{ form.type.id_for_label}} option:selected').text() + ':')
-                $('#id_type_detail_field').html('<input type="text" name="weight" maxlength="100" class="form-control" id="id_weight">');
+                $('#div_care_value').show()
             } else {
-                $('#id_type_detail').hide()
+                $('#div_care_value').hide()
             }
         });
 

@@ -44,7 +44,7 @@ class Care(models.Model):
         on_delete=models.CASCADE,
         limit_choices_to={'category': reptopia._CARE_},
     )
-    # care_value = models.IntegerField(blank=True, null=True)
+    care_value = models.IntegerField(blank=True, null=True)
     image = models.ImageField(upload_to='care/%Y/%m/%d', blank=True, null=True)
     desc = models.TextField(blank=True)
     created_datetime = models.DateTimeField(default=timezone.now)
