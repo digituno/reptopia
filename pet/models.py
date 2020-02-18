@@ -4,6 +4,7 @@ from dict.models import Dictionary, AnimalDictionary
 from django.utils import timezone
 from django.urls import reverse
 from django.utils.formats import localize
+from model_utils.managers import InheritanceManager
 import reptopia
 
 class Pet(models.Model):
@@ -44,10 +45,11 @@ class Care(models.Model):
         on_delete=models.CASCADE,
         limit_choices_to={'category': reptopia._CARE_},
     )
-    care_value = models.IntegerField(blank=True, null=True)
     image = models.ImageField(upload_to='care/%Y/%m/%d', blank=True, null=True)
     desc = models.TextField(blank=True)
     created_datetime = models.DateTimeField(default=timezone.now)
+
+    objects = InheritanceManager()
 
     def __str__(self):
         return self.pet.name + " : " + localize(self.date) + " : " + self.type.item
@@ -58,3 +60,7 @@ class Care(models.Model):
 
     def get_absolute_url(self):
         return reverse('pet-detail', kwargs={'userid': self.pet.owner.pk, 'pk': self.pet.pk})
+
+
+class CareWeight(Care):
+    weight = models.IntegerField()

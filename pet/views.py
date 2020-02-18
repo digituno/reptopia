@@ -5,9 +5,9 @@ from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from account.models import Account
-from .models import Pet, Care
-from dict.models import AnimalDictionary
-from .forms import PetCreateForm, CareCreateForm
+from .models import Pet, Care, CareWeight
+from dict.models import AnimalDictionary, Dictionary
+from .forms import PetCreateForm, CareCreateForm, CareWeightCreateForm
 import logging
 import json
 
@@ -96,7 +96,8 @@ class PetDetailView(LoginRequiredMixin, DetailView):
             to_date = self.request.GET['to_date']
             care_list = Care.objects.filter(pet=pet).filter(date__range=[from_date, to_date]).order_by('-date', '-created_datetime')
         """
-        care_list = Care.objects.filter(pet=pet).order_by('-date', '-created_datetime')
+        #care_list = Care.objects.filter(pet=pet).order_by('-date', '-created_datetime')
+        care_list = Care.objects.select_subclasses().filter(pet=pet).order_by('-date', '-created_datetime')
         logger.debug(care_list)
 
         """
@@ -127,14 +128,11 @@ class CareCreateView(LoginRequiredMixin, CreateView):
         context['pet'] = pet
         return context
 
-    """
     def post(self, request, *args, **kwargs):
         if 'weight' in request.POST:
-            care = get_object_or_404(Care, pk=self.kwargs['petid'])
-            weight = CareWeight(care=care, weight=request.POST.get('weight'))
-            weight.save()
+            form_class = CareWeightCreateForm
+
         return super().post(self, request, *args, **kwargs)
-    """
 
 
 class CareDeleteView(LoginRequiredMixin, View):
