@@ -130,10 +130,13 @@ class CareCreateView(LoginRequiredMixin, CreateView):
 
     def post(self, request, *args, **kwargs):
         if 'weight' in request.POST:
-            form_class = CareWeightCreateForm
+            form = CareWeightCreateForm(request.POST, request.FILES)
+        else:
+            form = CareCreateForm(request.POST, request.FILES)
 
-        return super().post(self, request, *args, **kwargs)
-
+        if form.is_valid():
+            obj = form.save()
+            return redirect(obj)
 
 class CareDeleteView(LoginRequiredMixin, View):
     login_url = settings.LOGIN_URL
