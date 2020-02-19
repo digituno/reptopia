@@ -6,6 +6,7 @@ from pet import views as pet_views
 urlpatterns = [
     path('signup', account_views.SignupView.as_view(), name='signup'),
     path('ajax/ajax-email-check', account_views.EmailCheckTemplateView.as_view(), name='ajax-email-check'),
+    path('ajax/ajax-name-check', account_views.NameCheckTemplateView.as_view(), name='ajax-name-check'),
     path('signup/done', account_views.SignupDoneView.as_view(), name='signup_done'),
     path('activate/<uidb64>/<token>', account_views.UserActivateView.as_view(), name='user_activate'),
     path('login', auth_views.LoginView.as_view(template_name='account/login.html.j2'), name='login'),

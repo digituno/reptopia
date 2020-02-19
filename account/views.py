@@ -76,5 +76,14 @@ class UserActivateView(TemplateView):
 
 class EmailCheckTemplateView(View):
     def get(self, request):
-        email = Account.objects.filter(email=request.GET.get('item'))
-        return HttpResponse(not email.exists())
+        user = Account.objects.filter(email=request.GET.get('item'))
+        return HttpResponse(not user.exists())
+
+
+class NameCheckTemplateView(View):
+    def get(self, request):
+        logger.debug(request.GET.get('item'))
+        user = Account.objects.filter(name=request.GET.get('item'))
+        logger.debug(user)
+        logger.debug(not user.exists())
+        return HttpResponse(not user.exists())

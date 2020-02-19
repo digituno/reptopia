@@ -33,7 +33,7 @@
     <h1>회원가입</h1>
     </div>
     <form id="signup_form" method="post" action="" class="form-horizontal" enctype="multipart/form-data"
-        data-email-check-url="{% url 'ajax-email-check' %}">
+        data-email-check-url="{% url 'ajax-email-check' %}" data-name-check-url="{% url 'ajax-name-check' %}">
         {% csrf_token %}
         <input type="hidden" name="next" value="" />
             <div class="form-group">
@@ -152,7 +152,7 @@
                     'item': $('#id_email').val()
                 },
                 success: function (data) {
-                    if (data) {
+                    if (data == 'True') {
                         alert('사용가능한 Email 주소입니다.')
                     } else {
                         alert('이미 가입 된 Email 주소입니다.')
@@ -163,7 +163,20 @@
         });
 
         $('#name_check').click(function(){
-            alert('name 중복확인');
+            $.ajax({
+                url: $("#signup_form").attr("data-name-check-url"),
+                data: {
+                    'item': $('#id_name').val()
+                },
+                success: function (data) {
+                    if (data == 'True') {
+                        alert('사용가능한 사용자명 입니다.')
+                    } else {
+                        alert('이미 가입 된 사용자명입니다.')
+                    }
+                    $('#isUsableName').val(data);
+                }
+            });
         });
 
         $(document).on('change', '.btn-file :file', function() {
