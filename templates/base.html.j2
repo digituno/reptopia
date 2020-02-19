@@ -70,6 +70,22 @@
     {% block content %}
     {% endblock %}
 
+    <div class="modal" id="pop_msg" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="pop_msg_title">&nbsp;</h4>
+                </div>
+                <div class="modal-body" id="pop_msg_body">
+                    &nbsp;
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer class="footer">
       <div class="container">
         <p class="text-muted">
