@@ -1,5 +1,5 @@
 from django.views.generic.edit import CreateView
-from django.views.generic import TemplateView
+from django.views.generic import View, TemplateView
 from django.urls import reverse_lazy
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
@@ -8,9 +8,15 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.db import transaction
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from .forms import AccountCreationForm
+from django.http import HttpResponse
 from .models import Account
+from dict.models import AnimalDictionary
+import logging
+import json
+
+logger = logging.getLogger('reptopia.log')
 
 class SignupView(CreateView):
     template_name = 'account/signup.html.j2'
@@ -41,6 +47,7 @@ class SignupView(CreateView):
 class SignupDoneView(TemplateView):
     template_name = 'account/signup_done.html.j2'
 
+
 class UserActivateView(TemplateView):
     # logger = logging.getLogger(__name__)
     template_name = 'account/user_activate_complete.html.j2'
@@ -65,3 +72,9 @@ class UserActivateView(TemplateView):
             # self.logger.info('User %s(pk=%s) has been activated.' % (user, user.pk))
 
         return super(UserActivateView, self).get(request, *args, **kwargs)
+
+
+class EmailCheckTemplateView(View):
+    def get(self, request):
+        email = Account.objects.filter(email=request.GET.get('item'))
+        return HttpResponse(not email.exists())

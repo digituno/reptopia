@@ -1,8 +1,6 @@
 {% extends 'base.html.j2' %}
-{% block content %}
-
 {% block stylesheet %}
-  <style type="text/css">
+<style type="text/css">
     .btn-file {
         position: relative;
         overflow: hidden;
@@ -26,121 +24,148 @@
     #img-upload{
         width: 100%;
     }
-  </style>
+</style>
 {% endblock %}
 
+{% block content %}
 <div class="container">
-  <div class="page-header">
+    <div class="page-header">
     <h1>회원가입</h1>
-  </div>
-  <form method="post" action="{% url 'signup' %}" class="form-horizontal">
-    {% csrf_token %}
-    <input type="hidden" name="next" value="" />
-    <div class="form-group">
-      <label for="cname" class="col-sm-2 control-label">{{ form.email.label_tag }}</label>
-      <div class="col-sm-10">
-      {% if form.email.errors %}
-        <div class="alert alert-danger alert-dismissable">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-          {{ form.email.errors }}
-        </div>
-      {% endif %}
-      {{ form.email }}
-      <small class="form-text text-muted">{{ form.email.help_text }}</small>
-      </div>
     </div>
-    <div class="form-group">
-      <label for="cname" class="col-sm-2 control-label">{{ form.name.label_tag }}</label>
-      <div class="col-sm-10">
-        {% if form.name.errors %}
-          <div class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            {{ form.name.errors }}
-          </div>
-        {% endif %}
-        {{ form.name }}
-        <small class="form-text text-muted">{{ form.name.help_text }}</small>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="cname" class="col-sm-2 control-label">{{ form.password1.label_tag }}</label>
-      <div class="col-sm-10">
-      {% if form.password1.errors %}
-        <div class="alert alert-danger alert-dismissable">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-          {{ form.password1.errors }}
-        </div>
-      {% endif %}
-      {{ form.password1}}
-      <small class="form-text text-muted">{{ form.password1.help_text }}</small>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="cname" class="col-sm-2 control-label">{{ form.password2.label_tag }}</label>
-      <div class="col-sm-10">
-      {% if form.password2.errors %}
-        <div class="alert alert-danger alert-dismissable">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-          {{ form.password2.errors }}
-          <small class="form-text text-muted">{{ form.password2.help_text }}</small>
-        </div>
-      {% endif %}
-      {{ form.password2 }}
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="cname" class="col-sm-2 control-label">{{ form.bio.label_tag }}</label>
-      <div class="col-sm-10">
-      {% if form.bio.errors %}
-        <div class="alert alert-danger alert-dismissable">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-          {{ form.bio.errors }}
-        </div>
-      {% endif %}
-      {{ form.bio }}
-      <small class="form-text text-muted">{{ form.bio.help_text }}</small>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="cname" class="col-sm-2 control-label">{{ form.image.label_tag }}</label>
-      <div class="col-sm-10">
-        {% if form.image.errors %}
-            <div class="alert alert-danger alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                {{ form.image.errors }}
+    <form id="signup_form" method="post" action="" class="form-horizontal" enctype="multipart/form-data"
+        data-email-check-url="{% url 'ajax-email-check' %}">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="" />
+            <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.email.label_tag }}</label>
+            <div class="col-sm-10">
+                {% if form.email.errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ form.email.errors }}
+                    </div>
+                {% endif %}
+                <div class="input-group">
+                    {{ form.email }}
+                    <span class="btn input-group-addon" id="email_check"><i class="fa fa-search"></i> 중복확인</span>
+                </div>
+                <small class="form-text text-muted">{{ form.email.help_text }}</small>
             </div>
-        {% endif %}
-            <div class="input-group">
-                <span class="input-group-btn">
-                    <span class="btn btn-default btn-file">
-                        <i class="fa fa-camera-retro"></i>{{ form.image }}
+        </div>
+        <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.name.label_tag }}</label>
+                <div class="col-sm-10">
+                {% if form.name.errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ form.name.errors }}
+                    </div>
+                {% endif %}
+                <div class="input-group">
+                    {{ form.name }}
+                    <span class="btn input-group-addon" id="name_check"><i class="fa fa-search"></i> 중복확인</span>
+                </div>
+                <small class="form-text text-muted">{{ form.name.help_text }}</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.password1.label_tag }}</label>
+            <div class="col-sm-10">
+                {% if form.password1.errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ form.password1.errors }}
+                    </div>
+                {% endif %}
+                {{ form.password1}}
+                <small class="form-text text-muted">{{ form.password1.help_text }}</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.password2.label_tag }}</label>
+            <div class="col-sm-10">
+                {% if form.password2.errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ form.password2.errors }}
+                        <small class="form-text text-muted">{{ form.password2.help_text }}</small>
+                    </div>
+                {% endif %}
+                {{ form.password2 }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.bio.label_tag }}</label>
+            <div class="col-sm-10">
+                {% if form.bio.errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ form.bio.errors }}
+                    </div>
+                {% endif %}
+                {{ form.bio }}
+                <small class="form-text text-muted">{{ form.bio.help_text }}</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.image.label_tag }}</label>
+            <div class="col-sm-10">
+                {% if form.image.errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ form.image.errors }}
+                    </div>
+                {% endif %}
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <span class="btn btn-default btn-file"><i class="fa fa-camera-retro"></i>{{ form.image }}</span>
+                        <span class="btn btn-default" id="file_trash"><i class="fa fa-trash"></i></span>
                     </span>
-                    <span class="btn btn-default" id="id_file_trash"><i class="fa fa-trash"></i></span>
-                </span>
-                <input type="text" class="form-control" readonly>
+                    <input type="text" class="form-control" readonly>
+                </div>
+                <img id='img-upload'/>
+                <small class="form-text text-muted">{{ form.image.help_text }}</small>
             </div>
-            <img id='img-upload'/>
-        <small class="form-text text-muted">{{ form.image.help_text }}</small>
-      </div>
-    </div>
-    <div class="form-group last">
-      <label for="cname" class="col-sm-2 control-label"></label>
-      <div class="col-sm-10">
-          <button type="submit" class="btn btn-primary">회원가입</button>
-          <a href="{% url 'index' %}">
-              <button type="button" class="btn btn-warning">돌아가기</button>
-          </a>
-      </div>
-    </div>
-  </form>
+        </div>
+        <div class="form-group last">
+            <label for="cname" class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">회원가입</button>
+                <a href="{% url 'index' %}">
+                    <button type="button" class="btn btn-warning">돌아가기</button>
+                </a>
+            </div>
+        </div>
+        <input type="hidden" name="isUsableEmail" value="false" />
+        <input type="hidden" name="isUsableName" value="false" />
+    </form>
 </div>
-
 {% endblock %}
-
 
 {% block script_content %}
 <script>
     $(document).ready( function() {
+        $('#email_check').click(function(){
+            $.ajax({
+                url: $("#signup_form").attr("data-email-check-url"),
+                data: {
+                    'item': $('#id_email').val()
+                },
+                success: function (data) {
+                    if (data) {
+                        alert('사용가능한 Email 주소입니다.')
+                    } else {
+                        alert('이미 가입 된 Email 주소입니다.')
+                    }
+                    $('#isUsableEmail').val(data);
+                }
+            });
+        });
+
+        $('#name_check').click(function(){
+            alert('name 중복확인');
+        });
+
         $(document).on('change', '.btn-file :file', function() {
             var input = $(this), label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
             input.trigger('fileselect', [label]);
@@ -174,7 +199,7 @@
             readURL(this);
         });
 
-        $("#id_file_trash").click(function() {
+        $("#file_trash").click(function() {
             $("#id_image").val('');
             $('.input-group :text').val('');
             readURL($("#id_image"));
