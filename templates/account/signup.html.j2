@@ -46,18 +46,20 @@
         </div>
       {% endif %}
       {{ form.email }}
+      <small class="form-text text-muted">{{ form.email.help_text }}</small>
       </div>
     </div>
     <div class="form-group">
       <label for="cname" class="col-sm-2 control-label">{{ form.name.label_tag }}</label>
       <div class="col-sm-10">
-      {% if form.name.errors %}
-        <div class="alert alert-danger alert-dismissable">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-          {{ form.name.errors }}
-        </div>
-      {% endif %}
-      {{ form.name}}
+        {% if form.name.errors %}
+          <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{ form.name.errors }}
+          </div>
+        {% endif %}
+        {{ form.name }}
+        <small class="form-text text-muted">{{ form.name.help_text }}</small>
       </div>
     </div>
     <div class="form-group">
@@ -70,6 +72,7 @@
         </div>
       {% endif %}
       {{ form.password1}}
+      <small class="form-text text-muted">{{ form.password1.help_text }}</small>
       </div>
     </div>
     <div class="form-group">
@@ -79,6 +82,7 @@
         <div class="alert alert-danger alert-dismissable">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
           {{ form.password2.errors }}
+          <small class="form-text text-muted">{{ form.password2.help_text }}</small>
         </div>
       {% endif %}
       {{ form.password2 }}
@@ -94,6 +98,7 @@
         </div>
       {% endif %}
       {{ form.bio }}
+      <small class="form-text text-muted">{{ form.bio.help_text }}</small>
       </div>
     </div>
     <div class="form-group">
@@ -108,18 +113,19 @@
             <div class="input-group">
                 <span class="input-group-btn">
                     <span class="btn btn-default btn-file">
-                        <i class="fa fa-camera-retro"></i>{{ field }}
+                        <i class="fa fa-camera-retro"></i>{{ form.image }}
                     </span>
                     <span class="btn btn-default" id="id_file_trash"><i class="fa fa-trash"></i></span>
                 </span>
                 <input type="text" class="form-control" readonly>
             </div>
             <img id='img-upload'/>
-        {{ field.help_text }}
+        <small class="form-text text-muted">{{ form.image.help_text }}</small>
       </div>
     </div>
     <div class="form-group last">
-      <div class="col-lg-offset-2 col-lg-10">
+      <label for="cname" class="col-sm-2 control-label"></label>
+      <div class="col-sm-10">
           <button type="submit" class="btn btn-primary">회원가입</button>
           <a href="{% url 'index' %}">
               <button type="button" class="btn btn-warning">돌아가기</button>
