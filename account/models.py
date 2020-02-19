@@ -41,7 +41,7 @@ class AccountManager(BaseUserManager):
 class Account(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     bio = models.TextField(max_length=500, blank=True, null=True)
     image = models.ImageField(upload_to='account/%Y/%m/%d', blank=True, null=True)
     is_public = models.BooleanField(default=True)
