@@ -41,7 +41,7 @@
     <div class="page-header">
        <h1>사육일지 등록하기</h1>
     </div>
-    <form method="post" action="" class="form-horizontal" enctype="multipart/form-data">
+    <form id="care_form" method="post" action="" class="form-horizontal" enctype="multipart/form-data" data-ajax-url="{% url 'ajax-dict-item-list' %}">
         {% csrf_token %}
         <input type="hidden" name="next" value="" />
 
@@ -138,23 +138,30 @@
 
 <script>
     $(document).ready( function() {
-
         $('#{{ form.type.id_for_label}}').change(function(){
-            /*
-            $.ajax({
-                url: '',
-                data: {
-                    'type': $(this).val()
-                },
-                success: function (data) {
-                    alert('success')
-                }
-            });
-            */
-            if ($(this).val() == 6) {
+            if ($(this).val() == '2') {
+                $('#id_type_detail_label').text($('#{{ form.type.id_for_label}} option:selected').text() + ':')
+
+                $.ajax({
+                    url: $("#care_form").attr("data-ajax-url"),
+                    data: {
+                        'item': {{ pet.species.eating.id }}
+                    },
+                    success: function (data) {
+                        if (data.length > 0) {
+                            var _select = '<select id="id_prey_type" name="prey_type" class="form-control">';
+                            _select = _select + data;
+                            _select = _select + "</select>";
+                            $('#id_type_detail_field').html(_select);
+                        }
+                    }
+                });
+
                 $('#id_type_detail').show()
+            } else if ($(this).val() == '6') {
                 $('#id_type_detail_label').text($('#{{ form.type.id_for_label}} option:selected').text() + ':')
                 $('#id_type_detail_field').html('<input type="text" name="weight" maxlength="100" class="form-control" id="id_weight">');
+                $('#id_type_detail').show()
             } else {
                 $('#id_type_detail').hide()
             }

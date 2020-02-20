@@ -1,5 +1,5 @@
 from django.forms import ModelForm, HiddenInput
-from .models import Pet, Care, CareWeight
+from .models import Pet, Care, CareWeight, CareFeeding
 # from home.models import Dictionary
 # import reptopia
 
@@ -45,3 +45,9 @@ class CareWeightCreateForm(ModelForm):
     class Meta:
         model = CareWeight
         fields = ('date', 'pet', 'type', 'weight', 'desc', 'image')
+
+
+class CareFeddingCreateForm(ModelForm):
+    class Meta:
+        model = CareFeeding
+        fields = ('date', 'pet', 'type', 'prey_type', 'prey_size', 'prey_weight', 'prey_quantity', 'desc', 'image')

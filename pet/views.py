@@ -86,31 +86,13 @@ class PetDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         pet = get_object_or_404(Pet, pk=self.kwargs['pk']);
-        # weight = get_object_or_404(Dictionary, item=reptopia._WEIGHT_)
 
-        """
-        from_date = '2019-01-01'
-        to_date = '2019-11-13'
-        if 'from_date' in self.request.GET and 'to_date' in self.request.GET:
-            from_date = self.request.GET['from_date']
-            to_date = self.request.GET['to_date']
-            care_list = Care.objects.filter(pet=pet).filter(date__range=[from_date, to_date]).order_by('-date', '-created_datetime')
-        """
         care_list = Care.objects.select_subclasses().filter(pet=pet).order_by('-date', '-created_datetime')
         context['care_list'] = care_list
 
-        """
-        if 'care_type' in self.request.GET:
-            care_list = care_list.filter(type_id=self.request.GET['care_type'])
-
-        weight_list = Care.objects.filter(pet=pet).filter(type=weight).order_by('date')
-        care_type_list = Dictionary.objects.filter(category=reptopia._CARE_)
-        """
         weight_list = CareWeight.objects.filter(pet=pet).order_by('-date', '-created_datetime')
         context['weight_list'] = weight_list
-        """
-        context['care_type_list'] = care_type_list
-        """
+
         return context
 
 

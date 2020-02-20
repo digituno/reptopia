@@ -64,3 +64,18 @@ class Care(models.Model):
 
 class CareWeight(Care):
     weight = models.IntegerField()
+
+
+class CareFeeding(Care):
+    prey_type = models.ForeignKey(
+        Dictionary,
+        related_name='prey_type',
+        on_delete=models.CASCADE,
+    )
+    prey_size = models.ForeignKey(
+        Dictionary,
+        related_name='prey_size',
+        on_delete=models.CASCADE,
+    )
+    prey_weight = models.IntegerField(blank=True, null=True)
+    prey_quantity = models.IntegerField(default=1)
