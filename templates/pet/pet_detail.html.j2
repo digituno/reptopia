@@ -97,7 +97,14 @@
             </div>
         </div>
         <div id="careinfo" class="tab-pane">
-            b
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 detailed">
+                    <h5>
+                        <i class="fa fa-angle-right"></i> 체중 변화 그래프
+                    </h5>
+                    <canvas id="line"></canvas>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -106,6 +113,7 @@
 
 {% block script_content %}
     <script src="{% static 'lib/magnific-popup/jquery.magnific-popup.js' %}"></script>
+    <script src="{% static 'lib/chart/Chart.min.js' %}"></script>
     <script>
         $(document).ready(function() {
             $('.image-popup-no-margins').magnificPopup({
@@ -121,6 +129,20 @@
                     enabled: true,
                     duration: 300 // don't foget to change the duration also in CSS
                 }
+            });
+            var ctx = document.getElementById('line');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+                // The data for our dataset
+                data: {
+                    labels: [{% for weight in weight_list %} '{{ weight.date }}', {% endfor %}],
+                    datasets: [{
+                        label: '{{ pet.name }}',
+                        data: [{% for weight in weight_list %} {{ weight.weight }}, {% endfor %}]
+                    }]
+                },
+                options: {}
             });
         });
     </script>

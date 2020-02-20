@@ -96,9 +96,8 @@ class PetDetailView(LoginRequiredMixin, DetailView):
             to_date = self.request.GET['to_date']
             care_list = Care.objects.filter(pet=pet).filter(date__range=[from_date, to_date]).order_by('-date', '-created_datetime')
         """
-        #care_list = Care.objects.filter(pet=pet).order_by('-date', '-created_datetime')
         care_list = Care.objects.select_subclasses().filter(pet=pet).order_by('-date', '-created_datetime')
-        logger.debug(care_list)
+        context['care_list'] = care_list
 
         """
         if 'care_type' in self.request.GET:
@@ -107,11 +106,9 @@ class PetDetailView(LoginRequiredMixin, DetailView):
         weight_list = Care.objects.filter(pet=pet).filter(type=weight).order_by('date')
         care_type_list = Dictionary.objects.filter(category=reptopia._CARE_)
         """
-
-        context['care_list'] = care_list
-
-        """
+        weight_list = CareWeight.objects.filter(pet=pet).order_by('-date', '-created_datetime')
         context['weight_list'] = weight_list
+        """
         context['care_type_list'] = care_type_list
         """
         return context
