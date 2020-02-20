@@ -15,7 +15,7 @@ class PetCreateForm(ModelForm):
         self.fields['species'].widget.attrs.update({'style': 'visibility:hidden; width:0px; height:0px;'})
         self.fields['name'].widget.attrs.update({'class': 'form-control'})
         self.fields['gender'].widget.attrs.update({'class': 'form-control'})
-        self.fields['bod'].widget.attrs.update({'class': 'form-control datepicker', 'readonly': 'true'})
+        self.fields['bod'].widget.attrs.update({'class': 'form-control', 'readonly': 'true'})
         self.fields['desc'].widget.attrs.update({'class': 'form-control'})
         self.fields['image'].widget.attrs.update({'class': 'form-control'})
 
@@ -34,7 +34,7 @@ class CareCreateForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['date'].widget.attrs.update({'class': 'form-control datepicker', 'readonly': 'true'})
+        self.fields['date'].widget.attrs.update({'class': 'form-control', 'readonly': 'true'})
         self.fields['pet'].widget.attrs.update({'class': 'form-control'})
         self.fields['type'].widget.attrs.update({'class': 'form-control'})
         self.fields['desc'].widget.attrs.update({'class': 'form-control'})

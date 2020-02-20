@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block stylesheet %}
-  <link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-datepicker/css/bootstrap-datepicker.css' %}" />
-  <style type="text/css">
+<link rel="stylesheet" type="text/css" href="{% static 'lib/jquery-ui/css/jquery-ui.min.css' %}" />
+<style type="text/css">
     .btn-file {
         position: relative;
         overflow: hidden;
@@ -33,7 +33,7 @@
         width: 0px;
         height: 0px;
     }
-  </style>
+</style>
 {% endblock %}
 
 {% block content %}
@@ -133,9 +133,8 @@
 {% endblock %}
 
 {% block script_content %}
-<script src="{% static 'lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
-<script src="{% static 'lib/bootstrap-datepicker/locales/bootstrap-datepicker.ko.min.js' %}" charset="UTF-8"></script>
-
+<script src="{% static 'lib/jquery-ui/js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'lib/jquery-ui/i18n/datepicker-ko.js' %}"></script>
 <script>
     $(document).ready( function() {
         function setAjaxData(item, obj) {
@@ -172,13 +171,13 @@
                     setAjaxData($(this).val(),$('#id_prey_size'));
                 });
                 $('#id_type_detail').show()
-            } 
-            // 체중 
+            }
+            // 체중
             else if ($(this).val() == '6') {
                 $('#id_type_detail_label').text($('#{{ form.type.id_for_label}} option:selected').text() + ':')
                 $('#id_type_detail_field').html('<input type="text" name="weight" maxlength="100" class="form-control" id="id_weight">');
                 $('#id_type_detail').show()
-            } 
+            }
             else {
                 $('#id_type_detail').hide()
             }
@@ -225,11 +224,9 @@
             readURL($("#id_image"));
         });
 
-        $('.datepicker').datepicker({
-            format: "yyyy-mm-dd",
-            language: "ko",
-            todayHighlight: "true"
-        });
+        $("#id_date").datepicker();
+        $("#id_date").datepicker($.datepicker.regional[ "ko" ]);
+        $("#id_date").datepicker("option", "dateFormat", "yy-mm-dd");
     });
 </script>
 {% endblock%}

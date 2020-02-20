@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block stylesheet %}
-  <link rel="stylesheet" type="text/css" href="{% static 'lib/bootstrap-datepicker/css/bootstrap-datepicker.css' %}" />
   <link rel="stylesheet" type="text/css" href="{% static 'lib/jquery-ui/css/jquery-ui.min.css' %}" />
   <style type="text/css">
     .btn-file {
@@ -98,11 +97,10 @@
 
 
 {% block script_content %}
-  <script src="{% static 'lib/jquery-ui/js/jquery-ui.min.js' %}"></script>
-  <script src="{% static 'lib/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
-  <script src="{% static 'lib/bootstrap-datepicker/locales/bootstrap-datepicker.ko.min.js' %}" charset="UTF-8"></script>
+<script src="{% static 'lib/jquery-ui/js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'lib/jquery-ui/i18n/datepicker-ko.js' %}"></script>
 
-  <script>
+<script>
     $(document).ready( function() {
       {% if pet != None %}
         $('#species_autocomplete').val($('#id_species option:selected').text());
@@ -147,11 +145,9 @@
         readURL($("#id_image"));
       });
 
-      $('.datepicker').datepicker({
-        format: "yyyy-mm-dd",
-        language: "ko",
-        todayHighlight: "true"
-      });
+      $("#id_bod").datepicker();
+      $("#id_bod").datepicker($.datepicker.regional[ "ko" ]);
+      $("#id_bod").datepicker("option", "dateFormat", "yy-mm-dd");
 
       $("#species_autocomplete").autocomplete({
         source: $("#form_pet").attr("data-species-autocomplete_url"),
