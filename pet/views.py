@@ -7,7 +7,7 @@ from django.conf import settings
 from account.models import Account
 from .models import Pet, Care, CareWeight
 from dict.models import AnimalDictionary, Dictionary
-from .forms import PetCreateForm, CareCreateForm, CareWeightCreateForm
+from .forms import PetCreateForm, CareCreateForm, CareWeightCreateForm, CareFeedingCreateForm
 import logging
 import json
 
@@ -110,6 +110,8 @@ class CareCreateView(LoginRequiredMixin, CreateView):
     def post(self, request, *args, **kwargs):
         if 'weight' in request.POST:
             form = CareWeightCreateForm(request.POST, request.FILES)
+        elif 'prey_size' in request.POST:
+            form = CareFeedingCreateForm(request.POST, request.FILES)
         else:
             form = CareCreateForm(request.POST, request.FILES)
 

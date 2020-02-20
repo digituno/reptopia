@@ -47,7 +47,7 @@ class CareWeightCreateForm(ModelForm):
         fields = ('date', 'pet', 'type', 'weight', 'desc', 'image')
 
 
-class CareFeddingCreateForm(ModelForm):
+class CareFeedingCreateForm(ModelForm):
     class Meta:
         model = CareFeeding
         fields = ('date', 'pet', 'type', 'prey_type', 'prey_size', 'prey_weight', 'prey_quantity', 'desc', 'image')

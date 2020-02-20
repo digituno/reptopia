@@ -75,6 +75,14 @@
                                 {{ care.type.item_name }}
                                 {% if care.type.item_name == '체중' %}
                                     - {{ care.weight }} 그램
+                                {% elif care.type.item_name == '먹이주기' %}
+                                    - {{ care.prey_type.item_name}} {{ care.prey_size.item_name }}
+                                    {% if care.prey_weight > 0 %}
+                                    , {{ care.prey_weight}}g 
+                                    {% endif %}
+                                    {% if care.prey_quantity > 0 %}
+                                    , {{ care.prey_quantity }}개
+                                    {% endif %}
                                 {% endif %}
                             </td>
                             <td>{{ care.desc}}</td>
