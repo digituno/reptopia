@@ -94,7 +94,7 @@ insert into dict_dictionary(id, category, item, item_name, item_name_en, display
 
 /* 동물 분류 유형*/
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (100, 'AC00000000', 'AC10000000', '파충강', 'Reptila', 1, 1);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (101, 'AC10000000', 'AC11000000', '뱀목', 'Squmata', 1, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (101, 'AC10000000', 'AC11000000', '뱀목', 'Squmata', 1, 1);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (102, 'AC11000000', 'AC11100000', '뱀과, 콜루브리드', 'Colubridae', 1, 1);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (103, 'AC11100000', 'AC11110000', '왕뱀, 킹스네이크', 'Lampropeltis', 1, 1);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (104, 'AC11100000', 'AC11120000', '콘스네이크속', 'Pantherophis', 1, 1);
@@ -104,6 +104,13 @@ insert into dict_dictionary(id, category, item, item_name, item_name_en, display
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (108, 'AC11300000', 'AC11310000', 'Eublepharis', 'Eublepharis', 1, 1);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (109, 'AC11000000', 'AC11400000', 'Diplodactylidae', 'Diplodactylidae', 1, 1);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (110, 'AC11400000', 'AC11410000', 'Rhacodactylus', 'Rhacodactylus', 1, 1);
+
+/*BBS Type*/
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (200, 'BT00000000', 'BT10000000', '공지사항', '', 1, 1);
+
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (210, 'BS00000000', 'BS10000000', '등록완료', '', 1, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (211, 'BS00000000', 'BS20000000', '삭제', '', 1, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (212, 'BS00000000', 'BS30000000', '임시저장', '', 1, 1);
 
 
 /* animal dictionary */
