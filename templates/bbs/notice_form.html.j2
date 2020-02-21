@@ -1,40 +1,131 @@
 {% extends 'base.html.j2' %}
 {% load static %}
 
+{% block stylesheet %}
+<link rel="stylesheet" type="text/css" href="{% static 'lib/jquery-ui/css/jquery-ui.min.css' %}" />
+{% endblock %}
+
+
 {% block content %}
-  <!-- Begin page content -->
-  <div class="container">
+<!-- Begin page content -->
+<div class="container">
     <div class="page-header">
-       <h1>Notice Create</h1>
+        <h1>Notice Create</h1>
     </div>
-    <form method="notice" action="" class="form-horizontal" enctype="multipart/form-data" id="form_notice">
-      {% csrf_token %}
-      {{ form.media }} 
-      <input type="hidden" name="next" value="" />
-      {% for field in form %}
+    <form method="POST" action="" class="form-horizontal" enctype="multipart/form-data" id="form_notice">
+        {% csrf_token %}
+        {{ form.media }}
+        <input type="hidden" name="next" value="" />
+
         <div class="form-group">
-          <label for="cname" class="col-sm-2 control-label">{{ field.label_tag }}</label>
-          <div class="col-sm-10">
-            {% if field.errors %}
+            <label for="cname" class="col-sm-2 control-label">{{ form.title.label_tag }}</label>
+            <div class="col-sm-10">
+            {% if form.title.errors %}
                 <div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    {{ field.errors }}
+                    {{ form.title.errors }}
                 </div>
             {% endif %}
-            {{ field }}
+            {{ form.title }}
             <br />
-            {{ field.help_text }}
-          </div>
+            {{ form.title.help_text }}
+            </div>
         </div>
-      {% endfor %}
-      <div class="form-group last">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-primary">등록하기</button>
-            <a href="{% url 'notice-list' %}">
-                <button type="button" class="btn btn-default">돌아가기</button>
-            </a>
+
+        <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.content.label_tag }}</label>
+            <div class="col-sm-10">
+            {% if form.content.errors %}
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ form.content.errors }}
+                </div>
+            {% endif %}
+            {{ form.content }}
+            <br />
+            {{ form.content.help_text }}
+            </div>
         </div>
-      </div>
+
+        <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.notice_from_date.label_tag }}</label>
+            <div class="col-sm-10">
+            {% if form.notice_from_date.errors %}
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ form.notice_from_date.errors }}
+                </div>
+            {% endif %}
+            <div class="input-group">
+                {{ form.notice_from_date }}
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                </div>
+            </div>
+            <br />
+            {{ form.notice_from_date.help_text }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.notice_to_date.label_tag }}</label>
+            <div class="col-sm-10">
+            {% if form.notice_to_date.errors %}
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ form.notice_to_date.errors }}
+                </div>
+            {% endif %}
+            <div class="input-group">
+                {{ form.notice_to_date }}
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                </div>
+            </div>
+            <br />
+            {{ form.notice_to_date.help_text }}
+            </div>
+        </div>
+
+        <div class="form-group last">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">등록하기</button>
+                <a href="{% url 'notice-list' %}">
+                    <button type="button" class="btn btn-default">돌아가기</button>
+                </a>
+            </div>
+        </div>
     </form>
-  </div>
+</div>
 {% endblock %}
+
+{% block script_content %}
+<script src="{% static 'lib/jquery-ui/js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'lib/jquery-ui/i18n/datepicker-ko.js' %}"></script>
+<script>
+    $(document).ready( function() {
+        function getDate( element ) {
+            var dateFormat = "yy-mm-dd";
+            var date;
+            try {
+                date = $.datepicker.parseDate( dateFormat, element.value );
+            } catch( error ) {
+                date = null;
+            }
+            return date;
+        }
+        $("#id_notice_from_date").datepicker($.datepicker.regional[ "ko" ]).datepicker("option", "dateFormat", "yy-mm-dd");
+        $("#id_notice_from_date").datepicker().on( "change", function() {
+          $("#id_notice_to_date").datepicker( "option", "minDate", getDate( this ) );
+        });
+        $("#id_notice_from_date").val($("#initial-id_notice_from_date").val());
+
+
+        $("#id_notice_to_date").datepicker($.datepicker.regional[ "ko" ]).datepicker("option", "dateFormat", "yy-mm-dd");
+        $("#id_notice_to_date").datepicker().on( "change", function() {
+            $("#id_notice_from_date").datepicker( "option", "maxDate", getDate( this ) );
+        });
+        $("#id_notice_to_date").val($("#initial-id_notice_to_date").val());
+    });
+</script>
+{% endblock%}

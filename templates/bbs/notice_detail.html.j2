@@ -4,38 +4,30 @@
 {% block content %}
 <!-- Begin page content -->
 <div class="container">
-    <div class="page-header">
+    <div class="row mt-5">
         <div class="pull-right">
             <div class="btn-group" role="group" aria-label="Basic example">
-                {% if user.is_authenticated and user == post.author %}
-                    <a href="{% url 'post-update' pk=post.pk %}">
+                {% if user.is_authenticated and user == notice.author %}
+                    <a href="{% url 'notice-update' pk=notice.pk %}">
                         <button type="button" class="btn btn-default">정보수정</button>
                     </a>
-                    <a href="{% url 'post-delete' pk=post.pk %}">
+                    <a href="{% url 'notice-delete' pk=notice.pk %}">
                         <button type="button" class="btn btn-danger">삭제</button>
                     </a>
                 {% endif %}
-                <a href="{% url 'post-list' %}">
+                <a href="{% url 'notice-list' %}">
                     <button type="button" class="btn btn-default">목록으로</button>
                 </a>
             </div>
         </div>
-        <h1>Post detail</h1>
     </div>
+    <hr>
     <div class="row">
-        <div class="col-sm-2"> title </div>
-        <div class="col-sm-10"> {{ post.title }} </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2"> author </div>
-        <div class="col-sm-10"> {{ post.author.name}} </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2"> pub date </div>
-        <div class="col-sm-10"> {{ post.pub_date }} </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12"> {{ post.content|safe }} </div>
+        <div class="col-sm-10 blog-main">
+            <h2 class="blog-post-title">{{ notice.title }}</h2>
+            <p class="blog-post-meta">{{ notice.pub_date }} by {{ notice.author.name}}</p>
+            <p>{{ notice.content | safe }}</p>
+        </div>
     </div>
 </div>
 {% endblock %}

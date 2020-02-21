@@ -26,8 +26,8 @@ class NoticeCreateForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['title'].widget.attrs.update({'class': 'form-control'})
         self.fields['content'].widget.attrs.update({'class': 'form-control'})
-        self.fields['notice_from_date'].widget.attrs.update({'class': 'form-control'})
-        self.fields['notice_to_date'].widget.attrs.update({'class': 'form-control'})
+        self.fields['notice_from_date'].widget.attrs.update({'class': 'form-control', 'readonly': 'true' })
+        self.fields['notice_to_date'].widget.attrs.update({'class': 'form-control', 'readonly': 'true'})
 
         self.fields['title'].label = "제목"
         self.fields['content'].label = "내용"

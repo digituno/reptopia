@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from django.urls import reverse_lazy
+from dict.models import Dictionary
 from .models import Post, Notice
 from .forms import PostCreateForm, NoticeCreateForm
 import reptopia
@@ -20,7 +21,6 @@ class PostListView(ListView):
 
     def get_queryset(self):
         return Post.objects.all()
-
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     login_url = settings.LOGIN_URL
@@ -76,9 +76,9 @@ class NoticeCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        form.instance.board_type = reptopia._NOTICE_
-        form.instance.board_status = reptopia._BBS_NORM_
-        logger.debug(form)
+        form.instance.board_type =  get_object_or_404(Dictionary, item=reptopia._NOTICE_)
+        form.instance.board_status = get_object_or_404(Dictionary, item=reptopia._BBS_NORM_)
+
         return super().form_valid(form)
 
 
@@ -99,5 +99,3 @@ class NoticeDeleteView(LoginRequiredMixin, DeleteView):
 
     def get(self, request, *args, **kwargs):
         return self.post(request, *args, **kwargs)
-
-

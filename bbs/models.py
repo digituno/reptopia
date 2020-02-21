@@ -30,11 +30,12 @@ class Post(models.Model):
     objects = InheritanceManager()
 
     def get_absolute_url(self):
-        # return reverse('pet-detail', kwargs={'userid': self.owner.pk, 'pk': self.pk})
-        return reverse('post-list')
+        return reverse('post-detail', kwargs={'pk': self.pk})
 
 
 class Notice(Post):
     notice_from_date = models.DateField(default=timezone.now, blank=False)
     notice_to_date = models.DateField(default=timezone.now, blank=False)
 
+    def get_absolute_url(self):
+        return reverse('notice-detail', kwargs={'pk': self.pk})
