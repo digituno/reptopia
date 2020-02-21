@@ -130,14 +130,12 @@
         <div class="form-group last">
             <label for="cname" class="col-sm-2 control-label"></label>
                 <div class="col-sm-10">
-                <button type="submit" class="btn btn-primary">회원가입</button>
-                <a href="{% url 'index' %}">
-                    <button type="button" class="btn btn-warning">돌아가기</button>
-                </a>
+                <button id="submit_btn" type="submit" class="btn btn-primary">회원가입</button>
+                <button id="back_btn" type="button" class="btn btn-warning">돌아가기</button>
             </div>
         </div>
-        <input type="hidden" name="isUsableEmail" value="false" />
-        <input type="hidden" name="isUsableName" value="false" />
+        <input type="hidden" id="is_usable_email" value="False" />
+        <input type="hidden" id="is_usable_name" value="False" />
     </form>
 </div>
 {% endblock %}
@@ -145,6 +143,18 @@
 {% block script_content %}
 <script>
     $(document).ready( function() {
+        $('#submit_btn').click(function(){
+            if($('#is_usable_email').val() == 'False') {
+                alert('have to email check');
+                return false;
+            } else if ($('#is_usable_name').val() == 'False') {
+                alert('have to name check');
+                return false;
+            }
+        });
+        $('#back_btn').click(function(){
+            window.location = '{% url 'index' %}';
+        });
         $('#email_check').click(function(){
             $.ajax({
                 url: $("#signup_form").attr("data-email-check-url"),
@@ -159,7 +169,7 @@
                         $('#pop_msg_body').text('이미 가입 된 Email 주소입니다.');
                     }
                     $('#pop_msg').modal('show')
-                    $('#isUsableEmail').val(data);
+                    $('#is_usable_email').val(data);
                 }
             });
         });
@@ -178,7 +188,7 @@
                         $('#pop_msg_body').text('이미 가입 된 사용자명입니다.');
                     }
                     $('#pop_msg').modal('show')
-                    $('#isUsableName').val(data);
+                    $('#is_usable_name').val(data);
                 }
             });
         });

@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'account',
     'dict',
     'pet',
+    'ckeditor',
+    'ckeditor_uploader',
+    'bbs',
 ]
 
 MIDDLEWARE = [
@@ -161,3 +164,6 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CKEDITOR_UPLOAD_PATH = 'upload/'
+CKEDITOR_IMAGE_BACKEND = "pillow"

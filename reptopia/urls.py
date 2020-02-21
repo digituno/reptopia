@@ -25,6 +25,7 @@ urlpatterns = [
     path('dicts/', include('dict.urls')),
     path('', include('pet.urls')),
     path('', TemplateView.as_view(template_name='index.html.j2'), name='index'),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
