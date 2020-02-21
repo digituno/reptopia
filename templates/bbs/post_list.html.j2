@@ -28,8 +28,8 @@
             {% for post in post_list %}
                 <tr>
                     <th scope="row">{{ forloop.counter }}</th>
-                    <td><a href="{% url 'pet-detail' userid=pet.owner.pk pk=pet.pk%}">{{ post.pub_date}}</a></td>
-                    <td>{{ post.title }}</td>
+                    <td>{{ post.pub_date}}</a></td>
+                    <td><a href="{% url 'post-detail' pk=post.pk %}">{{ post.title }}</a></td>
                     <td>{{ post.author.name}}</td>
                 </tr>
             {% endfor %}

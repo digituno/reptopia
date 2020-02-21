@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from .models import Post
@@ -13,7 +13,7 @@ logger = logging.getLogger('reptopia.log')
 class PostListView(ListView):
     model = Post
     template_name = 'bbs/post_list.html.j2'
-    context_object_name = 'posts'
+    context_object_name = 'post_list'
     paginate_by = 10
 
     def get_queryset(self):
@@ -29,3 +29,8 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'bbs/post_detail.html.j2'
