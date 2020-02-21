@@ -23,7 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('account.urls')),
     path('dicts/', include('dict.urls')),
-    path('', include('pet.urls')),
+    path('pets/', include('pet.urls')),
+    path('bbs/', include('bbs.urls')),
     path('', TemplateView.as_view(template_name='index.html.j2'), name='index'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]

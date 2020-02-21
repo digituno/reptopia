@@ -48,6 +48,9 @@
             </li>
             -->
             {% if user.is_authenticated %}
+              {% if user.is_staff %}
+              <li><a href="{% url 'post-list' %}">Notice</a></li>
+              {% endif %}
               <li><a href="{% url 'pet-list' userid=user.pk %}">Reptile</a></li>
             {% endif %}
           </ul>
