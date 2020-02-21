@@ -3,6 +3,7 @@ from django.conf import settings
 from django.utils import timezone
 from django.urls import reverse
 from ckeditor_uploader.fields import RichTextUploadingField
+from model_utils.managers import InheritanceManager
 from dict.models import Dictionary
 import reptopia
 
@@ -25,7 +26,15 @@ class Post(models.Model):
                   limit_choices_to={'category': reptopia._BBS_STATUS_},
     )
     created_date = models.DateTimeField(default=timezone.now)
-    
+
+    objects = InheritanceManager()
+
     def get_absolute_url(self):
         # return reverse('pet-detail', kwargs={'userid': self.owner.pk, 'pk': self.pk})
         return reverse('post-list')
+
+
+class Notice(Post):
+    notice_from_date = models.DateField(default=timezone.now, blank=False)
+    notice_to_date = models.DateField(default=timezone.now, blank=False)
+

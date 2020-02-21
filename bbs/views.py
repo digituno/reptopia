@@ -3,8 +3,9 @@ from django.views.generic import ListView, CreateView, DetailView, DeleteView, U
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from django.urls import reverse_lazy
-from .models import Post
-from .forms import PostCreateForm
+from .models import Post, Notice
+from .forms import PostCreateForm, NoticeCreateForm
+import reptopia
 
 import logging
 
@@ -56,3 +57,47 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
         qs = super(PostDeleteView, self).get_queryset()
         return qs.filter(pk=self.kwargs['pk'])
     """
+
+class NoticeListView(ListView):
+    model = Notice
+    template_name = 'bbs/notice_list.html.j2'
+    context_object_name = 'notice_list'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Notice.objects.all()
+
+
+class NoticeCreateView(LoginRequiredMixin, CreateView):
+    login_url = settings.LOGIN_URL
+    model = Notice
+    form_class = NoticeCreateForm
+    template_name = 'bbs/notice_form.html.j2'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.board_type = reptopia._NOTICE_
+        form.instance.board_status = reptopia._BBS_NORM_
+        logger.debug(form)
+        return super().form_valid(form)
+
+
+class NoticeUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = settings.LOGIN_URL
+    model = Notice
+    form_class = NoticeCreateForm
+    template_name = 'bbs/notice_form.html.j2'
+
+
+class NoticeDetailView(DetailView):
+    model = Notice
+    template_name = 'bbs/notice_detail.html.j2'
+
+
+class NoticeDeleteView(LoginRequiredMixin, DeleteView):
+    success_url = reverse_lazy('notice-list')
+
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
+
+

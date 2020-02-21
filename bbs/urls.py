@@ -9,4 +9,9 @@ urlpatterns = [
     path('post/<int:pk>/', bbs_views.PostDetailView.as_view(), name='post-detail'),
     path('post/<int:pk>/delete', bbs_views.PostDeleteView.as_view(), name='post-delete'),
     path('post/<int:pk>/update', bbs_views.PostUpdateView.as_view(), name='post-update'),
+    path('notice/', bbs_views.NoticeListView.as_view(), name='notice-list'),
+    path('notice/add/', bbs_views.NoticeCreateView.as_view(), name='notice-add'),
+    path('notice/<int:pk>/', bbs_views.NoticeDetailView.as_view(), name='notice-detail'),
+    path('notice/<int:pk>/delete', bbs_views.NoticeDeleteView.as_view(), name='notice-delete'),
+    path('notice/<int:pk>/update', bbs_views.NoticeUpdateView.as_view(), name='notice-update'),
 ]

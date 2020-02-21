@@ -1,0 +1,40 @@
+{% extends 'base.html.j2' %}
+{% load static %}
+
+{% block content %}
+  <!-- Begin page content -->
+  <div class="container">
+    <div class="page-header">
+       <h1>Notice Create</h1>
+    </div>
+    <form method="notice" action="" class="form-horizontal" enctype="multipart/form-data" id="form_notice">
+      {% csrf_token %}
+      {{ form.media }} 
+      <input type="hidden" name="next" value="" />
+      {% for field in form %}
+        <div class="form-group">
+          <label for="cname" class="col-sm-2 control-label">{{ field.label_tag }}</label>
+          <div class="col-sm-10">
+            {% if field.errors %}
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ field.errors }}
+                </div>
+            {% endif %}
+            {{ field }}
+            <br />
+            {{ field.help_text }}
+          </div>
+        </div>
+      {% endfor %}
+      <div class="form-group last">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary">등록하기</button>
+            <a href="{% url 'notice-list' %}">
+                <button type="button" class="btn btn-default">돌아가기</button>
+            </a>
+        </div>
+      </div>
+    </form>
+  </div>
+{% endblock %}

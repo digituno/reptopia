@@ -1,0 +1,40 @@
+{% extends 'base.html.j2' %}
+{% load static %}
+
+{% block content %}
+<!-- Begin page content -->
+<div class="container">
+    <div class="page-header">
+        <div class="pull-right">
+            <div class="form-inline">
+                <a href="{% url 'notice-add' %}" style="margin-left:10px;">
+                    <button type="button" class="btn btn-default">등록하기</button>
+                </a>
+            </div>
+        </div>
+        <h1>Notice</h1>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" class="d-none d-sm-table-cell">#</th>
+                    <th scope="col">Date</th>
+                    <th scope="col" class="d-none d-sm-table-cell">Title</th>
+                    <th scope="col">Author</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for notice in notice_list %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ notice.pub_date}}</a></td>
+                    <td><a href="{% url 'notice-detail' pk=notice.pk %}">{{ notice.title }}</a></td>
+                    <td>{{ notice.author.name}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
