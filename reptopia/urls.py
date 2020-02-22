@@ -25,7 +25,7 @@ urlpatterns = [
     path('dicts/', include('dict.urls')),
     path('pets/', include('pet.urls')),
     path('bbs/', include('bbs.urls')),
-    path('', TemplateView.as_view(template_name='index.html.j2'), name='index'),
+    path('', include('home.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 

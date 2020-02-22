@@ -120,10 +120,8 @@
 
         <div class="form-group last">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-success">등록하기</button>
-                <a href="{% url 'pet-list' userid=user.pk %}">
-                    <button type="button" class="btn btn-default">돌아가기</button>
-                </a>
+                <button id="btn_submit" type="button" class="btn btn-success">등록하기</button>
+                <button id="btn_cancle" type="button" class="btn btn-default">돌아가기</button>
             </div>
         </div>
 
@@ -224,9 +222,32 @@
             readURL($("#id_image"));
         });
 
-        $("#id_date").datepicker();
+        $("#id_date").datepicker({
+            dateFormat: "yy-mm-dd",
+        });
         $("#id_date").datepicker($.datepicker.regional[ "ko" ]);
-        $("#id_date").datepicker("option", "dateFormat", "yy-mm-dd");
+
+        $('#btn_submit').click( function() {
+            $( function() {
+                $('#dialog-body').text('입력하신 내용으로 사육일지를 등록하시겠습니까?');
+                $( "#dialog-message" ).dialog({
+                    modal: true,
+                    title: "사육일지 등록확인",
+                    buttons: {
+                        '확인': function() {
+                            $( '#care_form' ).submit();
+                        },
+                        '취소': function() {
+                            $( this ).dialog( "close" );
+                        }
+                    },
+                });
+            });
+        });
+
+        $('#btn_cancle').click( function() {
+            window.location = '{% url 'pet-detail' userid=pet.owner.pk pk=pet.pk %}';
+        });
     });
 </script>
 {% endblock%}

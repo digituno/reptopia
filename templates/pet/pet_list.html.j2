@@ -16,7 +16,7 @@
           </a>
         </div>
       </div>
-      <h1>팻</h1>
+      <h1>개체 목록</h1>
     </div>
     <div class="table-responsive">
       <table class="table table-hover">
@@ -33,7 +33,7 @@
         {% for pet in pet_list %}
         <tr>
           <th scope="row">{{ forloop.counter }}</th>
-          <td><a href="{% url 'pet-detail' userid=pet.owner.pk pk=pet.pk%}">{{ pet.species.common_name_kor}}</a></td>
+          <td><a href="{% url 'pet-detail' userid=pet.owner.pk pk=pet.pk %}">{{ pet.species.common_name_kor}}</a></td>
           <td>{{ pet.gender.item_name }}</td>
           <td>{{ pet.name}}</td>
           <td>

@@ -6,7 +6,6 @@
 {% endblock %}
 
 {% block content %}
-<!-- Begin page content -->
 <div class="container">
     <div class="page-header">
         <div class="pull-right">
@@ -24,7 +23,7 @@
                 </a>
             </div>
         </div>
-        <h1>펫 상세보기</h1>
+        <h1>개체 상세보기</h1>
     </div>
     <div class="col-xs-6 col-sm-4">
         <img src="{{ pet.image.url }}" class="img-responsive">
@@ -36,7 +35,7 @@
         <h5>성별 : {{ pet.gender.item_name }} </h5>
         <h5>출생년월일 : {{ pet.bod }} </h5>
         <hr />
-        <div class="well">{{ pet.desc }}</div>
+        <pre class="well">{{ pet.desc }}</pre>
     </div>
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#carelog" data-toggle="tab" >사육일지</a></li>

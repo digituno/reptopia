@@ -147,7 +147,7 @@
         <div class="form-group last">
             <div class="col-sm-offset-2 col-sm-10">
                 <button id="btn_submit" type="button" class="btn btn-primary">등록하기</button>
-                <button id="btn_back" type="button" class="btn btn-default">돌아가기</button>
+                <button id="btn_cancle" type="button" class="btn btn-default">돌아가기</button>
             </div>
         </div>
     </form>
@@ -248,7 +248,7 @@
             });
         });
 
-        $('#btn_back').click( function() {
+        $('#btn_cancle').click( function() {
             window.location = '{% url 'pet-list' userid=user.pk %}';
         });
     });
