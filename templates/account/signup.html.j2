@@ -1,4 +1,5 @@
 {% extends 'base.html.j2' %}
+{% load static %}
 {% block stylesheet %}
 <style type="text/css">
     .btn-file {
@@ -36,7 +37,7 @@
         data-email-check-url="{% url 'ajax-email-check' %}" data-name-check-url="{% url 'ajax-name-check' %}">
         {% csrf_token %}
         <input type="hidden" name="next" value="" />
-            <div class="form-group">
+        <div class="form-group">
             <label for="cname" class="col-sm-2 control-label">{{ form.email.label_tag }}</label>
             <div class="col-sm-10">
                 {% if form.email.errors %}
@@ -130,65 +131,124 @@
         <div class="form-group last">
             <label for="cname" class="col-sm-2 control-label"></label>
                 <div class="col-sm-10">
-                <button id="submit_btn" type="submit" class="btn btn-primary">회원가입</button>
+                <button id="submit_btn" type="button" class="btn btn-primary">회원가입</button>
                 <button id="back_btn" type="button" class="btn btn-warning">돌아가기</button>
             </div>
         </div>
         <input type="hidden" id="is_usable_email" value="False" />
         <input type="hidden" id="is_usable_name" value="False" />
+
     </form>
 </div>
 {% endblock %}
 
 {% block script_content %}
+<script src="{% static 'lib/jquery-ui/js/jquery-ui.min.js' %}"></script>
 <script>
     $(document).ready( function() {
         $('#submit_btn').click(function(){
+            var _is_valid = true;
             if($('#is_usable_email').val() == 'False') {
-                alert('have to email check');
-                return false;
+                $('#dialog-body').text('Email 주소가 사용가능한지 중복 확인을 해주세요.');
+                _is_valid = false;
             } else if ($('#is_usable_name').val() == 'False') {
-                alert('have to name check');
-                return false;
+                $('#dialog-body').text('사용자명이 사용가능한지 중복 확인을 해주세요.');
+                _is_valid = false;
             }
+            if (!_is_valid) {
+                $( function() {
+                    $( "#dialog-message" ).dialog({
+                        modal: true,
+                        title: "중복확인 안내",
+                        buttons: {
+                            '닫기': function() {
+                                $( this ).dialog( "close" );
+                            }
+                        },
+                    });
+                });
+            } else {
+                $( function() {
+                    $('#dialog-body').text('입력하신 내용으로 회원가입하시겠습니까?');
+                    $( "#dialog-message" ).dialog({
+                        modal: true,
+                        title: "회원가입 확인",
+                        buttons: {
+                            '확인': function() {
+                                $( '#signup_form' ).submit();
+                            },
+                            '취소': function() {
+                                $( this ).dialog( "close" );
+                            }
+                        },
+                    });
+                });
+            }
+
         });
+
         $('#back_btn').click(function(){
             window.location = '{% url 'index' %}';
         });
+
         $('#email_check').click(function(){
-            $.ajax({
-                url: $("#signup_form").attr("data-email-check-url"),
-                data: {
-                    'item': $('#id_email').val()
-                },
-                success: function (data) {
-                    var _title_ = 'Email 중복확인';
-                    if (data == 'True') {
-                        call_pop_message(_MSG_SUCC_, _title_, '사용가능한 Email 주소입니다.');
-                    } else {
-                        call_pop_message(_MSG_ERROR_, _title_, '이미 가입 된 Email 주소입니다.');
+            if ($('#id_email').val().length > 0) {
+                $.ajax({
+                    url: $("#signup_form").attr("data-email-check-url"),
+                    data: {
+                        'item': $('#id_email').val()
+                    },
+                    success: function (data) {
+                        if (data == 'True') {
+                            $('#dialog-body').text('사용가능한 Email 주소입니다.');
+                        } else {
+                            $('#dialog-body').text('이미 가입 된 Email 주소입니다.');
+                        }
+                        $( function() {
+                            $( "#dialog-message" ).dialog({
+                                modal: true,
+                                title: "Email 중복확인",
+                                buttons: {
+                                    '닫기': function() {
+                                        $( this ).dialog( "close" );
+                                    }
+                                },
+                            });
+                        });
+                        $('#is_usable_email').val(data);
                     }
-                    $('#is_usable_email').val(data);
-                }
-            });
+                });
+            }
         });
 
         $('#name_check').click(function(){
-            $.ajax({
-                url: $("#signup_form").attr("data-name-check-url"),
-                data: {
-                    'item': $('#id_name').val()
-                },
-                success: function (data) {
-                    var _title_ = '사용자명 중복확인';
-                    if (data == 'True') {
-                        call_pop_message(_MSG_SUCC_, _title_, '사용가능한 사용자명 입니다.');
-                    } else {
-                        call_pop_message(_MSG_ERROR_, _title_, '이미 가입 된 사용자명입니다.');
+            if ($('#id_name').val().length > 0) {
+                $.ajax({
+                    url: $("#signup_form").attr("data-name-check-url"),
+                    data: {
+                        'item': $('#id_name').val()
+                    },
+                    success: function (data) {
+                        if (data == 'True') {
+                            $('#dialog-body').text('사용가능한 사용자명 입니다.');
+                        } else {
+                            $('#dialog-body').text('이미 가입 된 사용자명입니다.');
+                        }
+                        $( function() {
+                            $( "#dialog-message" ).dialog({
+                                modal: true,
+                                title: "사용자명 중복확인",
+                                buttons: {
+                                    '닫기': function() {
+                                        $( this ).dialog( "close" );
+                                    }
+                                },
+                            });
+                        });
+                        $('#is_usable_name').val(data);
                     }
-                    $('#is_usable_name').val(data);
-                }
-            });
+                });
+            }
         });
 
         $(document).on('change', '.btn-file :file', function() {

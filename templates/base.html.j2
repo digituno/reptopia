@@ -13,6 +13,9 @@
     <link href="{% static 'lib/fontawesome/css/all.min.css' %} " rel="stylesheet">
     <!-- nav static bar -->
     <link href="{% static 'css/navbar-static-top.css' %}" rel="stylesheet">
+
+    <link href="{% static 'lib/jquery-ui/css/jquery-ui.min.css' %}" rel="stylesheet">
+
     {% block stylesheet %}
     {% endblock %}
   </head>
@@ -73,21 +76,8 @@
     {% block content %}
     {% endblock %}
 
-    <div aria-hidden="true" role="dialog" tabindex="-1" id="pop_msg" class="modal fade">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header" id="pop_msg_panel">
-                    <h4 class="modal-title" id="pop_msg_title">&nbsp;</h4>
-                </div>
-                <div class="modal-body" id="pop_msg_body">
-                    &nbsp;
-                </div>
-                <div class="modal-footer">
-                    <button id="btn_confirm" type="button" class="btn btn-default" data-dismiss="modal">확인</button>
-                    <button type="button" class="btn btn-warning" data-dismiss="modal">닫기</button>
-                </div>
-            </div>
-        </div>
+    <div id="dialog-message">
+        <p id="dialog-body"></p>
     </div>
 
     <footer class="footer">
@@ -102,30 +92,7 @@
     <script src="{% static 'lib/jquery/jquery.min.js' %}"></script>
     <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
     <script src="{% static 'lib/bootstrap/js/bootstrap.min.js' %}"></script>
-    <script>
-        var _MSG_SUCC_ = 'success';
-        var _MSG_WARNING_ = 'warning';
-        var _MSG_ERROR_ = 'error';
-        var _MSG_CONFIRM_ = 'confirm';
-        function call_pop_message(type, title, content) {
-            $('#pop_msg_panel').removeClass();
-            $('#btn_confirm').hide();
-            if (type == _MSG_SUCC_) {
-                $('#pop_msg_panel').addClass('modal-header bg-success text-white');
-            } else if (type == _MSG_WARNING_) {
-                $('#pop_msg_panel').addClass('modal-header bg-warning text-dark');
-            } else if (type == _MSG_ERROR_) {
-                $('#pop_msg_panel').addClass('modal-header bg-danger text-white');
-            } else {
-                $('#btn_confirm').show();
-                $('#pop_msg_panel').addClass('modal-header bg-dark text-white');
-            }
-            $('#pop_msg_title').text(title);
-            $('#pop_msg_body').text(content);
 
-            $('#pop_msg').modal('show')
-        }
-    </script>
     {% block script_content %}
     {% endblock %}
   </body>
