@@ -162,13 +162,12 @@
                     'item': $('#id_email').val()
                 },
                 success: function (data) {
-                    $('#pop_msg_title').text('Email 중복확인');
+                    var _title_ = 'Email 중복확인';
                     if (data == 'True') {
-                        $('#pop_msg_body').text('사용가능한 Email 주소입니다.');
+                        call_pop_message(_MSG_SUCC_, _title_, '사용가능한 Email 주소입니다.');
                     } else {
-                        $('#pop_msg_body').text('이미 가입 된 Email 주소입니다.');
+                        call_pop_message(_MSG_ERROR_, _title_, '이미 가입 된 Email 주소입니다.');
                     }
-                    $('#pop_msg').modal('show')
                     $('#is_usable_email').val(data);
                 }
             });
@@ -181,13 +180,12 @@
                     'item': $('#id_name').val()
                 },
                 success: function (data) {
-                    $('#pop_msg_title').text('사용자명 중복확인');
+                    var _title_ = '사용자명 중복확인';
                     if (data == 'True') {
-                        $('#pop_msg_body').text('사용가능한 사용자명 입니다.');
+                        call_pop_message(_MSG_SUCC_, _title_, '사용가능한 사용자명 입니다.');
                     } else {
-                        $('#pop_msg_body').text('이미 가입 된 사용자명입니다.');
+                        call_pop_message(_MSG_ERROR_, _title_, '이미 가입 된 사용자명입니다.');
                     }
-                    $('#pop_msg').modal('show')
                     $('#is_usable_name').val(data);
                 }
             });
