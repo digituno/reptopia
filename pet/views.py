@@ -1,6 +1,6 @@
 from django.views.generic import View, ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
@@ -119,6 +119,7 @@ class CareCreateView(LoginRequiredMixin, CreateView):
             obj = form.save()
             return redirect(obj)
 
+
 class CareDeleteView(LoginRequiredMixin, View):
     login_url = settings.LOGIN_URL
 
@@ -126,7 +127,6 @@ class CareDeleteView(LoginRequiredMixin, View):
         care = get_object_or_404(Care, pk=careid)
         care.delete()
         return redirect('pet-detail', userid=userid, pk=petid)
-
 
 
 class SpeciesSearchTemplateView(View):

@@ -73,7 +73,7 @@
                 <p>{{ notice.content | safe }}</p>
             </div>
             <div class="modal-footer">
-                <input type="checkbox" value="do_not_open" id="do_not_open"> 그만열기
+                <button type="button" class="btn btn-warning" id="do_not_open">그만열기</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
             </div>
         </div>
@@ -90,15 +90,14 @@
             // 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
             var key = getCookie("notice_cookie");
 
-            $("#do_not_open").change(function(){ // 체크박스에 변화가 있다면,
-                if($("#do_not_open").is(":checked")){ // ID 저장하기 체크했을 때,
-                    setCookie("notice_cookie", $("#do_not_open").val(), 7); // 7일 동안 쿠키 보관
-                }
+            $("#do_not_open").click(function(){ // 체크박스에 변화가 있다면,
+                setCookie("notice_cookie", 'do_not_open', 7);
+                $('#notice_modal').modal('toggle')
             });
 
             {% if notice %}
                 if (key != 'do_not_open') {
-                    $('#notice_modal').modal('toggle')    
+                    $('#notice_modal').modal('toggle')
                 }
             {% endif %}
         });
