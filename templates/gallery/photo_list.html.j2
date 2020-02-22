@@ -22,17 +22,13 @@
     <div class="row text-center text-lg-left zoom-gallery">
         {% for photo in photo_list %}
         <div class="col-lg-3 col-md-4 col-6">
-            <a href="{{ photo.image.url }}" class="d-block mb-4 h-100 image-popup-no-margins" title="{{ photo.title }}" author="{{ photo.author.name }}" date="{{ photo.created_date | date:"Y F d" }}">
+            <a href="{{ photo.image.url }}" class="d-block mb-4 h-100" title="{{ photo.title }}" author="{{ photo.author.name }}" date="{{ photo.created_date | date:"Y F d" }}">
                 <img class="img-fluid img-thumbnail" src="{{ photo.image.url }}" alt="">
             </a>
             {% if user.is_authenticated %}
-            <a href="{% url 'photo-delete' pk=photo.pk %}">
                 <button class="btn btn-primary btn-xs"><i class="fa fa-thumbs-up"></i></button>
-            </a>
                 {% if user == photo.author %}
-                <a href="{% url 'photo-delete' pk=photo.pk %}">
-                    <button class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
-                </a>
+                    <button id="btn_delete" class="btn btn-danger btn-xs" data-value="{{ photo.pk }}" onclick="javascript:deletePhoto({{ photo.pk }});"><i class="fa fa-trash"></i></button>
                 {% endif %}
             {% endif %}
         </div>
@@ -49,6 +45,9 @@
 <script src="{% static 'lib/magnific-popup/jquery.magnific-popup.js' %}"></script>
 <script>
     $(document).ready(function() {
+        deletePhoto = function(item) {
+            window.location = "{% url 'photo-delete' pk=12345 %}".replace(/12345/, item);
+        }
         $('.zoom-gallery').magnificPopup({
             delegate: 'a',
             type: 'image',
