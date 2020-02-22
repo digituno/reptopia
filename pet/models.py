@@ -15,11 +15,9 @@ class Pet(models.Model):
         Dictionary,
         related_name='gender',
         on_delete=models.CASCADE,
-        blank=True,
-        null=True,
         limit_choices_to={'category': reptopia._GENDER_},
     )
-    bod = models.DateField()
+    bod = models.DateField(blank=True)
     image = models.ImageField(upload_to='pet/%Y/%m/%d', blank=True, null=True)
     desc = models.TextField(blank=True)
     # design = 모프 기능 추가 후 구현 예정

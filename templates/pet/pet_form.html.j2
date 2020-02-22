@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block stylesheet %}
-  <link rel="stylesheet" type="text/css" href="{% static 'lib/jquery-ui/css/jquery-ui.min.css' %}" />
   <style type="text/css">
     .btn-file {
         position: relative;
@@ -23,7 +22,6 @@
         cursor: inherit;
         display: block;
     }
-
     #img-upload{
         width: 100%;
     }
@@ -31,144 +29,228 @@
 {% endblock %}
 
 {% block content %}
-  <!-- Begin page content -->
-  <div class="container">
+ <div class="container">
     <div class="page-header">
-       <h1>펫 등록하기</h1>
+        <h1>개체 등록하기</h1>
     </div>
-    <form method="post" action="" class="form-horizontal" enctype="multipart/form-data" id="form_pet" data-species-autocomplete_url="{% url 'ajax-search-species' %}">
-      {% csrf_token %}
-      <input type="hidden" name="next" value="" />
-      {% for field in form %}
+    <form id="pet_form" method="post" action="" class="form-horizontal" enctype="multipart/form-data" data-species-autocomplete_url="{% url 'ajax-search-species' %}">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="" />
         <div class="form-group">
-          <label for="cname" class="col-sm-2 control-label">{{ field.label_tag }}</label>
-          <div class="col-sm-10">
-            {% if field.errors %}
+            <label for="cname" class="col-sm-2 control-label">{{ form.species.label_tag }}</label>
+            <div class="col-sm-10">
+                {% if form.species.errors %}
                 <div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    {{ field.errors }}
+                    {{ form.species.errors }}
                 </div>
-            {% endif %}
-            {% if field == form.image %}
-              <div class="input-group">
-                <span class="input-group-btn">
-                  <span class="btn btn-default btn-file">
-                    <i class="fa fa-camera-retro"></i>{{ field }}
-                  </span>
-                  <span class="btn btn-default" id="id_file_trash"><i class="fa fa-trash"></i></span>
-                </span>
-                <input type="text" class="form-control" readonly>
-              </div>
-              <img id='img-upload'/>
-            {% elif field == form.bod %}
-              <div class="input-group">
-                {{ field }}
-                <div class="input-group-addon">
-                    <span class="glyphicon glyphicon-th"></span>
-                </div>
-              </div>
-            {% else %}
-              {% if field == form.species %}
+                {% endif %}
                 <div class="input-group">
-                  <input type="text" class="form-control" id="species_autocomplete">
-                  <div class="input-group-addon">
-                      <span class="glyphicon glyphicon-search" id="icon_search"></span>
-                  </div>
+                    <input type="text" class="form-control" id="species_autocomplete">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-search" id="icon_search"></span>
+                    </div>
                 </div>
-              {% endif %}
-              {{ field }}
-            {% endif %}
-            <br />
-            {{ field.help_text }}
-          </div>
+                {{ form.species }}
+                <br />
+                {{ form.species.help_text }}
+            </div>
         </div>
-      {% endfor %}
-      <div class="form-group last">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-primary">등록하기</button>
-            <a href="{% url 'pet-list' userid=user.pk %}">
-                <button type="button" class="btn btn-default">돌아가기</button>
-            </a>
+
+        <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.name.label_tag }}</label>
+            <div class="col-sm-10">
+                {% if form.name.errors %}
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ form.name.errors }}
+                </div>
+                {% endif %}
+                {{ form.name }}
+                <br />
+                {{ form.name.help_text }}
+            </div>
         </div>
-      </div>
+
+        <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.gender.label_tag }}</label>
+            <div class="col-sm-10">
+                {% if form.gender.errors %}
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ form.gender.errors }}
+                </div>
+                {% endif %}
+                {{ form.gender }}
+                <br />
+                {{ form.gender.help_text }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.bod.label_tag }}</label>
+            <div class="col-sm-10">
+                {% if form.bod.errors %}
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ form.bod.errors }}
+                </div>
+                {% endif %}
+                <div class="input-group">
+                    {{ form.bod }}
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th"></span>
+                    </div>
+                </div>
+                <br />
+                {{ form.bod.help_text }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.desc.label_tag }}</label>
+            <div class="col-sm-10">
+                {% if form.desc.errors %}
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ form.desc.errors }}
+                </div>
+                {% endif %}
+                {{ form.desc }}
+                <br />
+                {{ form.desc.help_text }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.image.label_tag }}</label>
+            <div class="col-sm-10">
+                {% if form.image.errors %}
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ form.image.errors }}
+                </div>
+                {% endif %}
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <span class="btn btn-default btn-file"><i class="fa fa-camera-retro"></i>{{ form.image }}</span>
+                        <span class="btn btn-default" id="id_file_trash"><i class="fa fa-trash"></i></span>
+                    </span>
+                    <input type="text" class="form-control" readonly>
+                </div>
+                <img id='img-upload'/>
+                <br />
+                {{ form.image.help_text }}
+            </div>
+        </div>
+
+        <div class="form-group last">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button id="btn_submit" type="button" class="btn btn-primary">등록하기</button>
+                <button id="btn_back" type="button" class="btn btn-default">돌아가기</button>
+            </div>
+        </div>
     </form>
-  </div>
+</div>
 {% endblock %}
 
 
 {% block script_content %}
-<script src="{% static 'lib/jquery-ui/js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'lib/jquery-ui/js/jquery-ui.js' %}"></script>
 <script src="{% static 'lib/jquery-ui/i18n/datepicker-ko.js' %}"></script>
-
 <script>
     $(document).ready( function() {
-      {% if pet != None %}
-        $('#species_autocomplete').val($('#id_species option:selected').text());
-      {% endif %}
-      //정보수정일 경우 처리
-      $(document).on('change', '.btn-file :file', function() {
-        var input = $(this), label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-        input.trigger('fileselect', [label]);
-      });
+        {% if pet != None %}
+            $('#species_autocomplete').val($('#id_species option:selected').text());
+        {% endif %}
 
-      $('.btn-file :file').on('fileselect', function(event, label) {
-        var input = $(this).parents('.input-group').find(':text'), log = label;
+        //정보수정일 경우 처리
+        $(document).on('change', '.btn-file :file', function() {
+            var input = $(this), label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                input.trigger('fileselect', [label]);
+        });
 
-        if( input.length ) {
-          input.val(log);
-        } else {
-          if( log ) alert(log);
-        }
-      });
+        $('.btn-file :file').on('fileselect', function(event, label) {
+            var input = $(this).parents('.input-group').find(':text'), log = label;
 
-      function readURL(input) {
-        if (input.files && input.files[0]) {
-          var reader = new FileReader();
-          reader.onload = function (e) {
-            $('#img-upload').attr('src', e.target.result);
-            $('#img-upload').attr('class', 'img-thumbnail');
-          }
-          reader.readAsDataURL(input.files[0]);
-        } else {
-          $('#img-upload').attr('src', '');
-          $('#img-upload').removeClass('img-thumbnail');
-        }
-      }
-
-      $("#id_image").change(function(){
-        readURL(this);
-      });
-
-      $("#id_file_trash").click(function() {
-        $("#id_image").val('');
-        $('.input-group :text').val('');
-        readURL($("#id_image"));
-      });
-
-      $("#id_bod").datepicker();
-      $("#id_bod").datepicker($.datepicker.regional[ "ko" ]);
-      $("#id_bod").datepicker("option", "dateFormat", "yy-mm-dd");
-
-      $("#species_autocomplete").autocomplete({
-        source: $("#form_pet").attr("data-species-autocomplete_url"),
-        minLength: 2,
-        open: function(){
-          setTimeout(function () {
-            $('.ui-autocomplete').css('z-index', 99);
-          }, 0);
-        },
-        select: function(event, ui) {
-          $("#id_species").val(ui.item.id);
-        },
-        change: function(event, ui) {
-          if ($("#id_species option:selected").text() !== $(this).val()) {
-            for (var i = 0; i <= $("#id_species option").length; i++) {
-              if ($(this).val() === $("#id_species option:eq(" + i + ")").text())
-                $("#id_species").val(i);
+            if( input.length ) {
+                input.val(log);
+            } else {
+                if( log ) alert(log);
             }
-          }
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#img-upload').attr('src', e.target.result);
+                    $('#img-upload').attr('class', 'img-thumbnail');
+                }
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                $('#img-upload').attr('src', '');
+                $('#img-upload').removeClass('img-thumbnail');
+            }
         }
-      });
+
+        $("#id_image").change(function(){
+            readURL(this);
+        });
+
+        $("#id_file_trash").click(function() {
+            $("#id_image").val('');
+            $('.input-group :text').val('');
+            readURL($("#id_image"));
+        });
+
+        $("#id_bod").datepicker({
+            dateFormat: "yy-mm-dd",
+        });
+        $("#id_bod").datepicker($.datepicker.regional[ "ko" ]);
+
+        $("#species_autocomplete").autocomplete({
+            source: $("#pet_form").attr("data-species-autocomplete_url"),
+            minLength: 2,
+            open: function(){
+                setTimeout(function () {
+                    $('.ui-autocomplete').css('z-index', 99);
+                }, 0);
+            },
+            select: function(event, ui) {
+                $("#id_species").val(ui.item.id);
+            },
+            change: function(event, ui) {
+                if ($("#id_species option:selected").text() !== $(this).val()) {
+                    for (var i = 0; i <= $("#id_species option").length; i++) {
+                        if ($(this).val() === $("#id_species option:eq(" + i + ")").text())
+                        $("#id_species").val(i);
+                    }
+                }
+            }
+        });
+
+        $('#btn_submit').click( function() {
+            $( function() {
+                $('#dialog-body').text('입력하신 내용으로 개체를 등록하시겠습니까?');
+                $( "#dialog-message" ).dialog({
+                    modal: true,
+                    title: "개체등록 확인",
+                    buttons: {
+                        '확인': function() {
+                            $( '#pet_form' ).submit();
+                        },
+                        '취소': function() {
+                            $( this ).dialog( "close" );
+                        }
+                    },
+                });
+            });
+        });
+
+        $('#btn_back').click( function() {
+            window.location = '{% url 'pet-list' userid=user.pk %}';
+        });
     });
-  </script>
+</script>
 {% endblock%}
