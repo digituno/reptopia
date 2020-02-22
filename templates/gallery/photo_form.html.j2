@@ -1,0 +1,149 @@
+{% extends 'base.html.j2' %}
+{% load static %}
+
+{% block stylesheet %}
+  <style type="text/css">
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+    }
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+    }
+    #img-upload{
+        width: 100%;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+ <div class="container">
+    <div class="page-header">
+        <h1>사진 등록하기</h1>
+    </div>
+    <form id="photo_form" method="post" action="" class="form-horizontal" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="" />
+
+        <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.title.label_tag }}</label>
+            <div class="col-sm-10">
+                {% if form.title.errors %}
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ form.title.errors }}
+                </div>
+                {% endif %}
+                {{ form.title }}
+                <br />
+                {{ form.title.help_text }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.image.label_tag }}</label>
+            <div class="col-sm-10">
+                {% if form.image.errors %}
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ form.image.errors }}
+                </div>
+                {% endif %}
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <span class="btn btn-default btn-file"><i class="fa fa-camera-retro"></i>{{ form.image }}</span>
+                        <span class="btn btn-default" id="id_file_trash"><i class="fa fa-trash"></i></span>
+                    </span>
+                    <input type="text" class="form-control" readonly>
+                </div>
+                <img id='img-upload'/>
+                <br />
+                {{ form.image.help_text }}
+            </div>
+        </div>
+
+        <div class="form-group last">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button id="btn_submit" type="button" class="btn btn-primary">등록하기</button>
+                <button id="btn_cancle" type="button" class="btn btn-default">돌아가기</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+
+{% block script_content %}
+<script src="{% static 'lib/jquery-ui/js/jquery-ui.js' %}"></script>
+<script>
+    $(document).ready( function() {
+        $('.btn-file :file').on('fileselect', function(event, label) {
+            var input = $(this).parents('.input-group').find(':text'), log = label;
+
+            if( input.length ) {
+                input.val(log);
+            } else {
+                if( log ) alert(log);
+            }
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#img-upload').attr('src', e.target.result);
+                    $('#img-upload').attr('class', 'img-thumbnail');
+                }
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                $('#img-upload').attr('src', '');
+                $('#img-upload').removeClass('img-thumbnail');
+            }
+        }
+
+        $("#id_image").change(function(){
+            readURL(this);
+        });
+
+        $("#id_file_trash").click(function() {
+            $("#id_image").val('');
+            $('.input-group :text').val('');
+            readURL($("#id_image"));
+        });
+
+        $('#btn_submit').click( function() {
+            $( function() {
+                $('#dialog-body').text('입력하신 내용으로 사진을 등록하시겠습니까?');
+                $( "#dialog-message" ).dialog({
+                    modal: true,
+                    title: "사진등록 확인",
+                    buttons: {
+                        '확인': function() {
+                            $( '#photo_form' ).submit();
+                        },
+                        '취소': function() {
+                            $( this ).dialog( "close" );
+                        }
+                    },
+                });
+            });
+        });
+
+        $('#btn_cancle').click( function() {
+            window.location = '{% url 'photo-list' %}';
+        });
+    });
+</script>
+{% endblock%}

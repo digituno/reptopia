@@ -1,0 +1,78 @@
+{% extends 'base.html.j2' %}
+{% load static %}
+
+{% block stylesheet %}
+<link rel="stylesheet" type="text/css" href="{% static 'lib/magnific-popup/css/magnific-popup.css' %}" />
+{% endblock %}
+
+{% block content %}
+<!-- Begin page content -->
+<div class="container">
+    <div class="page-header">
+        <div class="pull-right">
+            <div class="form-inline">
+                <a href="{% url 'photo-add' %}" style="margin-left:10px;">
+                    <button type="button" class="btn btn-default">등록하기</button>
+                </a>
+            </div>
+        </div>
+        <h1>Gallery</h1>
+    </div>
+
+    <div class="row text-center text-lg-left zoom-gallery">
+        {% for photo in photo_list %}
+        <div class="col-lg-3 col-md-4 col-6">
+            <a href="{{ photo.image.url }}" class="d-block mb-4 h-100 image-popup-no-margins" title="{{ photo.title }}" author="{{ photo.author.name }}" date="{{ photo.created_date | date:"Y F d" }}">
+                <img class="img-fluid img-thumbnail" src="{{ photo.image.url }}" alt="">
+            </a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'photo-delete' pk=photo.pk %}">
+                <button class="btn btn-primary btn-xs"><i class="fa fa-thumbs-up"></i></button>
+            </a>
+                {% if user == photo.author %}
+                <a href="{% url 'photo-delete' pk=photo.pk %}">
+                    <button class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
+                </a>
+                {% endif %}
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+ </div>
+
+</div>
+{% endblock %}
+
+
+
+{% block script_content %}
+<script src="{% static 'lib/magnific-popup/jquery.magnific-popup.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $('.zoom-gallery').magnificPopup({
+            delegate: 'a',
+            type: 'image',
+            closeOnContentClick: false,
+            closeBtnInside: true,
+            mainClass: 'mfp-with-zoom mfp-img-mobile',
+            image: {
+                verticalFit: true,
+                titleSrc: function(item) {
+                    return item.el.attr('title') + '<br/> ' + item.el.attr('date') + ' by ' + item.el.attr('author');
+                }
+            },
+            gallery: {
+                enabled: true
+            },
+            zoom: {
+                enabled: true,
+                duration: 300, // don't foget to change the duration also in CSS
+                opener: function(element) {
+                    return element.find('img');
+                }
+            }
+
+        });
+    });
+</script>
+{% endblock%}
