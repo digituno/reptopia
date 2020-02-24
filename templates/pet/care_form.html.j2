@@ -44,7 +44,6 @@
     <form id="care_form" method="post" action="" class="form-horizontal" enctype="multipart/form-data" data-ajax-url="{% url 'ajax-dict-item-list' %}">
         {% csrf_token %}
         <input type="hidden" name="next" value="" />
-
         <div class="form-group">
             <label for="cname" class="col-sm-2 control-label">{{ form.date.label_tag }}</label>
             <div class="col-sm-10">
@@ -73,6 +72,35 @@
                     </div>
                 {% endif %}
                 {{ form.type }}
+            </div>
+        </div>
+
+        <div class="form-group" id="weight_layer" style="display: none;">
+            <label for="cname" class="col-sm-2 control-label">{{ form.weight.label_tag }}</label>
+            <div class="col-sm-10">
+                {% if form.weight.errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ form.weight.errors }}
+                    </div>
+                {% endif %}
+                {{ form.weight }}
+            </div>
+        </div>
+
+        <div class="form-group" id="prey_layer" style="display: none;">
+            <label for="cname" class="col-sm-2 control-label">{{ form.prey_type.label_tag }}</label>
+            <div class="col-sm-10">
+                {% if form.prey_type.errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ form.prey_type.errors }}
+                    </div>
+                {% endif %}
+                {{ form.prey_type }}
+                {{ form.prey_size }}
+                {{ form.prey_weight }}
+                {{ form.prey_quantity }}
             </div>
         </div>
 
@@ -145,6 +173,7 @@
                     if (data.length > 0) {
                         obj.html(data);
                     }
+                    obj.attr('disabled',false);
                 }
             });
         }
@@ -152,6 +181,7 @@
         $('#{{ form.type.id_for_label}}').change(function(){
             // 먹이주기
             if ($(this).val() == '2') {
+                /*
                 $('#id_type_detail_label').text($('#{{ form.type.id_for_label}} option:selected').text() + ':')
                 var _select = '<select id="id_prey_type" name="prey_type" class="form-control">';
                 _select += '<option>---------</option>';
@@ -168,13 +198,16 @@
                 $('#id_prey_type').change(function() {
                     setAjaxData($(this).val(),$('#id_prey_size'));
                 });
-                $('#id_type_detail').show()
+                */
+                setAjaxData('{{ pet.species.eating.id}}', $('#id_prey_type'));
+                $('#id_prey_type').change(function() {
+                    setAjaxData($(this).val(),$('#id_prey_size'));
+                });
+                $('#prey_layer').show()
             }
             // 체중
             else if ($(this).val() == '6') {
-                $('#id_type_detail_label').text($('#{{ form.type.id_for_label}} option:selected').text() + ':')
-                $('#id_type_detail_field').html('<input type="text" name="weight" maxlength="100" class="form-control" id="id_weight">');
-                $('#id_type_detail').show()
+                $('#weight_layer').show()
             }
             else {
                 $('#id_type_detail').hide()
@@ -248,6 +281,9 @@
         $('#btn_cancle').click( function() {
             window.location = '{% url 'pet-detail' userid=pet.owner.pk pk=pet.pk %}';
         });
+
+
+        $('#{{ form.type.id_for_label}}').change()
     });
 </script>
 {% endblock%}

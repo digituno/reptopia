@@ -16,5 +16,7 @@ class IndexView(TemplateView):
         today = datetime.today().date()
         notice_list = Notice.objects.filter(notice_from_date__lte=today).filter(notice_to_date__gte=today)
 
-        context['notice'] = notice_list[0]
+        if notice_list:
+            context['notice'] = notice_list[0]
+
         return context

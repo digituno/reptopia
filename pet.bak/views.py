@@ -4,12 +4,10 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
-from django.db import transaction
 from account.models import Account
+from .models import Pet, Care, CareWeight
 from dict.models import AnimalDictionary, Dictionary
-from .models import Pet, Care, Feeding
-from .forms import PetCreateForm, CareCreateForm
-import reptopia
+from .forms import PetCreateForm, CareCreateForm, CareWeightCreateForm, CareFeedingCreateForm
 import logging
 import json
 
@@ -89,11 +87,10 @@ class PetDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         pet = get_object_or_404(Pet, pk=self.kwargs['pk']);
 
-        care_list = Care.objects.filter(pet=pet).order_by('-date', '-created_datetime')
+        care_list = Care.objects.select_subclasses().filter(pet=pet).order_by('-date', '-created_datetime')
         context['care_list'] = care_list
 
-        dict_weight = get_object_or_404(Dictionary, pk=6)
-        weight_list = Care.objects.filter(pet=pet).filter(type=dict_weight).order_by('-date', '-created_datetime')
+        weight_list = CareWeight.objects.filter(pet=pet).order_by('-date', '-created_datetime')
         context['weight_list'] = weight_list
 
         return context
@@ -110,34 +107,24 @@ class CareCreateView(LoginRequiredMixin, CreateView):
         context['pet'] = pet
         return context
 
-    @transaction.atomic
-    def form_valid(self, form):
-        # 사육일지유형이 먹이주기 일 때
-        if form.cleaned_data['type'].id == reptopia._CARE_FEEDING_:
-            feeding = Feeding()
-            feeding.prey_type = get_object_or_404(Dictionary, pk=form.cleaned_data['prey_type'].id)
-            feeding.prey_size = get_object_or_404(Dictionary, pk=form.cleaned_data['prey_size'].id)
-            feeding.prey_weight = form.cleaned_data['prey_weight']
-            feeding.prey_quantity = form.cleaned_data['prey_quantity']
-            feeding.save()
+    def post(self, request, *args, **kwargs):
+        if 'weight' in request.POST:
+            form = CareWeightCreateForm(request.POST, request.FILES)
+        elif 'prey_size' in request.POST:
+            form = CareFeedingCreateForm(request.POST, request.FILES)
+        else:
+            form = CareCreateForm(request.POST, request.FILES)
 
-            form.instance.feeding = feeding
-
-
-        return super().form_valid(form)
+        if form.is_valid():
+            obj = form.save()
+            return redirect(obj)
 
 
 class CareDeleteView(LoginRequiredMixin, View):
     login_url = settings.LOGIN_URL
 
-    @transaction.atomic
     def get(self, request, userid, petid, careid):
         care = get_object_or_404(Care, pk=careid)
-
-        if care.feeding:
-            feeding = care.feeding
-            feeding.delete()
-
         care.delete()
         return redirect('pet-detail', userid=userid, pk=petid)
 
