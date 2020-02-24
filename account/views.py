@@ -1,18 +1,19 @@
-from django.views.generic.edit import CreateView
-from django.views.generic import View, TemplateView
+from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic import View, TemplateView, DetailView
 from django.urls import reverse_lazy
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.db import transaction
 from django.shortcuts import redirect, get_object_or_404
-from .forms import AccountCreationForm
+from django.conf import settings
 from django.http import HttpResponse
+from .forms import AccountCreationForm, AccountChangeForm
 from .models import Account
-from dict.models import AnimalDictionary
 import logging
 import json
 
@@ -44,32 +45,38 @@ class SignupView(CreateView):
         return redirect('signup_done')
 
 
+class AccountDetailView(LoginRequiredMixin, DetailView):
+    login_url = settings.LOGIN_URL
+    model = Account
+    template_name = 'account/account_profile.html.j2'
+
+class AccountUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = settings.LOGIN_URL
+    model = Account
+    form_class = AccountChangeForm
+    template_name = 'account/account_change_form.html.j2'
+
+
 class SignupDoneView(TemplateView):
     template_name = 'account/signup_done.html.j2'
 
 
 class UserActivateView(TemplateView):
-    # logger = logging.getLogger(__name__)
     template_name = 'account/user_activate_complete.html.j2'
 
     def get(self, request, *args, **kwargs):
-        # self.logger.debug('UserActivateView.get()')
 
         uid = force_text(urlsafe_base64_decode(self.kwargs['uidb64']))
         token = self.kwargs['token']
 
-        # self.logger.debug('uid: %s, token: %s' % (uid, token))
-
         try:
             user = Account.objects.get(pk=uid)
         except(TypeError, ValueError, OverflowError, User.DoesNotExist):
-            # self.logger.warning('User %s not found' % uid)
             user = None
 
         if user is not None and PasswordResetTokenGenerator().check_token(user, token):
             user.is_active = True
             user.save()
-            # self.logger.info('User %s(pk=%s) has been activated.' % (user, user.pk))
 
         return super(UserActivateView, self).get(request, *args, **kwargs)
 
@@ -82,8 +89,5 @@ class EmailCheckTemplateView(View):
 
 class NameCheckTemplateView(View):
     def get(self, request):
-        logger.debug(request.GET.get('item'))
         user = Account.objects.filter(name=request.GET.get('item'))
-        logger.debug(user)
-        logger.debug(not user.exists())
         return HttpResponse(not user.exists())

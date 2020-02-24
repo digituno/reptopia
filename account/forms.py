@@ -27,3 +27,22 @@ class AccountCreationForm(UserCreationForm):
         # self.fields['is_public'].label = "공개여부"
 
         # self.fields['is_public'].help_text = "공개여부를 체크하시면 다른 사육자에게 해당 펫 및 사육일지가 공개됩니다."
+
+
+class AccountChangeForm(UserChangeForm):
+    password = None
+
+    class Meta(UserChangeForm.Meta):
+        model = Account
+        fields = ("email", "name", "bio", "image")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs.update({'class': 'form-control', 'readonly': True})
+        self.fields['name'].widget.attrs.update({'class': 'form-control'})
+        self.fields['bio'].widget.attrs.update({'class': 'form-control'})
+        self.fields['image'].widget.attrs.update({'class': 'form-control'})
+
+        self.fields['name'].label = "이름(별명)"
+        self.fields['bio'].label = "소개"
+        self.fields['image'].label = "대표사진"

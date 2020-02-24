@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.urls import reverse_lazy
 
 class AccountManager(BaseUserManager):
     """Define a model manager for User model with no username field."""
@@ -53,3 +54,6 @@ class Account(AbstractUser):
 
     def __str__(self):
         return self.name;
+
+    def get_absolute_url(self):
+        return reverse_lazy('account-detail', kwargs={'pk': self.pk})

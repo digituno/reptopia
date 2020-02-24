@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
+from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from django.urls import reverse_lazy
@@ -94,8 +95,10 @@ class NoticeDetailView(DetailView):
     template_name = 'bbs/notice_detail.html.j2'
 
 
-class NoticeDeleteView(LoginRequiredMixin, DeleteView):
-    success_url = reverse_lazy('notice-list')
+class NoticeDeleteView(LoginRequiredMixin, View):
+    login_url = settings.LOGIN_URL
 
-    def get(self, request, *args, **kwargs):
-        return self.post(request, *args, **kwargs)
+    def get(self, request, pk):
+        notice = get_object_or_404(Notice, pk=pk)
+        notice.delete()
+        return redirect('notice-list')

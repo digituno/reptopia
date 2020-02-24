@@ -1,0 +1,231 @@
+{% extends 'base.html.j2' %}
+{% load static %}
+{% block stylesheet %}
+<style type="text/css">
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+    }
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+    }
+
+    #img-upload{
+        width: 100%;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+    <h1>회원정보 수정</h1>
+    </div>
+    <form id="account_change_form" method="post" action="" class="form-horizontal" enctype="multipart/form-data" data-name-check-url="{% url 'ajax-name-check' %}">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="" />
+        <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.email.label_tag }}</label>
+            <div class="col-sm-10">
+                {% if form.email.errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ form.email.errors }}
+                    </div>
+                {% endif %}
+                {{ form.email }}
+                <br />
+                <small class="form-text text-muted">{{ form.email.help_text }}</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.name.label_tag }}</label>
+                <div class="col-sm-10">
+                {% if form.name.errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ form.name.errors }}
+                    </div>
+                {% endif %}
+                <div class="input-group">
+                    {{ form.name }}
+                    <span class="btn input-group-addon" id="name_check"><i class="fa fa-search"></i> 중복확인</span>
+                </div>
+                <small class="form-text text-muted">{{ form.name.help_text }}</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.bio.label_tag }}</label>
+            <div class="col-sm-10">
+                {% if form.bio.errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ form.bio.errors }}
+                    </div>
+                {% endif %}
+                {{ form.bio }}
+                <small class="form-text text-muted">{{ form.bio.help_text }}</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.image.label_tag }}</label>
+            <div class="col-sm-10">
+                {% if form.image.errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ form.image.errors }}
+                    </div>
+                {% endif %}
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <span class="btn btn-default btn-file"><i class="fa fa-camera-retro"></i>{{ form.image }}</span>
+                        <span class="btn btn-default" id="file_trash"><i class="fa fa-trash"></i></span>
+                    </span>
+                    <input type="text" class="form-control" readonly>
+                </div>
+                <img id='img-upload'/>
+                <small class="form-text text-muted">{{ form.image.help_text }}</small>
+            </div>
+        </div>
+        <div class="form-group last">
+            <label for="cname" class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                <button id="submit_btn" type="button" class="btn btn-primary">정보수정</button>
+                <button id="back_btn" type="button" class="btn btn-warning">돌아가기</button>
+            </div>
+        </div>
+        <input type="hidden" id="is_usable_name" value="False" />
+
+    </form>
+</div>
+{% endblock %}
+
+{% block script_content %}
+<script src="{% static 'lib/jquery-ui/js/jquery-ui.min.js' %}"></script>
+<script>
+    $(document).ready( function() {
+        $('#submit_btn').click(function(){
+            var _is_valid = true;
+            if ($('#is_usable_name').val() == 'False') {
+                $('#dialog-body').text('사용자명이 사용가능한지 중복 확인을 해주세요.');
+                _is_valid = false;
+            }
+            if (!_is_valid) {
+                $( function() {
+                    $( "#dialog-message" ).dialog({
+                        modal: true,
+                        title: "중복확인 안내",
+                        buttons: {
+                            '닫기': function() {
+                                $( this ).dialog( "close" );
+                            }
+                        },
+                    });
+                });
+            } else {
+                $( function() {
+                    $('#dialog-body').text('입력하신 내용으로 회원정보를 수정하시겠습니까?');
+                    $( "#dialog-message" ).dialog({
+                        modal: true,
+                        title: "회원정보 수정확인",
+                        buttons: {
+                            '확인': function() {
+                                $( '#account_change_form' ).submit();
+                            },
+                            '취소': function() {
+                                $( this ).dialog( "close" );
+                            }
+                        },
+                    });
+                });
+            }
+
+        });
+
+        $('#back_btn').click(function(){
+            window.location = "{% url 'account-detail' pk=user.pk %}";
+        });
+
+        $('#name_check').click(function(){
+            if ($('#id_name').val().length > 0) {
+                $.ajax({
+                    url: $("#account_change_form").attr("data-name-check-url"),
+                    data: {
+                        'item': $('#id_name').val()
+                    },
+                    success: function (data) {
+                        if (data == 'True') {
+                            $('#dialog-body').text('사용가능한 사용자명 입니다.');
+                        } else {
+                            $('#dialog-body').text('이미 가입 된 사용자명입니다.');
+                        }
+                        $( function() {
+                            $( "#dialog-message" ).dialog({
+                                modal: true,
+                                title: "사용자명 중복확인",
+                                buttons: {
+                                    '닫기': function() {
+                                        $( this ).dialog( "close" );
+                                    }
+                                },
+                            });
+                        });
+                        $('#is_usable_name').val(data);
+                    }
+                });
+            }
+        });
+
+        $(document).on('change', '.btn-file :file', function() {
+            var input = $(this), label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function(event, label) {
+            var input = $(this).parents('.input-group').find(':text'), log = label;
+
+            if( input.length ) {
+                input.val(log);
+            } else {
+                if( log ) alert(log);
+            }
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#img-upload').attr('src', e.target.result);
+                    $('#img-upload').attr('class', 'img-thumbnail');
+                }
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                $('#img-upload').attr('src', '');
+                $('#img-upload').removeClass('img-thumbnail');
+            }
+        }
+
+        $("#id_image").change(function(){
+            readURL(this);
+        });
+
+        $("#file_trash").click(function() {
+            $("#id_image").val('');
+            $('.input-group :text').val('');
+            readURL($("#id_image"));
+        });
+    });
+</script>
+{% endblock%}

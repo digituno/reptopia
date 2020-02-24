@@ -8,6 +8,12 @@
     <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
     <title>REPTOPIA</title>
     <!-- 부트스트랩 -->
+    <style>
+        a {
+            text-decoration:none !important;
+        }
+    </style>
+
     <link href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'lib/bootstrap/css/bootstrap-theme.min.css' %}" rel="stylesheet">
     <!-- fontawesome -->
@@ -52,7 +58,7 @@
             -->
             {% if user.is_authenticated %}
               {% if user.is_staff %}
-              <li><a href="{% url 'notice-list' %}">공지사항</a></li>
+              <li><a href="{% url 'notice-list' %}" class="nav_linker">공지사항</a></li>
               {% endif %}
               <li><a href="{% url 'pet-list' userid=user.pk %}">개체관리</a></li>
             {% endif %}
@@ -61,7 +67,7 @@
             <div id="navbar" class="collapse navbar-collapse">
               <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
-                <li><a href="#"><i class="fa fa-user"></i> {{ user.name }}</a></li>
+                <li><a href="{% url 'account-detail' pk=user.pk %}"><i class="fa fa-user"></i> {{ user.name }}</a></li>
                 <li><a class="logout" href="{% url 'logout' %}">로그아웃</a></li>
                 {% else %}
                   <li><a class="login" href="{% url 'login' %}">로그인</a></li>
