@@ -52,10 +52,17 @@ class PetCreateView(LoginRequiredMixin, CreateView):
     form_class = PetCreateForm
     template_name = 'pet/pet_form.html.j2'
 
+    @transaction.atomic
     def form_valid(self, form):
-        form.instance.owner = self.request.user
-        return super().form_valid(form)
-
+        if form.is_valid():
+            form.instance.owner = self.request.user
+            pet = form.save(commit=False)
+            pet.save()
+            form.instance.tags.add(pet.species.common_name_kor)
+            form.save_m2m()
+            return redirect(pet)
+        else:
+            return super().form_invalid(form)
 
 class PetUpdateView(LoginRequiredMixin, UpdateView):
     login_url = settings.LOGIN_URL

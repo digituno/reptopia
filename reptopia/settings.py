@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'bbs',
     'gallery',
+    'taggit',
+    'taggit_templatetags2',
 ]
 
 MIDDLEWARE = [

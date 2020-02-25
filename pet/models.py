@@ -4,6 +4,7 @@ from dict.models import Dictionary, AnimalDictionary
 from django.utils import timezone
 from django.urls import reverse
 from django.utils.formats import localize
+from taggit.managers import TaggableManager
 import reptopia
 
 class Pet(models.Model):
@@ -16,10 +17,11 @@ class Pet(models.Model):
         on_delete=models.CASCADE,
         limit_choices_to={'category': reptopia._GENDER_},
     )
-    bod = models.DateField(blank=True)
+    bod = models.DateField(blank=True, null=True)
     image = models.ImageField(upload_to='pet/%Y/%m/%d', blank=True, null=True)
     desc = models.TextField(blank=True)
-    is_keeping  = models.BooleanField(default=True)
+
+    tags = TaggableManager()
 
     def __str__(self):
         return '[' + self.species.common_name_kor + ']' + self.name;

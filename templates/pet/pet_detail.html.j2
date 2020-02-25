@@ -1,5 +1,6 @@
 {% extends 'base.html.j2' %}
 {% load static %}
+{% load taggit_templatetags2_tags %}
 
 {% block stylesheet %}
     <link rel="stylesheet" type="text/css" href="{% static 'lib/magnific-popup/css/magnific-popup.css' %}" />
@@ -26,7 +27,9 @@
         <h1>개체 상세보기</h1>
     </div>
     <div class="col-xs-6 col-sm-4">
+        {% if pet.image %}
         <img src="{{ pet.image.url }}" class="img-responsive">
+        {% endif %}
     </div>
     <div class="col-xs-6 col-sm-8">
         <h4 class="title">{{ pet.name }}</h4>
@@ -36,6 +39,12 @@
         <h5>출생년월일 : {{ pet.bod }} </h5>
         <hr />
         <pre class="well">{{ pet.desc }}</pre>
+        {% get_tags_for_object pet as "tags" %}
+        <h5>
+            {% for tag in tags %}
+                {{ tag }}
+            {% endfor %}
+        </h5>
     </div>
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#carelog" data-toggle="tab" >사육일지</a></li>

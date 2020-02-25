@@ -20,7 +20,10 @@
         <h1>Account detail</h1>
     </div>
     <div class="row">
-        <div class="col-sm-2"> <img src="{{ user.image.url }}" class="img-circle" width="150" height="150"> </div>
+        <div class="col-sm-2">
+            {% if user.image %}
+            <img src="{{ user.image.url }}" class="img-circle" width="150" height="150"> </div>
+            {% endif %}
         <div class="col-sm-10">
             <h5> {{ user.name}} ( {{ user.email }} ) </h5>
             <hr />
