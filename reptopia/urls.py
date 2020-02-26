@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from django.views.generic import TemplateView
+from taggit_templatetags2 import urls as taggit_templatetags2_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,6 +28,7 @@ urlpatterns = [
     path('gallery/', include('gallery.urls')),
     path('', include('home.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('tags/', include('taggit_templatetags2.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
