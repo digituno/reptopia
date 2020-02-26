@@ -19,7 +19,7 @@ class PetCreateForm(ModelForm):
         self.fields['species'].widget.attrs.update({'style': 'visibility:hidden; width:0px; height:0px;'})
         self.fields['name'].widget.attrs.update({'class': 'form-control'})
         self.fields['gender'].widget.attrs.update({'class': 'form-control'})
-        self.fields['bod'].widget.attrs.update({'class': 'form-control', 'readonly': 'true'})
+        self.fields['bod'].widget.attrs.update({'class': 'form-control'})
         self.fields['desc'].widget.attrs.update({'class': 'form-control'})
         self.fields['image'].widget.attrs.update({'class': 'form-control'})
 

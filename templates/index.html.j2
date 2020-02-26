@@ -101,78 +101,76 @@
 {% endblock %}
 
 {% block script_content %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.6/holder.js"></script>
-    <script src="{% static 'lib/magnific-popup/jquery.magnific-popup.js' %}"></script>
-    <script src="{% static 'js/cookie_util.js' %}"></script>
-    <script src="https://www.amcharts.com/lib/4/core.js"></script>
-    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
-    <script src="https://www.amcharts.com/lib/4/plugins/wordCloud.js"></script>
-    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.6/holder.js"></script>
+<script src="{% static 'lib/magnific-popup/jquery.magnific-popup.js' %}"></script>
+<script src="{% static 'js/cookie_util.js' %}"></script>
+<script src="{% static 'lib/amcharts/core.js' %}"></script>
+<script src="{% static 'lib/amcharts/charts.js' %}"></script>
+<script src="{% static 'lib/amcharts/plugins/wordCloud.js' %}"></script>
+<script src="{% static 'lib/amcharts/thmes/animated.js' %}"></script>
 
-    <script>
-        $(document).ready(function() {
-            // 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
-            {% if notice %}
-            var key = getCookie("notice_cookie" + {{ notice.pk }}) ;
+<script>
+    $(document).ready(function() {
+        // 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
+        {% if notice %}
+        var key = getCookie("notice_cookie" + {{ notice.pk }}) ;
 
-            $("#do_not_open").click(function(){ // 체크박스에 변화가 있다면,
-                setCookie("notice_cookie" + {{ notice.pk }}, 'do_not_open', 7);
-                $('#notice_modal').modal('toggle')
-            });
-
-            if (key != 'do_not_open') {
-                $('#notice_modal').modal('toggle')
-            }
-            {% endif %}
+        $("#do_not_open").click(function(){ // 체크박스에 변화가 있다면,
+            setCookie("notice_cookie" + {{ notice.pk }}, 'do_not_open', 7);
+            $('#notice_modal').modal('toggle')
         });
 
+        if (key != 'do_not_open') {
+            $('#notice_modal').modal('toggle')
+        }
+        {% endif %}
+    });
+
     am4core.ready(function() {
+        // Themes begin
+        am4core.useTheme(am4themes_animated);
+        // Themes end
 
-    // Themes begin
-    am4core.useTheme(am4themes_animated);
-    // Themes end
+        var chart = am4core.create("chartdiv", am4plugins_wordCloud.WordCloud);
+        chart.fontFamily = "Courier New";
+        var series = chart.series.push(new am4plugins_wordCloud.WordCloudSeries());
+        series.randomness = 0.1;
+        series.rotationThreshold = 0.5;
 
-    var chart = am4core.create("chartdiv", am4plugins_wordCloud.WordCloud);
-    chart.fontFamily = "Courier New";
-    var series = chart.series.push(new am4plugins_wordCloud.WordCloudSeries());
-    series.randomness = 0.1;
-    series.rotationThreshold = 0.5;
+        {% get_tagcloud as tags %}
+        series.data = [
+            {% for tag in tags %}
+                {"tag":"{{ tag }}"
+                , "weight":"({{tag.weight}}"
+                , "id": "{{tag.id}}"},
+            {% endfor %}
+        ];
+        series.dataFields.word = "tag";
+        series.dataFields.value = "weight";
 
-    {% get_tagcloud as tags %}
-    series.data = [
-        {% for tag in tags %}
-        {"tag":"{{ tag }}", "weight":"({{tag.weight|floatformat:0}}", "id": "{{tag.id}}"},
-        {% endfor %}
-    ];
-    series.dataFields.word = "tag";
-    series.dataFields.value = "weight";
+        series.heatRules.push({
+            "target": series.labels.template,
+            "property": "fill",
+            "min": am4core.color("#0000CC"),
+            "max": am4core.color("#CC00CC"),
+            "dataField": "value"
+        });
+        series.labels.template.url = "http://127.0.0.1:8000/tags/tag-list/{id}/{word}";
+        series.labels.template.urlTarget = "_self";
+        series.labels.template.tooltipText = "{word}: {value}";
 
-    series.heatRules.push({
-     "target": series.labels.template,
-     "property": "fill",
-     "min": am4core.color("#0000CC"),
-     "max": am4core.color("#CC00CC"),
-     "dataField": "value"
+        var hoverState = series.labels.template.states.create("hover");
+        hoverState.properties.fill = am4core.color("#FF0000");
+
+        /*
+        var subtitle = chart.titles.create();
+        subtitle.text = "(click to open)";
+
+        var title = chart.titles.create();
+        title.text = "Reptopia 에서 가장 인기 있는 태그";
+        title.fontSize = 20;
+        title.fontWeight = "800";
+        */
     });
-    series.labels.template.url = "http://127.0.0.1:8000/tags/tag-list/{id}/{word}";
-    series.labels.template.urlTarget = "_self";
-
-    var hoverState = series.labels.template.states.create("hover");
-    hoverState.properties.fill = am4core.color("#FF0000");
-
-    /*
-    var subtitle = chart.titles.create();
-    subtitle.text = "(click to open)";
-
-    var title = chart.titles.create();
-    title.text = "Reptopia 에서 가장 인기 있는 태그";
-    title.fontSize = 20;
-    title.fontWeight = "800";
-    */
-
-    });
-
-
-
-    </script>
+</script>
 {% endblock %}
