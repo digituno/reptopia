@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from datetime import datetime
 from bbs.models import Notice
+from account.models import Account
+from pet.models import Pet, Care
 import logging
 
 logger = logging.getLogger('reptopia.log')
@@ -18,5 +20,10 @@ class IndexView(TemplateView):
 
         if notice_list:
             context['notice'] = notice_list[0]
+
+        context['account_count'] = Account.objects.count()
+        context['pet_count'] = Pet.objects.count()
+        context['care_count'] = Care.objects.count()
+
 
         return context

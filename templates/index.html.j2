@@ -9,8 +9,8 @@
         #chartdiv {
             width: 100%;
             height: 300px;
-            background-color: lightgrey;
-    }
+            /*background-color: lightgrey;*/
+        }
     </style>
 {% endblock %}
 
@@ -20,7 +20,7 @@
     <div class="page-header">
       <h1>Welcomen to <span class="text-danger">REPT</span>OPIA.</h1>
     </div>
-    <!-- 주간 TOP 3 이미지 
+    <!-- 주간 TOP 3 이미지
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -49,7 +49,7 @@
         </a>
     </div>
     <hr/>
-    --> 
+    -->
     <!--
     <div class="row">
         <div class="col-sm-4">
@@ -73,7 +73,29 @@
     -->
     <div class="row">
         <div class="col-sm-12">
+            <h3><i class="fa fa-angle-right"></i> 태그 구름</h3>
             <div id="chartdiv"></div>
+        </div>
+    </div>
+    <hr>
+    <div class="row mt-10">
+        <div class="col-sm-4">
+            <h2><i class="fa fa-angle-right"></i> 등록된 사육자</h2>
+            <div style="text-align: center;">
+                <img src="holder.js/250x250?text={{ account_count }}" class="img-circle"/>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <h2><i class="fa fa-angle-right"></i> 등록된 개체</h2>
+            <div style="text-align: center;">
+                <img src="holder.js/250x250?text={{ pet_count }}" class="img-circle"/>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <h2><i class="fa fa-angle-right"></i> 등록된 사육일지</h2>
+            <div style="text-align: center;">
+                <img src="holder.js/250x250?text={{ care_count }}" class="img-circle"/>
+            </div>
         </div>
     </div>
 
@@ -100,7 +122,7 @@
 {% endblock %}
 
 {% block script_content %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.6/holder.js"></script>
+<script src="{% static 'lib/holder/holder.js' %}"></script>
 <script src="{% static 'lib/magnific-popup/jquery.magnific-popup.js' %}"></script>
 <script src="{% static 'js/cookie_util.js' %}"></script>
 <script src="{% static 'lib/amcharts/core.js' %}"></script>
