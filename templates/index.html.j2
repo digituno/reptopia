@@ -9,6 +9,7 @@
         #chartdiv {
             width: 100%;
             height: 300px;
+            background-color: lightgrey;
     }
     </style>
 {% endblock %}
@@ -71,11 +72,9 @@
     <hr/>
     -->
     <div class="row">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-8">
+        <div class="col-sm-12">
             <div id="chartdiv"></div>
         </div>
-        <div class="col-sm-2"></div>
     </div>
 
 <!-- end container -->
@@ -107,7 +106,7 @@
 <script src="{% static 'lib/amcharts/core.js' %}"></script>
 <script src="{% static 'lib/amcharts/charts.js' %}"></script>
 <script src="{% static 'lib/amcharts/plugins/wordCloud.js' %}"></script>
-<script src="{% static 'lib/amcharts/thmes/animated.js' %}"></script>
+<script src="{% static 'lib/amcharts/themes/animated.js' %}"></script>
 
 <script>
     $(document).ready(function() {
@@ -140,13 +139,13 @@
         {% get_tagcloud as tags %}
         series.data = [
             {% for tag in tags %}
-                {"tag":"{{ tag }}"
-                , "weight":"({{tag.weight}}"
-                , "id": "{{tag.id}}"},
+                {"tag":"{{ tag.name }}"
+                , "count":"{{ tag.num_times }}"
+                , "id": "{{ tag.id }}"},
             {% endfor %}
         ];
         series.dataFields.word = "tag";
-        series.dataFields.value = "weight";
+        series.dataFields.value = "count";
 
         series.heatRules.push({
             "target": series.labels.template,
