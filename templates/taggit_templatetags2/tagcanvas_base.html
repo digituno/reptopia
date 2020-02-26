@@ -4,12 +4,35 @@
 <div class="container">
 <!-- start container -->
     <div class="page-header">
-        <h1>Tag Canvas</h1>
+        <h1>태그전체보기</h1>
     </div>
     <div class="row">
         <div class="col-sm-12">
-            {% block "tagcanvas_content" %}{% endblock %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="d-none d-sm-table-cell">#</th>
+                            <th scope="col" class="d-none d-sm-table-cell">이름</th>
+                            <th scope="col" class="d-none d-sm-table-cell">종</th>
+                            <th scope="col" class="d-none d-sm-table-cell">출생년월일</th>
+                            <th scope="col" class="d-none d-sm-table-cell">성별</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in taggeditem_list %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td scope="row" ><a href="{{ item.content_object.get_absolute_url }}">{{ item.content_object.name}}</a></td>
+                            <td scope="row" >{{ item.content_object.species.common_name_kor }}</td>
+                            <td scope="row" >{{ item.content_object.bod }}</td>
+                            <td scope="row" >{{ item.content_object.gender.item_name }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-<div>
+</div>
 {% endblock %}
