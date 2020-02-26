@@ -145,7 +145,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_URL = '/accounts/logout'
 LOGOUT_REDIRECT_URL = '/'
 AUTH_USER_MODEL = 'account.Account'
-SESSION_COOKIE_AGE = 1200  # 20 Minute = 1200 MS
+SESSION_COOKIE_AGE = 3600  # 20 Minute = 1200 MS
 SESSION_SAVE_EVERY_REQUEST = True
 
 # Email Setting

@@ -21,6 +21,8 @@ class PostListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
+        # bbs_type = get_object_or_404(Dictionary, pk=self.kwargs['bbstype'])
+        # return Post.objects.filter(board_type_id=bbs_type)
         return Post.objects.all()
 
 class PostCreateView(LoginRequiredMixin, CreateView):

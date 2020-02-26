@@ -83,6 +83,7 @@ class PetDeleteView(LoginRequiredMixin, View):
 
     def get(self, request, userid, pk):
         pet = get_object_or_404(Pet, pk=pk)
+        pet.tags.clear()
         pet.delete()
         return redirect('pet-list', userid=userid)
 
