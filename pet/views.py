@@ -77,6 +77,18 @@ class PetUpdateView(LoginRequiredMixin, UpdateView):
 
         return context
 
+    @transaction.atomic
+    def form_valid(self, form):
+        if form.is_valid():
+            form.instance.owner = self.request.user
+            pet = form.save(commit=False)
+            pet.save()
+            form.instance.tags.set(pet.species.common_name_kor, clear=True)
+            form.save_m2m()
+            return redirect(pet)
+        else:
+            return super().form_invalid(form)
+
 
 class PetDeleteView(LoginRequiredMixin, View):
     login_url = settings.LOGIN_URL
