@@ -4,6 +4,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse_lazy
+from django.contrib.contenttypes.fields import GenericRelation
+from social.models import Like
 
 class AccountManager(BaseUserManager):
     """Define a model manager for User model with no username field."""
@@ -45,7 +47,7 @@ class Account(AbstractUser):
     name = models.CharField(max_length=50, unique=True)
     bio = models.TextField(max_length=500, blank=True, null=True)
     image = models.ImageField(upload_to='account/%Y/%m/%d', blank=True, null=True)
-    is_public = models.BooleanField(default=True)
+    likes = GenericRelation(Like, related_query_name='accounts')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name']
