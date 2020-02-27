@@ -33,6 +33,9 @@ class Pet(models.Model):
         self.image.delete()
         super(Pet, self).delete(*args, **kwargs)
 
+    def get_model_name(self):
+        return Pet.__name__
+
 
 class Feeding(models.Model):
     prey_type = models.ForeignKey(
