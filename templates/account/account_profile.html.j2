@@ -19,18 +19,21 @@
         </div>
         <h1>Account detail</h1>
     </div>
-    <form id="account_profile_form" method="post" action="" class="form-horizontal" enctype="multipart/form-data">{% csrf_token %}
     <div class="row">
         <div class="col-sm-2">
             {% if account.image %}
-            <img src="{{ account.image.url }}" class="img-circle" width="150" height="150"> </div>
+            <img src="{{ account.image.url }}" class="img-circle" width="150" height="150">
+            {% else %}
+            <img src="{% static "img/anonymous_user.png" %}" class="img-circle" width="150" height="150">
             {% endif %}
+         </div>
         <div class="col-sm-10">
             <h5> {{ account.name}} ( {{ account.email }} ) </h5>
             <hr />
             <pre class="well">{{ account.bio }}</pre>
         </div>
     </div>
+    <hr/>
     <div class="row">
         <div class="col-sm-12">
             <li data-id="{{ account.pk }}" data-type="account" data-action="like" title="Like">
@@ -43,7 +46,6 @@
             </li>
         </div>
     <div>
-    </form>
 </div>
 {% endblock %}
 
