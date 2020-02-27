@@ -58,11 +58,11 @@
             -->
             {% if user.is_authenticated %}
               {% if user.is_staff %}
-              <li><a href="{% url 'notice-list' %}" class="nav_linker">공지사항</a></li>
+              <!--<li><a href="{% url 'notice-list' %}" class="nav_linker">공지사항</a></li>-->
               {% endif %}
               <li><a href="{% url 'pet-list' userid=user.pk %}">개체관리</a></li>
             {% endif %}
-            <li><a href="{% url 'photo-list' %}">갤러리</a></li>
+            <!--<li><a href="{% url 'photo-list' %}">갤러리</a></li>-->
           </ul>
             <div id="navbar" class="collapse navbar-collapse">
               <ul class="nav navbar-nav navbar-right">
@@ -90,7 +90,7 @@
     <footer class="footer">
       <div class="container">
         <p class="text-muted">
-            Reptopia developed by digituno. Since 2020.
+            Reptopia developed by digituno. Since 2020. Contact by <i class="fa fa-envelope"></i> <!--<i class="fab fa-blogger"></i> --> <i class="fab fa-facebook-square"></i> <i class="fab fa-instagram-square"></i>.
         </p>
       </div>
     </footer>

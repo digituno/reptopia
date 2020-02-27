@@ -89,5 +89,14 @@ class EmailCheckTemplateView(View):
 
 class NameCheckTemplateView(View):
     def get(self, request):
-        user = Account.objects.filter(name=request.GET.get('item'))
-        return HttpResponse(not user.exists())
+        rtn_value = False
+        item = request.GET.get('item').upper()
+        if item.find("REPTOPIA") > 0 or item.find("ADMIN") > 0 or \
+                item.find("ROOT") > 0 or item.find("렙토피아") > 0 or \
+                item.find("관리자"):
+            rtn_value = False
+        else:
+            user = Account.objects.filter(name=request.GET.get('item'))
+            rtn_value = not user.exists() 
+
+        return HttpResponse(rtn_value)

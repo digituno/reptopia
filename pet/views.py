@@ -166,7 +166,6 @@ class SpeciesSearchTemplateView(View):
     def get(self, request):
         q = request.GET.get('term', '').capitalize()
         logger.debug(q)
-        # animal_dict_list = AnimalDictionary.objects.filter(Q(common_name_kor_icontains=item)|Q(common_name_kor_icontains=item))
         search_qs = AnimalDictionary.objects.filter(common_name_kor__icontains=q)
 
         results  = []
