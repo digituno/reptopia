@@ -19,6 +19,7 @@
         </div>
         <h1>Account detail</h1>
     </div>
+    <form id="account_profile_form" method="post" action="" class="form-horizontal" enctype="multipart/form-data">{% csrf_token %}
     <div class="row">
         <div class="col-sm-2">
             {% if user.image %}
@@ -30,5 +31,70 @@
             <pre class="well">{{ user.bio }}</pre>
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <li data-id="{{ user.pk }}" data-type="account" data-action="like" title="Like">
+                <span class="glyphicon glyphicon-thumbs-up"></span>
+                <span data-count="like">{{ like_obj.votes.likes.count }}</span>
+            </li>
+            <li data-id="{{ user.pk }}" data-type="account" data-action="dislike" title="Dislike">
+                <span class="glyphicon glyphicon-thumbs-down"></span>
+                <span data-count="dislike">{{ like_obj.votes.dislikes.count }}</span>
+            </li>
+        </div>
+    </div>
+    </form>
 </div>
+{% endblock %}
+
+{% block script_content %}
+<script>
+    function like()
+    {
+        var like = $(this);
+        var type = like.data('type');
+        var pk = like.data('id');
+        var action = like.data('action');
+        var dislike = like.next();
+
+        $.ajax({
+            url : "/" + action + "/" + type + "/" + pk,
+            data : { 'obj' : pk },
+
+            success : function (json) {
+                like.find("[data-count='like']").text(json.like_count);
+                dislike.find("[data-count='dislike']").text(json.dislike_count);
+            }
+        });
+
+        return false;
+    }
+
+    function dislike()
+    {
+        var dislike = $(this);
+        var type = dislike.data('type');
+        var pk = dislike.data('id');
+        var action = dislike.data('action');
+        var like = dislike.prev();
+
+        $.ajax({
+            url : "/" + action + "/" + type + "/" + pk,
+            data : { 'obj' : pk },
+
+            success : function (json) {
+                dislike.find("[data-count='dislike']").text(json.dislike_count);
+                like.find("[data-count='like']").text(json.like_count);
+            }
+        });
+
+        return false;
+    }
+
+    // Connecting Handlers
+    $(function() {
+        $('[data-action="like"]').click(like);
+        $('[data-action="dislike"]').click(dislike);
+    });
+</script>
 {% endblock %}

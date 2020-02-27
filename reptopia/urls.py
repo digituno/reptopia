@@ -27,6 +27,7 @@ urlpatterns = [
     path('bbs/', include('bbs.urls')),
     path('gallery/', include('gallery.urls')),
     path('', include('home.urls')),
+    path('', include('social.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('tags/', include('taggit_templatetags2.urls')),
 ]

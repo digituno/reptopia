@@ -8,16 +8,16 @@ from .models import Like
 
 
 class LikesView(View):
-    model = None 
+    model = None
     like_type = None
 
     # https://evileg.com/en/post/246/
 
-    def post(self, request, pk):
+    def get(self, request, pk):
         obj = self.model.objects.get(pk=pk)
         # GenericForeignKey does not support get_or_create
         try:
-            likedlike = Like.objects.get(content_type=ContentType.objects.get_for_model(obj), object_id=obj.id, user=request.user)
+            likedislike = Like.objects.get(content_type=ContentType.objects.get_for_model(obj), object_id=obj.id, user=request.user)
             if likedislike.like is not self.like_type:
                 likedislike.like = self.like_type
                 likedislike.save(update_fields=['like'])
