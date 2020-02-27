@@ -35,14 +35,14 @@
         <div class="col-sm-12">
             <li data-id="{{ user.pk }}" data-type="account" data-action="like" title="Like">
                 <span class="glyphicon glyphicon-thumbs-up"></span>
-                <span data-count="like">{{ like_obj.votes.likes.count }}</span>
+                <span data-count="like">{{ user.likes.likes.count }}</span>
             </li>
             <li data-id="{{ user.pk }}" data-type="account" data-action="dislike" title="Dislike">
                 <span class="glyphicon glyphicon-thumbs-down"></span>
-                <span data-count="dislike">{{ like_obj.votes.dislikes.count }}</span>
+                <span data-count="dislike">{{ user.likes.dislikes.count }}</span>
             </li>
         </div>
-    </div>
+    <div>
     </form>
 </div>
 {% endblock %}
@@ -59,6 +59,7 @@
 
         $.ajax({
             url : "/" + action + "/" + type + "/" + pk,
+            //type : 'POST',
             data : { 'obj' : pk },
 
             success : function (json) {
@@ -80,6 +81,7 @@
 
         $.ajax({
             url : "/" + action + "/" + type + "/" + pk,
+            //type : 'POST',
             data : { 'obj' : pk },
 
             success : function (json) {
