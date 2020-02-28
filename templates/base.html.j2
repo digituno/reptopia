@@ -56,10 +56,8 @@
               </ul>
             </li>
             -->
+              <li><a href="{% url 'post-list' %}" class="nav_linker">공지사항</a></li>
             {% if user.is_authenticated %}
-              {% if user.is_staff %}
-              <!--<li><a href="{% url 'notice-list' %}" class="nav_linker">공지사항</a></li>-->
-              {% endif %}
               <li><a href="{% url 'pet-list' userid=user.pk %}">개체관리</a></li>
             {% endif %}
             <!--<li><a href="{% url 'photo-list' %}">갤러리</a></li>-->
