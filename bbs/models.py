@@ -27,4 +27,4 @@ class Post(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
 
     def get_absolute_url(self):
-        return reverse('post-detail', kwargs={'pk': self.pk})
+        return reverse('board-detail', kwargs={'pk': self.pk, 'bbs_type': self.board_type.pk })

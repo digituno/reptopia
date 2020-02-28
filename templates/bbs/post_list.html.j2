@@ -7,29 +7,31 @@
     <div class="page-header">
         <div class="pull-right">
             <div class="form-inline">
-                <a href="{% url 'post-add' %}" style="margin-left:10px;">
+                {% if user.is_authenticated %}
+                <a href="{% url 'board-add' bbs_type=bbs_type.pk %}" style="margin-left:10px;">
                     <button type="button" class="btn btn-default">등록하기</button>
                 </a>
+                {% endif %}
             </div>
         </div>
-        <h1>BBS</h1>
+        <h1>{{ bbs_type.item_name }}</h1>
     </div>
     <div class="table-responsive">
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th scope="col" class="d-none d-sm-table-cell">#</th>
-                    <th scope="col">Date</th>
-                    <th scope="col" class="d-none d-sm-table-cell">Title</th>
-                    <th scope="col">Author</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">등록일자</th>
+                    <th scope="col">작성자</th>
                 </tr>
             </thead>
             <tbody>
             {% for post in post_list %}
                 <tr>
                     <th scope="row">{{ forloop.counter }}</th>
+                    <td><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></td>
                     <td>{{ post.pub_date}}</a></td>
-                    <td><a href="{% url 'post-detail' pk=post.pk %}">{{ post.title }}</a></td>
                     <td>{{ post.author.name}}</td>
                 </tr>
             {% endfor %}

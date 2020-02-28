@@ -21,9 +21,16 @@ class PostListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        # bbs_type = get_object_or_404(Dictionary, pk=self.kwargs['bbstype'])
-        # return Post.objects.filter(board_type_id=bbs_type)
-        return Post.objects.all()
+        bbs_type = get_object_or_404(Dictionary, pk=self.kwargs['bbs_type'])
+        return Post.objects.filter(board_type_id=bbs_type)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        bbs_type = get_object_or_404(Dictionary, pk=self.kwargs['bbs_type'])
+        context['bbs_type'] = bbs_type
+
+        return context
+
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     login_url = settings.LOGIN_URL
@@ -33,7 +40,16 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        form.instance.board_status = get_object_or_404(Dictionary, pk=210)
+        form.instance.board_type = get_object_or_404(Dictionary, pk=self.kwargs['bbs_type'])
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        bbs_type = get_object_or_404(Dictionary, pk=self.kwargs['bbs_type'])
+        context['bbs_type'] = bbs_type
+
+        return context
 
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):
@@ -42,15 +58,23 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
     form_class = PostCreateForm
     template_name = 'bbs/post_form.html.j2'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        bbs_type = get_object_or_404(Dictionary, pk=self.kwargs['bbs_type'])
+        context['bbs_type'] = bbs_type
+
+        return context
+
 
 class PostDetailView(DetailView):
     model = Post
     template_name = 'bbs/post_detail.html.j2'
 
-
 class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
-    success_url = reverse_lazy('post-list')
+
+    def get_success_url(self):
+        return reverse_lazy( 'board-list', kwargs={'bbs_type': self.kwargs['bbs_type']})
 
     def get(self, request, *args, **kwargs):
         return self.post(request, *args, **kwargs)
