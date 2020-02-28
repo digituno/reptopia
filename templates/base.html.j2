@@ -90,7 +90,10 @@
     <footer class="footer">
       <div class="container">
         <p class="text-muted">
-            Reptopia developed by digituno. Since 2020. Contact by <i class="fa fa-envelope"></i> <!--<i class="fab fa-blogger"></i> --> <i class="fab fa-facebook-square"></i> <i class="fab fa-instagram-square"></i>.
+            Reptopia developed by digituno. Since 2020. Contact by 
+            <i class="fa fa-envelope"></i> <!--<i class="fab fa-blogger"></i> --> 
+            <i class="fab fa-facebook-square"></i> 
+            <i class="fab fa-instagram-square" id="instagram"></i>.
         </p>
       </div>
     </footer>
@@ -101,6 +104,14 @@
     <script src="{% static 'lib/bootstrap/js/bootstrap.min.js' %}"></script>
 
     {% block script_content %}
+        <script>
+            $(document).ready(function() {
+                $('#instagram').click(function(){
+                    window.location = 'http://www.instagram.com/reptopia.kr';
+                });
+
+            });
+        </script>
     {% endblock %}
   </body>
 </html>
