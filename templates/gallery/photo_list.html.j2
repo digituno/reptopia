@@ -9,6 +9,7 @@
 <!-- Begin page content -->
 <div class="container">
     <div class="page-header">
+        {% if user.is_authenticated %}
         <div class="pull-right">
             <div class="form-inline">
                 <a href="{% url 'photo-add' %}" style="margin-left:10px;">
@@ -16,7 +17,8 @@
                 </a>
             </div>
         </div>
-        <h1>Gallery</h1>
+        {% endif %}
+        <h1>갤러리</h1>
     </div>
 
     <div class="row text-center text-lg-left zoom-gallery">
