@@ -12,8 +12,10 @@ from django.db import transaction
 from django.shortcuts import redirect, get_object_or_404
 from django.conf import settings
 from django.http import HttpResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import AccountCreationForm, AccountChangeForm
 from .models import Account
+from pet.models import Pet
 import logging
 import json
 
@@ -45,10 +47,27 @@ class SignupView(CreateView):
         return redirect('signup_done')
 
 
-class AccountDetailView(LoginRequiredMixin, DetailView):
-    login_url = settings.LOGIN_URL
+class AccountDetailView(DetailView):
     model = Account
     template_name = 'account/account_profile.html.j2'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        profile_user = get_object_or_404(Account, pk=self.kwargs['pk']) 
+        pet_list_all = Pet.objects.filter(owner=profile_user) 
+
+        paginator = Paginator(pet_list_all, 10)
+        page = self.request.GET.get('page')
+        try:
+            pet_list = paginator.page(page)
+        except PageNotAnInteger:
+            pet_list = paginator.page(1)
+        except EmptyPage:
+            pet_list = paginator.page(paginator.num_pages)
+
+        context['pet_list'] = pet_list
+
+        return context
 
 class AccountUpdateView(LoginRequiredMixin, UpdateView):
     login_url = settings.LOGIN_URL
