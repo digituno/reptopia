@@ -3,8 +3,6 @@
 {% load taggit_templatetags2_tags %}
 
 {% block stylesheet %}
-    <link rel="stylesheet" type="text/css" href="{% static 'lib/magnific-popup/css/magnific-popup.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'lib/magnific-popup/css/magnific-util.min.css' %}" />
     <link href="{% static 'css/carousel.css' %}" rel="stylesheet">
     <style>
         #chartdiv {
@@ -57,7 +55,7 @@
     <div class="row">
         <div class="col-4">
             <div class="card text-white bg-primary">
-                <div class="card-header"><h3 class="text-white"><i class="fa fa-angle-right"></i> 등록된 사육자</h3></div>
+                <div class="card-header"><h4 class="text-white"> 등록된 사육자</h4></div>
                 <div class="card-body">
                     <p class="card-text" style="text-align:right;">{{ account_count }} 명</p>
                 </div>
@@ -65,7 +63,7 @@
         </div>
         <div class="col-4">
             <div class="card text-white bg-success">
-                <div class="card-header"><h3 class="text-white"><i class="fa fa-angle-right"></i> 등록된 개체</h3></div>
+                <div class="card-header"><h4 class="text-white">등록된 개체</h4></div>
                 <div class="card-body">
                     <p class="card-text" style="text-align:right;">{{ pet_count }} 마리</p>
                 </div>
@@ -73,7 +71,7 @@
         </div>
         <div class="col-4">
             <div class="card text-white bg-dark">
-                <div class="card-header"><h3 class="text-white"><i class="fa fa-angle-right"></i> 등록된 사육일지</h3></div>
+                <div class="card-header"><h4 class="text-white">등록된 사육일지</h4></div>
                 <div class="card-body">
                     <p class="card-text" style="text-align:right;">{{ care_count }} 건</p>
                 </div>
@@ -84,7 +82,7 @@
     <div class="row featurette">
         <div class="col-md-5">
            <h2><span class="text-danger">REPT</span>OPIA <span class="text-muted"> 태그 구름</span></h2>
-           <p class="lead">REPTOPIA 에서 현재 사용 중인 태그모음입니다. 태그를 클릭하면 해당 게시물을 볼 수 있습니다.</p>
+           <p class="lead"><span class="text-danger">REPT</span<OPIA 에서 현재 사용 중인 태그모음입니다. 태그를 클릭하면 해당 게시물을 볼 수 있습니다.</p>
         </div>
         <div class="col-md-7">
             <div id="chartdiv"></div>
