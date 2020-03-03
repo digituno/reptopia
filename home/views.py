@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from datetime import datetime
-# from bbs.models import Notice
+from django.db import transaction
+from dal import autocomplete
+from taggit.models import Tag
 from account.models import Account
 from pet.models import Pet, Care
 import logging
@@ -27,5 +29,17 @@ class IndexView(TemplateView):
         context['pet_count'] = Pet.objects.count()
         context['care_count'] = Care.objects.count()
 
-
         return context
+
+
+class TagAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        if not self.request.user.is_authenticated:
+            return Tag.objects.none()
+
+        qs = Tag.objects.all()
+
+        if self.q:
+            qs = qs.filter(name__istartswith=self.q)
+
+        return qs
