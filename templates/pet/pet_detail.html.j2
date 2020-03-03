@@ -19,7 +19,7 @@
                         <button type="button" class="btn btn-danger">삭제</button>
                     </a>
                 {% endif %}
-                <a href="{% url 'pet-list' userid=user.pk %}">
+                <a href="{% url 'pet-list' userid=pet.owner.pk %}">
                     <button type="button" class="btn btn-default">목록으로</button>
                 </a>
             </div>
@@ -53,9 +53,11 @@
     <div class="page-header">
         <div class="pull-right">
             <div class="btn-group" role="group" aria-label="Basic example">
-                <a href="{% url 'care-add' userid=pet.owner.pk petid=pet.pk %}">
-                    <button type="button" class="btn btn-success">일지등록</button>
-                </a>
+                {% if user.is_authenticated and user == pet.owner %}
+                    <a href="{% url 'care-add' userid=pet.owner.pk petid=pet.pk %}">
+                        <button type="button" class="btn btn-success">일지등록</button>
+                    </a>
+                {% endif %}
             </div>
         </div>
         <h3>사육일지</h3>

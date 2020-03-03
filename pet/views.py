@@ -100,8 +100,7 @@ class PetDeleteView(LoginRequiredMixin, View):
         return redirect('pet-list', userid=userid)
 
 
-class PetDetailView(LoginRequiredMixin, DetailView):
-    login_url = settings.LOGIN_URL
+class PetDetailView(DetailView):
     model = Pet
     template_name = 'pet/pet_detail.html.j2'
 

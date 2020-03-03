@@ -39,10 +39,12 @@
                 <span class="glyphicon glyphicon-thumbs-up"></span>
                 <span data-count="like">{{ account.likes.likes.count }}</span>
             </li>
+            <!--
             <li data-id="{{ account.pk }}" data-type="account" data-action="dislike" title="Dislike">
                 <span class="glyphicon glyphicon-thumbs-down"></span>
                 <span data-count="dislike">{{ account.likes.dislikes.count }}</span>
             </li>
+            -->
         </div>
     </div>
     <hr class="featurette-divider">
@@ -151,8 +153,10 @@
 
     // Connecting Handlers
     $(function() {
-        $('[data-action="like"]').click(like);
-        $('[data-action="dislike"]').click(dislike);
+        {% if user.is_authenticated %}
+            $('[data-action="like"]').click(like);
+            /*$('[data-action="dislike"]').click(dislike);*/
+        {% endif %}
     });
 </script>
 {% endblock %}
