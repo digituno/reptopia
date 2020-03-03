@@ -1,7 +1,9 @@
 from django.views.generic import ListView, CreateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
 from django.conf import settings
 from django.urls import reverse_lazy
+from django.db import transaction
 from .models import Photo
 from .forms import PhotoCreateForm
 import reptopia
@@ -28,9 +30,18 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
     template_name = 'gallery/photo_form.html.j2'
 
     def form_valid(self, form):
-        form.instance.author = self.request.user
         return super().form_valid(form)
 
+    @transaction.atomic
+    def form_valid(self, form):
+        if form.is_valid():
+            form.instance.author = self.request.user
+            photo = form.save(commit=False)
+            photo.save()
+            form.save_m2m()
+            return redirect(photo)
+        else:
+            return super().form_invalid(form)
 
 class PhotoDeleteView(LoginRequiredMixin, DeleteView):
     model = Photo
