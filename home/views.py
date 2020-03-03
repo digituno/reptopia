@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from datetime import datetime
-from django.db import transaction
 from dal import autocomplete
 from taggit.models import Tag
 from account.models import Account
