@@ -52,23 +52,31 @@
     </div>
     <hr class="featurette-divider">
     -->
+    <hr class="featurette-divider">
+
     <div class="row">
-        <div class="col-sm-4">
-            <h2><i class="fa fa-angle-right"></i> 등록된 사육자</h2>
-            <div style="text-align: center;">
-                <img src="holder.js/200x200?text={{ account_count }}" class="img-circle"/>
+        <div class="col-4">
+            <div class="card text-white bg-primary">
+                <div class="card-header"><h3 class="text-white"><i class="fa fa-angle-right"></i> 등록된 사육자</h3></div>
+                <div class="card-body">
+                    <p class="card-text" style="text-align:right;">{{ account_count }} 명</p>
+                </div>
             </div>
         </div>
-        <div class="col-sm-4">
-            <h2><i class="fa fa-angle-right"></i> 등록된 개체</h2>
-            <div style="text-align: center;">
-                <img src="holder.js/200x200?text={{ pet_count }}" class="img-circle"/>
+        <div class="col-4">
+            <div class="card text-white bg-success">
+                <div class="card-header"><h3 class="text-white"><i class="fa fa-angle-right"></i> 등록된 개체</h3></div>
+                <div class="card-body">
+                    <p class="card-text" style="text-align:right;">{{ pet_count }} 마리</p>
+                </div>
             </div>
         </div>
-        <div class="col-sm-4">
-            <h2><i class="fa fa-angle-right"></i> 등록된 사육일지</h2>
-            <div style="text-align: center;">
-                <img src="holder.js/200x200?text={{ care_count }}" class="img-circle"/>
+        <div class="col-4">
+            <div class="card text-white bg-dark">
+                <div class="card-header"><h3 class="text-white"><i class="fa fa-angle-right"></i> 등록된 사육일지</h3></div>
+                <div class="card-body">
+                    <p class="card-text" style="text-align:right;">{{ care_count }} 건</p>
+                </div>
             </div>
         </div>
     </div>
