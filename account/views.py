@@ -71,13 +71,17 @@ class AccountDetailView(DetailView):
 
         context['pet_list'] = pet_list
 
-
+        # profile 유저에 login 유저가 좋아요를 눌렀는지 여부 확인
         try:
-            like = Like.objects.get(content_type=ContentType.objects.get_for_model(profile_user), user=self.request.user)
+            likedprofileuser = Like.objects.get(content_type=ContentType.objects.get_for_model(profile_user), object_id=profile_user.id, user=self.request.user)
         except ObjectDoesNotExist:
-            like = None
+            likedprofileuser = None
+        
+        userlike = Like.objects.filter(content_type=ContentType.objects.get_for_model(profile_user),  user=profile_user)
 
-        context['account_like'] = like
+        context['likedprofileuser'] = likedprofileuser
+        context['userlike'] = userlike 
+
 
         return context
 
