@@ -137,9 +137,7 @@ class CareCreateView(LoginRequiredMixin, CreateView):
             feeding.prey_weight = form.cleaned_data['prey_weight']
             feeding.prey_quantity = form.cleaned_data['prey_quantity']
             feeding.save()
-
             form.instance.feeding = feeding
-
 
         return super().form_valid(form)
 

@@ -47,7 +47,7 @@ class CareCreateForm(ModelForm):
         self.fields['date'].widget.attrs.update({'class': 'form-control', 'readonly': 'true'})
         self.fields['pet'].widget.attrs.update({'class': 'form-control'})
         self.fields['type'].widget.attrs.update({'class': 'form-control'})
-        self.fields['weight'].widget.attrs.update({'class': 'form-control'})
+        self.fields['weight'].widget.attrs.update({'class': 'form-control', 'placeholder': '개체의 체중을 그램(gram) 단위로 숫자만 입력해주세요.'})
         self.fields['desc'].widget.attrs.update({'class': 'form-control'})
         self.fields['image'].widget.attrs.update({'class': 'form-control'})
 
@@ -84,10 +84,12 @@ class CareCreateForm(ModelForm):
         elif type == 2:
             if prey_type is None:
                 self.add_error('prey_type', "먹이 유형이 선택되지 않았습니다.")
+                raise forms.ValidationError("먹이주기 사육일지에 필수 항목이 누락되었습니다.")
             if prey_size is None:
                 self.add_error('prey_type', "먹이의 크기가 선택되지 않았습니다.")
+                raise forms.ValidationError("먹이주기 사육일지에 필수 항목이 누락되었습니다.")
             if prey_quantity is None:
                 self.add_error('prey_type', "먹이 수량은 필수 입력 항목입니다.")
-            raise forms.ValidationError("먹이주기 사육일지에 필수 항목이 누락되었습니다.")
+                raise forms.ValidationError("먹이주기 사육일지에 필수 항목이 누락되었습니다.")
 
         return cleaned_data
