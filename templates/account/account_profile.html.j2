@@ -13,9 +13,7 @@
                         <button type="button" class="btn btn-primary">정보수정</button>
                     </a>
                 {% endif %}
-                <a href="{% url 'index' %}">
-                    <button type="button" class="btn btn-warning">돌아가기</button>
-                </a>
+                <button type="button" class="btn btn-warning" onclick="history.go(-1)">돌아가기</button>
             </div>
         </div>
     </div>
@@ -35,8 +33,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            <li data-id="{{ account.pk }}" data-type="account" data-action="like" title="Like">
+        <div class="col-2">
+            <span data-id="{{ account.pk }}" data-type="account" data-action="like" title="Like">
                 {% for like in account.likes.likes %}
                     {% if like.user == user %}
                         <i class="fa fa-heart"></i>
@@ -45,7 +43,7 @@
                     {% endif %}
                 {% endfor %}
                 <span data-count="like">{{ account.likes.likes.count }}</span>
-            </li>
+            </span>
             <!--
             <li data-id="{{ account.pk }}" data-type="account" data-action="dislike" title="Dislike">
                 <span class="glyphicon glyphicon-thumbs-down"></span>
@@ -53,9 +51,13 @@
             </li>
             -->
         </div>
-        <div class="col-sm-10">
+        <div class="col-10">
             {% for like in account.likes.likes %}
-                {{ like.user.name }}, 
+                {% if like.user.image %}
+                    <img src="{{ like.user.image.url }}" class="img-circle" width="20" height="20" title="{{ like.user.name }}">
+                {% else %}
+                    <img src="{% static "img/anonymous_user.png" %}" class="img-circle" width="20" height="20" title="{{ like.user.name }}">
+                {% endif %}
             {% endfor %}
         </div>
     </div>
@@ -65,20 +67,20 @@
             <thead>
                 <tr>
                     <th scope="col" class="d-none d-sm-table-cell">#</th>
-                    <th scope="col">종이름</th>
-                    <th scope="col" class="d-none d-sm-table-cell">성별</th>
                     <th scope="col">펫이름</th>
+                    <th scope="col" class="d-none d-sm-table-cell">성별</th>
+                    <th scope="col">종이름</th>
                     <th scope="col" class="d-none d-sm-table-cell">펫사진</th>
                 </tr>
             </thead>
             <tbody>
                 {% for pet in pet_list %}
                     <tr>
-                        <th scope="row">{{ forloop.counter }}</th>
-                        <td><a href="{% url 'pet-detail' userid=pet.owner.pk pk=pet.pk %}">{{ pet.species.common_name_kor}}</a></td>
-                        <td>{{ pet.gender.item_name }}</td>
-                        <td>{{ pet.name}}</td>
-                        <td>
+                        <th class="d-none d-sm-table-cell" scope="row">{{ forloop.counter }}</th>
+                        <td><a href="{% url 'pet-detail' userid=pet.owner.pk pk=pet.pk %}">{{ pet.name}}</a></td>
+                        <td class="d-none d-sm-table-cell">{{ pet.gender.item_name }}</td>
+                        <td>{{ pet.species.common_name_kor}}</td>
+                        <td class="d-none d-sm-table-cell">
                             {% if pet.image %}
                                 <a class="image-popup-no-margins" href="{{ pet.image.url }}"><img src="{{ pet.image.url }}" width="75" height="75"></a>
                             {% endif %}
