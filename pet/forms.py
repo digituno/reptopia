@@ -56,6 +56,18 @@ class CareCreateForm(ModelForm):
         self.fields['prey_weight'].widget.attrs.update({'class': 'form-control', 'placeholder': '그램(gram) 단위로 숫자만 입력해주세요.'})
         self.fields['prey_quantity'].widget.attrs.update({'class': 'form-control', 'placeholder': '먹이 수량을 숫자로 입력해주세요.'})
 
+
+        self.fields['date'].label = "사육일자"
+        self.fields['type'].label = "일지유형"
+        self.fields['weight'].label = "체중"
+        self.fields['desc'].label = "기타"
+        self.fields['image'].label = "사육사진"
+
+        self.fields['prey_type'].label = "먹이유형"
+        self.fields['prey_size'].label = "먹이크기"
+        self.fields['prey_weight'].label = "먹이중량"
+        self.fields['prey_quantity'].label = "먹이수량"
+
     def clean(self):
         cleaned_data = super(CareCreateForm, self).clean()
 

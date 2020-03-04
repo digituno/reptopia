@@ -46,8 +46,8 @@
         {% csrf_token %}
         <input type="hidden" name="next" value="" />
         <div class="form-group">
-            <label for="cname" class="col-sm-2 control-label">{{ form.date.label_tag }}</label>
-            <div class="col-sm-10">
+            <label for="cname" >{{ form.date.label_tag }}</label>
+            <div >
                 {% if form.date.errors %}
                     <div class="alert alert-danger alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -64,8 +64,8 @@
         </div>
 
         <div class="form-group">
-            <label for="cname" class="col-sm-2 control-label">{{ form.type.label_tag }}</label>
-            <div class="col-sm-10">
+            <label for="cname" >{{ form.type.label_tag }}</label>
+            <div >
                 {% if form.type.errors %}
                     <div class="alert alert-danger alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -77,8 +77,8 @@
         </div>
 
         <div class="form-group" id="weight_layer" style="display: none;">
-            <label for="cname" class="col-sm-2 control-label">{{ form.weight.label_tag }}</label>
-            <div class="col-sm-10">
+            <label for="cname" >{{ form.weight.label_tag }}</label>
+            <div >
                 {% if form.weight.errors %}
                     <div class="alert alert-danger alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -90,8 +90,8 @@
         </div>
 
         <div class="form-group" id="prey_layer" style="display: none;">
-            <label for="cname" class="col-sm-2 control-label">{{ form.prey_type.label_tag }}</label>
-            <div class="col-sm-10">
+            <label for="cname" >{{ form.prey_type.label_tag }}</label>
+            <div >
                 {% if form.prey_type.errors %}
                     <div class="alert alert-danger alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -105,16 +105,9 @@
             </div>
         </div>
 
-        <div class="form-group" id="id_type_detail" style="display: none;">
-            <label id="id_type_detail_label" for="cname" class="col-sm-2 control-label"></label>
-            <div id="id_type_detail_field" class="col-sm-10">
-
-            </div>
-        </div>
-
         <div class="form-group">
-            <label for="cname" class="col-sm-2 control-label">{{ form.desc.label_tag }}</label>
-            <div class="col-sm-10">
+            <label for="cname" >{{ form.desc.label_tag }}</label>
+            <div >
                 {% if form.desc.errors %}
                     <div class="alert alert-danger alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -126,8 +119,8 @@
         </div>
 
         <div class="form-group">
-            <label for="cname" class="col-sm-2 control-label">{{ form.image.label_tag }}</label>
-            <div class="col-sm-10">
+            <label for="cname" >{{ form.image.label_tag }}</label>
+            <div >
                 {% if form.image.errors %}
                     <div class="alert alert-danger alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -147,9 +140,9 @@
             </div>
         </div>
 
-        <div class="form-group last">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button id="btn_submit" type="button" class="btn btn-success">등록하기</button>
+        <div class="row justify-content-center">
+            <div class="btn-group">
+                <button id="btn_submit" type="button" class="btn btn-default">등록하기</button>
                 <button id="btn_cancle" type="button" class="btn btn-default">돌아가기</button>
             </div>
         </div>
@@ -180,26 +173,9 @@
         }
 
         $('#{{ form.type.id_for_label}}').change(function(){
+            initCareDetail();
             // 먹이주기
             if ($(this).val() == '2') {
-                /*
-                $('#id_type_detail_label').text($('#{{ form.type.id_for_label}} option:selected').text() + ':')
-                var _select = '<select id="id_prey_type" name="prey_type" class="form-control">';
-                _select += '<option>---------</option>';
-                _select += '</select>';
-                _select += '<select id="id_prey_size" name="prey_size" class="form-control">';
-                _select += '<option>---------</option>';
-                _select += + "</select>";
-
-                var _text = '<input type="text" name="prey_weight" maxlength="100" class="form-control" id="id_prey_weight" placeholder="먹이무게(그램)">';
-                _text += '<input type="text" name="prey_quantity" maxlength="100" class="form-control" id="id_prey_quantity" placeholder="먹이갯수">';
-
-                $('#id_type_detail_field').html(_select + _text);
-                setAjaxData('{{ pet.species.eating.id}}', $('#id_prey_type'));
-                $('#id_prey_type').change(function() {
-                    setAjaxData($(this).val(),$('#id_prey_size'));
-                });
-                */
                 setAjaxData('{{ pet.species.eating.id}}', $('#id_prey_type'));
                 $('#id_prey_type').change(function() {
                     setAjaxData($(this).val(),$('#id_prey_size'));
@@ -210,10 +186,19 @@
             else if ($(this).val() == '6') {
                 $('#weight_layer').show()
             }
-            else {
-                $('#id_type_detail').hide()
-            }
         });
+
+        var initCareDetail = function () {
+            // 사육일지 상세 내역 숨기기
+            $('#weight_layer').hide()
+            $('#prey_layer').hide()
+
+            // 체중초기화
+            $('#id_weight').val('');
+            // 먹이유형 초기화
+            $('#id_prey_type').val('');
+            $('#id_prey_size').val('');
+        };
 
         $('#{{ form.pet.id_for_label}}').val('{{ pet.id }}');
 
