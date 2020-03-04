@@ -4,22 +4,23 @@
 {% block content %}
 <!-- Begin page content -->
 <div class="container">
-    <div class="page-header">
-        <div class="pull-right">
-            <div class="btn-group" role="group" aria-label="Basic example">
+    <div class="clearfix">
+        <h1 class="float-left">사용자 정보</h1>
+        <div class="float-right">
+            <div class="btn-group" role="group"> 
                 {% if account == user %}
                     <a href="{% url 'account-update' pk=account.pk %}">
-                        <button type="button" class="btn btn-default">정보수정</button>
+                        <button type="button" class="btn btn-">정보수정</button>
                     </a>
                 {% endif %}
                 <a href="{% url 'index' %}">
-                    <button type="button" class="btn btn-default">돌아가기</button>
+                    <button type="button" class="btn btn-warning">돌아가기</button>
                 </a>
             </div>
         </div>
-        <h1>사용자 정보</h1>
     </div>
-    <div class="row">
+    <hr>
+   <div class="row">
         <div class="col-sm-2">
             {% if account.image %}
             <img src="{{ account.image.url }}" class="img-circle" width="150" height="150">
@@ -28,15 +29,21 @@
             {% endif %}
          </div>
         <div class="col-sm-10">
-            <h5> {{ account.name}} ( {{ account.email }} ) </h5>
+            <h5> {{ account.name}} </h5>
             <br/>
             <pre class="well">{{ account.bio | default_if_none:"" }}</pre>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-2">
             <li data-id="{{ account.pk }}" data-type="account" data-action="like" title="Like">
-                <span class="glyphicon glyphicon-thumbs-up"></span>
+                {% for like in account.likes.likes %}
+                    {% if like.user == user %}
+                        <i class="fa fa-heart"></i>
+                    {% else %}
+                        <i class="far fa-heart"></i>
+                    {% endif %}
+                {% endfor %}
                 <span data-count="like">{{ account.likes.likes.count }}</span>
             </li>
             <!--
@@ -46,8 +53,13 @@
             </li>
             -->
         </div>
+        <div class="col-sm-10">
+            {% for like in account.likes.likes %}
+                {{ like.user.name }}, 
+            {% endfor %}
+        </div>
     </div>
-    <hr class="featurette-divider">
+    <hr>
     <div class="table-responsive">
         <table class="table table-hover">
             <thead>
