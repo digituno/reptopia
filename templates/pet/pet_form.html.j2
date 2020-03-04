@@ -34,7 +34,7 @@
         <h1 class="float-left">개체 등록하기</h1>
     </div>
     <hr>
-    <form id="pet_form" method="post" action="" class="form-horizontal" enctype="multipart/form-data" data-species-autocomplete_url="{% url 'ajax-search-species' %}">
+    <form id="pet_form" method="post" action="" enctype="multipart/form-data" data-species-autocomplete_url="{% url 'ajax-search-species' %}">
         {% csrf_token %}
         <input type="hidden" name="next" value="" />
         <div class="form-group">
