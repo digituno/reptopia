@@ -29,10 +29,11 @@
 {% endblock %}
 
 {% block content %}
- <div class="container">
-    <div class="page-header">
-        <h1>개체 등록하기</h1>
+<div class="container">
+    <div class="clearfix">
+        <h1 class="float-left">개체 등록하기</h1>
     </div>
+    <hr>
     <form id="pet_form" method="post" action="" class="form-horizontal" enctype="multipart/form-data" data-species-autocomplete_url="{% url 'ajax-search-species' %}">
         {% csrf_token %}
         <input type="hidden" name="next" value="" />
@@ -249,7 +250,7 @@
         });
 
         $('#btn_cancle').click( function() {
-            window.location = '{% url 'pet-list' userid=user.pk %}';
+            history.go(-1);
         });
     });
 </script>
