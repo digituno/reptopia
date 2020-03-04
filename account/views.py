@@ -4,18 +4,22 @@ from django.urls import reverse_lazy
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.core.mail import EmailMessage
+from django.contrib.contenttypes.models import ContentType
 from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes, force_text
 from django.db import transaction
 from django.shortcuts import redirect, get_object_or_404
 from django.conf import settings
 from django.http import HttpResponse
+from django.core.mail import EmailMessage
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.exceptions import ObjectDoesNotExist
+
 from .forms import AccountCreationForm, AccountChangeForm
 from .models import Account
 from pet.models import Pet
+from social.models import Like
 import logging
 import json
 
@@ -53,8 +57,8 @@ class AccountDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        profile_user = get_object_or_404(Account, pk=self.kwargs['pk']) 
-        pet_list_all = Pet.objects.filter(owner=profile_user) 
+        profile_user = get_object_or_404(Account, pk=self.kwargs['pk'])
+        pet_list_all = Pet.objects.filter(owner=profile_user)
 
         paginator = Paginator(pet_list_all, 10)
         page = self.request.GET.get('page')
@@ -66,6 +70,14 @@ class AccountDetailView(DetailView):
             pet_list = paginator.page(paginator.num_pages)
 
         context['pet_list'] = pet_list
+
+
+        try:
+            like = Like.objects.get(content_type=ContentType.objects.get_for_model(profile_user), user=self.request.user)
+        except ObjectDoesNotExist:
+            like = None
+
+        context['account_like'] = like
 
         return context
 
@@ -116,6 +128,6 @@ class NameCheckTemplateView(View):
             rtn_value = False
         else:
             user = Account.objects.filter(name=request.GET.get('item'))
-            rtn_value = not user.exists() 
+            rtn_value = not user.exists()
 
         return HttpResponse(rtn_value)
