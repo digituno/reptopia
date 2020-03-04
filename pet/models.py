@@ -21,6 +21,8 @@ class Pet(models.Model):
     image = models.ImageField(upload_to='pet/%Y/%m/%d', blank=True, null=True)
     desc = models.TextField(blank=True)
 
+    created_date = models.DateTimeField(default=timezone.now)
+
     tags = TaggableManager()
 
     def __str__(self):

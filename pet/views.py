@@ -29,6 +29,8 @@ class PetListView(LoginRequiredMixin, ListView):
         if 'speciesid' in self.request.GET:
             species = get_object_or_404(AnimalDictionary, pk=self.request.GET['speciesid'])
             query_set = query_set.filter(species=species)
+
+        # query_set.order_by
         return query_set
 
     def get_context_data(self, **kwargs):
