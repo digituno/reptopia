@@ -26,14 +26,11 @@ class PetListView(LoginRequiredMixin, ListView):
         current_user = get_object_or_404(Account, pk=self.kwargs['userid'])
         query_set = Pet.objects.filter(owner=current_user) # 사육기간 필터입력추가
 
-        """
         if 'speciesid' in self.request.GET:
             species = get_object_or_404(AnimalDictionary, pk=self.request.GET['speciesid'])
             query_set = query_set.filter(species=species)
-        """
         return query_set
 
-    """
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         owner = get_object_or_404(Account, pk=self.kwargs['userid'])
@@ -44,7 +41,6 @@ class PetListView(LoginRequiredMixin, ListView):
         context['species_list'] = species_list
 
         return context
-    """
 
 class PetCreateView(LoginRequiredMixin, CreateView):
     login_url = settings.LOGIN_URL
