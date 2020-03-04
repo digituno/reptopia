@@ -33,9 +33,9 @@
             <thead>
                 <tr>
                     <th scope="col" class="d-none d-sm-table-cell">#</th>
+                    <th scope="col">펫이름</th>
                     <th scope="col">종이름</th>
                     <th scope="col" class="d-none d-sm-table-cell">성별</th>
-                    <th scope="col">펫이름</th>
                     <th scope="col" class="d-none d-sm-table-cell">펫사진</th>
                 </tr>
             </thead>
@@ -43,9 +43,9 @@
                 {% for pet in pet_list %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
-                        <td><a href="{% url 'pet-detail' userid=pet.owner.pk pk=pet.pk %}">{{ pet.species.common_name_kor}}</a></td>
+                        <td><a href="{{ pet.get_absolute_url }}">{{ pet.name }}</a></td>
+                        <td>{{ pet.species.common_name_kor}}</td>
                         <td>{{ pet.gender.item_name }}</td>
-                        <td>{{ pet.name}}</td>
                         <td>
                             {% if pet.image %}
                                 <a class="image-popup-no-margins" href="{{ pet.image.url }}"><img src="{{ pet.image.url }}" width="75" height="75"></a>
