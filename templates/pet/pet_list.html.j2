@@ -10,15 +10,12 @@
 <div class="clearfix">
     <h1 class="float-left">개체 목록</h1>
     <div class="float-right">
-        <div class="form-inline">
-            <a href="{% url 'pet-add' userid=user.pk %}" style="margin-left:10px;">
-                <button type="button" class="btn btn-success">등록하기</button>
-            </a>
+        <div class="btn-group">
+            <button id="insert_btn" type="button" class="btn btn-default">등록하기</button>
         </div>
     </div>
 </div>
-<hr>
-<div class="table-responsive">
+<div class="table-responsive mt-2">
     <table class="table table-hover">
         <thead>
             <tr>
@@ -91,6 +88,10 @@
                     duration: 300 // don't foget to change the duration also in CSS
                 }
             });
+
+            $('#insert_btn').click(function(){
+                window.location = "{% url 'pet-add' userid=user.pk %}";
+            })
         });
     </script>
 {% endblock%}

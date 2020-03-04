@@ -11,18 +11,12 @@
     <div class="clearfix">
         <h1 class="float-left">개체 상세보기</h1>
         <div class="float-right">
-            <div class="form-inline">
+            <div class="btn-group" role="group">
                 {% if user.is_authenticated and user == pet.owner %}
-                    <a href="{% url 'pet-update' userid=pet.owner.pk pk=pet.pk%}">
-                        <button type="button" class="btn btn-info">정보수정</button>
-                    </a>
-                    <a href="{% url 'pet-delete' userid=pet.owner.pk pk=pet.pk %}">
-                        <button type="button" class="btn btn-danger">삭제</button>
-                    </a>
+                    <button id="update_btn" type="button" class="btn btn-default">정보수정</button>
+                    <button id="delete_btn" type="button" class="btn btn-default">삭제</button>
                 {% endif %}
-                <a href="{% url 'pet-list' userid=pet.owner.pk %}">
-                    <button type="button" class="btn btn-warning">목록으로</button>
-                </a>
+                <button id="back_btn" type="button" class="btn btn-default">목록으로</button>
             </div>
         </div>
     </div>
@@ -52,32 +46,28 @@
     </div>
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="nav-item"><a class="nav-link active" href="#carelog" data-toggle="tab" >사육일지</a></li>
-        <li role="presentation" class="nav-item"><a class="nav-link" href="#graph" data-toggle="tab" >Graph</a></li>
+        <li role="presentation" class="nav-item"><a class="nav-link" href="#graph" data-toggle="tab" >체중그래프</a></li>
     </ul>
-    <div class="clear-fix">
-        <br>
-        <h3 class="float-left">사육일지</h3>
-        <div class="float-right">
-            <div class="btn-group" role="group" aria-label="Basic example">
-                {% if user.is_authenticated and user == pet.owner %}
-                    <a href="{% url 'care-add' userid=pet.owner.pk petid=pet.pk %}">
-                        <button type="button" class="btn btn-success">일지등록</button>
-                    </a>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-    <br>
-    <div class="tab-content mt-5">
+    <div class="tab-content mt-3">
         <div id="carelog" class="tab-pane active">
-            <div class="table-responsive">
+            <div class="clear-fix">
+                <div class="float-right">
+                    <div class="btn-group" role="group">
+                        {% if user.is_authenticated and user == pet.owner %}
+                            <button id="care_insert_btn" type="button" class="btn btn-default">일지등록</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="table-responsive mt-5">
                 <table class="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col" class="d-none d-sm-table-cell">#</th>
                             <th scope="col">등록일자</th>
-                            <th scope="col" class="d-none d-sm-table-cell">일지유형</th>
-                            <th scope="col">추가내용</th>
+                            <th scope="col">일지유형</th>
+                            <th scope="col" class="d-none d-sm-table-cell">추가내용</th>
                             <th scope="col" class="d-none d-sm-table-cell">사진</th>
                             <th></th>
                         </tr>
@@ -85,7 +75,7 @@
                     <tbody>
                     {% for care in care_list %}
                         <tr>
-                            <th scope="row">{{ forloop.counter }}</th>
+                            <th class="d-none d-sm-table-cell" scope="row">{{ forloop.counter }}</th>
                             <td>{{ care.date}}</td>
                             <td>
                                 {{ care.type.item_name }}
@@ -101,8 +91,8 @@
                                     {% endif %}
                                 {% endif %}
                             </td>
-                            <td>{{ care.desc}}</td>
-                            <td>
+                            <td class="d-none d-sm-table-cell">{{ care.desc}}</td>
+                            <td class="d-none d-sm-table-cell">
                                 {% if care.image %}
                                     <a class="image-popup-no-margins" href="{{ care.image.url }}">
                                         <a class="image-popup-no-margins" href="{{ care.image.url }}"><img src="{{ care.image.url }}" width="50" height="50"></a>
@@ -122,12 +112,7 @@
         </div>
         <div id="graph" class="tab-pane">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 detailed">
-                    <h5>
-                        <i class="fa fa-angle-right"></i> 체중 변화 그래프
-                    </h5>
-                    <canvas id="line"></canvas>
-                </div>
+                <canvas id="line"></canvas>
             </div>
         </div>
     </div>
@@ -167,6 +152,22 @@
                     }]
                 },
                 options: {}
+            });
+
+            $('#update_btn').click(function(){
+                window.location = "{% url 'pet-update' userid=pet.owner.pk pk=pet.pk%}";
+            });
+
+            $('#delete_btn').click(function(){
+                window.location = "{% url 'pet-delete' userid=pet.owner.pk pk=pet.pk %}";
+            });
+
+            $('#back_btn').click(function(){
+                history.go(-1);
+            });
+
+            $('#care_insert_btn').click(function(){
+                window.location = "{% url 'care-add' userid=pet.owner.pk petid=pet.pk %}";
             });
         });
     </script>
