@@ -21,12 +21,12 @@
     <hr>
     <div class="row">
         <div class="col-4">
-        <select name="spicies" id="id_spicies" class="form-control">
-            <option value="">---------</option>
-            {% for species in species_list %}
-                <option value="{{species.pk}}" {% if species.pk|slugify == request.GET.speciesid %} selected {% endif %}>{{ species.common_name_kor }}</option>
-            {% endfor %}
-        </select>
+            <select name="spicies" id="id_spicies" class="form-control">
+                <option value="">---------</option>
+                {% for species in species_list %}
+                    <option value="{{species.pk}}" {% if species.pk|slugify == request.GET.speciesid %} selected {% endif %}>{{ species.common_name_kor }}</option>
+                {% endfor %}
+            </select>
         </div>
     </div>
     <div class="table-responsive mt-2">

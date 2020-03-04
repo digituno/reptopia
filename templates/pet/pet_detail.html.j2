@@ -52,16 +52,30 @@
     </ul>
     <div class="tab-content mt-3">
         <div id="carelog" class="tab-pane active">
-            <div class="clear-fix">
-                <div class="float-right">
-                    <div class="btn-group" role="group">
-                        {% if user.is_authenticated and user == pet.owner %}
-                            <button id="care_insert_btn" type="button" class="btn btn-default">일지등록</button>
-                        {% endif %}
+            <div class="container">
+                <div class="row" >
+                    <div class="col-4" >
+                        <select name="care_type" id="id_care_type" class="form-control">
+                            <option value="">---------</option>
+                            {% for care_type in care_type_list %}
+                                <option value="{{care_type.pk}}" {% if care_type.pk|slugify == request.GET.care_type %} selected {% endif %}>{{ care_type.item_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-4" >
+                        &nbsp;
+                    </div>
+                    <div class="col-4" > 
+                        <div class="float-right">
+                            <div class="btn-group" role="group">
+                                {% if user.is_authenticated and user == pet.owner %}
+                                    <button id="care_insert_btn" type="button" class="btn btn-default">일지등록</button>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <br>
             <div class="table-responsive mt-5">
                 <table class="table table-hover">
                     <thead>
@@ -177,6 +191,22 @@
                     }]
                 },
                 options: {}
+            });
+
+
+            $('#id_care_type').change(function () {
+                var parameter = '';
+                var care_type = $('#id_care_type').val();
+                if (care_type !== '') {
+                    if (parameter == '') {
+                        parameter += '?';
+                    } else {
+                        parameter += '&';
+                    }
+                    parameter += 'care_type=' + care_type
+                }
+                var url = '{% url 'pet-detail' userid=pet.owner.pk pk=pet.pk %}' + parameter;
+                window.location.href = url;
             });
 
             $('#update_btn').click(function(){

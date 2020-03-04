@@ -105,8 +105,15 @@ class PetDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        care_type_list = Dictionary.objects.filter(category=reptopia._CARE_)
+        context['care_type_list'] = care_type_list
+
         pet = get_object_or_404(Pet, pk=self.kwargs['pk']);
         care_list_all = Care.objects.filter(pet=pet).order_by('-date', '-created_datetime')
+
+        if 'care_type' in self.request.GET:
+            care_list_all = care_list_all.filter(type_id=self.request.GET['care_type'])
 
         paginator = Paginator(care_list_all, 10)
         page = self.request.GET.get('page')
