@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from django.db import transaction
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from account.models import Account
 from dict.models import AnimalDictionary, Dictionary
 from .models import Pet, Care, Feeding
@@ -105,8 +106,16 @@ class PetDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         pet = get_object_or_404(Pet, pk=self.kwargs['pk']);
+        care_list_all = Care.objects.filter(pet=pet).order_by('-date', '-created_datetime')
 
-        care_list = Care.objects.filter(pet=pet).order_by('-date', '-created_datetime')
+        paginator = Paginator(care_list_all, 10)
+        page = self.request.GET.get('page')
+        try:
+            care_list = paginator.page(page)
+        except PageNotAnInteger:
+            care_list = paginator.page(1)
+        except EmptyPage:
+            care_list = paginator.page(paginator.num_pages)
         context['care_list'] = care_list
 
         dict_weight = get_object_or_404(Dictionary, pk=6)
