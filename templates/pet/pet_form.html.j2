@@ -38,8 +38,8 @@
         {% csrf_token %}
         <input type="hidden" name="next" value="" />
         <div class="form-group">
-            <label for="cname" class="col-sm-2 control-label">{{ form.species.label_tag }}</label>
-            <div class="col-sm-10">
+            <label for="cname">{{ form.species.label_tag }}</label>
+            <div>
                 {% if form.species.errors %}
                 <div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -59,8 +59,8 @@
         </div>
 
         <div class="form-group">
-            <label for="cname" class="col-sm-2 control-label">{{ form.name.label_tag }}</label>
-            <div class="col-sm-10">
+            <label for="cname">{{ form.name.label_tag }}</label>
+            <div>
                 {% if form.name.errors %}
                 <div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -74,8 +74,8 @@
         </div>
 
         <div class="form-group">
-            <label for="cname" class="col-sm-2 control-label">{{ form.gender.label_tag }}</label>
-            <div class="col-sm-10">
+            <label for="cname">{{ form.gender.label_tag }}</label>
+            <div >
                 {% if form.gender.errors %}
                 <div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -89,8 +89,8 @@
         </div>
 
         <div class="form-group">
-            <label for="cname" class="col-sm-2 control-label">{{ form.bod.label_tag }}</label>
-            <div class="col-sm-10">
+            <label for="cname" >{{ form.bod.label_tag }}</label>
+            <div >
                 {% if form.bod.errors %}
                 <div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -109,8 +109,8 @@
         </div>
 
         <div class="form-group">
-            <label for="cname" class="col-sm-2 control-label">{{ form.desc.label_tag }}</label>
-            <div class="col-sm-10">
+            <label for="cname" >{{ form.desc.label_tag }}</label>
+            <div >
                 {% if form.desc.errors %}
                 <div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -124,8 +124,8 @@
         </div>
 
         <div class="form-group">
-            <label for="cname" class="col-sm-2 control-label">{{ form.image.label_tag }}</label>
-            <div class="col-sm-10">
+            <label for="cname" >{{ form.image.label_tag }}</label>
+            <div >
                 {% if form.image.errors %}
                 <div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -144,10 +144,9 @@
                 {{ form.image.help_text }}
             </div>
         </div>
-
-        <div class="form-group last">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button id="btn_submit" type="button" class="btn btn-primary">등록하기</button>
+        <div class="row col-12 justify-content-center">
+            <div class="btn-group">
+                <button id="btn_submit" type="button" class="btn btn-default">등록하기</button>
                 <button id="btn_cancle" type="button" class="btn btn-default">돌아가기</button>
             </div>
         </div>
