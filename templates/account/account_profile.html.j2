@@ -47,7 +47,10 @@
             </div>
          </div>
         <div class="col-10">
-            <h5> {{ account.name}} </h5>
+            <h4 class="title">{{ account.name}} - {{ account.email }}</h4>
+            <h5><i class="fab fa-blogger"></i> <a href="{{ account.blog_url | default_if_none:"#" }}" target="_blank"> {{ account.blog_url | default_if_none:"" }} </a> </h5>
+            <h5><i class="fab fa-instagram-square"></i>  <a href="{{ account.instagram_url | default_if_none:"#" }}" target="_blank">{{ account.instagram_url | default_if_none:"" }} </a> </h5>
+            <h5><i class="fab fa-facebook-square"></i>  <a href="{{ account.facebook_url | default_if_none:"#" }}" target="_blank">{{ account.facebook_url | default_if_none:"" }} </a> </h5>
         </div>
     </div>
     <div class="row">

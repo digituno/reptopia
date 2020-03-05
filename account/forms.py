@@ -8,7 +8,7 @@ class AccountCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = Account
-        fields = ("name", "email", "password1", "password2", "bio", "image")
+        fields = ("name", "email", "password1", "password2", "bio", "blog_url", "instagram_url", "facebook_url", "image")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -24,9 +24,12 @@ class AccountCreationForm(UserCreationForm):
         self.fields['name'].label = "이름"
         self.fields['bio'].label = "소개"
         self.fields['image'].label = "대표사진"
-        # self.fields['is_public'].label = "공개여부"
-
-        # self.fields['is_public'].help_text = "공개여부를 체크하시면 다른 사육자에게 해당 펫 및 사육일지가 공개됩니다."
+        self.fields['blog_url'].widget.attrs.update({'class': 'form-control'})
+        self.fields['instagram_url'].widget.attrs.update({'class': 'form-control'})
+        self.fields['facebook_url'].widget.attrs.update({'class': 'form-control'})
+        self.fields['blog_url'].label = "블로그주소"
+        self.fields['instagram_url'].label = "인스타그램주소"
+        self.fields['facebook_url'].label = "페이스북주소"
 
 
 class AccountChangeForm(UserChangeForm):
@@ -34,7 +37,7 @@ class AccountChangeForm(UserChangeForm):
 
     class Meta(UserChangeForm.Meta):
         model = Account
-        fields = ("email", "name", "bio", "image")
+        fields = ("email", "name", "bio", "blog_url", "instagram_url", "facebook_url", "image")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -42,7 +45,15 @@ class AccountChangeForm(UserChangeForm):
         self.fields['name'].widget.attrs.update({'class': 'form-control'})
         self.fields['bio'].widget.attrs.update({'class': 'form-control'})
         self.fields['image'].widget.attrs.update({'class': 'form-control'})
+        self.fields['blog_url'].widget.attrs.update({'class': 'form-control'})
+        self.fields['instagram_url'].widget.attrs.update({'class': 'form-control'})
+        self.fields['facebook_url'].widget.attrs.update({'class': 'form-control'})
+
+
 
         self.fields['name'].label = "이름(별명)"
         self.fields['bio'].label = "소개"
         self.fields['image'].label = "대표사진"
+        self.fields['blog_url'].label = "블로그주소"
+        self.fields['instagram_url'].label = "인스타그램주소"
+        self.fields['facebook_url'].label = "페이스북주소"

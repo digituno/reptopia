@@ -109,6 +109,45 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.blog_url.label_tag }}</label>
+            <div class="col-sm-10">
+                {% if form.blog_url.errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ form.blog_url.errors }}
+                    </div>
+                {% endif %}
+                {{ form.blog_url }}
+                <small class="form-text text-muted">{{ form.blog_url.help_text }}</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.instagram_url.label_tag }}</label>
+            <div class="col-sm-10">
+                {% if form.instagram_url.errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ form.instagram_url.errors }}
+                    </div>
+                {% endif %}
+                {{ form.instagram_url }}
+                <small class="form-text text-muted">{{ form.instagram_url.help_text }}</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="cname" class="col-sm-2 control-label">{{ form.facebook_url.label_tag }}</label>
+            <div class="col-sm-10">
+                {% if form.facebook_url.errors %}
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ form.facebook_url.errors }}
+                    </div>
+                {% endif %}
+                {{ form.facebook_url }}
+                <small class="form-text text-muted">{{ form.facebook_url.help_text }}</small>
+            </div>
+        </div>
+        <div class="form-group">
             <label for="cname" class="col-sm-2 control-label">{{ form.image.label_tag }}</label>
             <div class="col-sm-10">
                 {% if form.image.errors %}
