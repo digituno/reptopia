@@ -16,7 +16,7 @@
                     <button id="update_btn" type="button" class="btn btn-default">정보수정</button>
                     <button id="delete_btn" type="button" class="btn btn-default">삭제</button>
                 {% endif %}
-                <button id="back_btn" type="button" class="btn btn-default">목록으로</button>
+                <button id="list_btn" type="button" class="btn btn-default">목록으로</button>
             </div>
         </div>
     </div>
@@ -216,11 +216,23 @@
             });
 
             $('#delete_btn').click(function(){
-                window.location = "{% url 'pet-delete' userid=pet.owner.pk pk=pet.pk %}";
+                $('#dialog-body').text('{{ pet.name }} 개체를 삭제하시겠습니까?');
+                $( "#dialog-message" ).dialog({
+                    modal: true,
+                    title: "개체 삭제확인",
+                    buttons: {
+                        '확인': function() {
+                            window.location = "{% url 'pet-delete' userid=pet.owner.pk pk=pet.pk %}";
+                        },
+                        '취소': function() {
+                            $( this ).dialog( "close" );
+                        }
+                    },
+                });
             });
 
-            $('#back_btn').click(function(){
-                history.go(-1);
+            $('#list_btn').click(function(){
+                window.location = "{% url 'pet-list' userid=pet.owner.pk %}";
             });
 
             $('#care_insert_btn').click(function(){

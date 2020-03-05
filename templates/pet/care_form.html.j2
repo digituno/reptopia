@@ -268,7 +268,7 @@
         });
 
         $('#btn_cancle').click( function() {
-            window.location = '{% url 'pet-detail' userid=pet.owner.pk pk=pet.pk %}';
+            history.go(-1);
         });
 
 

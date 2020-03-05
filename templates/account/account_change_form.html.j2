@@ -193,7 +193,7 @@
         });
 
         $('#back_btn').click(function(){
-            window.location = "{% url 'account-detail' pk=user.pk %}";
+            history.go(-1);
         });
 
         $('#name_check').click(function(){
