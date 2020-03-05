@@ -32,10 +32,12 @@
             <hr />
             <h5>동물분류 종 :  {{ pet.species.common_name_kor }} </h5>
             <h5>성별 : {{ pet.gender.item_name }} </h5>
-            <h5>출생년월일 : {{ pet.bod }} </h5>
+            <h5>출생년월일 : {{ pet.bod | default_if_none:"" }} </h5>
             <h5>등록일시 : {{ pet.created_date }} </h5>
             <hr />
-            <pre class="well">{{ pet.desc }}</pre>
+            {% if pet.desc %}
+                <pre class="well pt-2 pl-2 pr-2 pb-2">{{ pet.desc }}</pre>
+            {% endif %}
             <!--
             {% get_tags_for_object pet as "tags" %}
             <h5>
@@ -65,7 +67,7 @@
                     <div class="col-4" >
                         &nbsp;
                     </div>
-                    <div class="col-4" > 
+                    <div class="col-4" >
                         <div class="float-right">
                             <div class="btn-group" role="group">
                                 {% if user.is_authenticated and user == pet.owner %}

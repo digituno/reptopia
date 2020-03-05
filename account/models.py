@@ -47,6 +47,11 @@ class Account(AbstractUser):
     name = models.CharField(max_length=50, unique=True)
     bio = models.TextField(max_length=500, blank=True, null=True)
     image = models.ImageField(upload_to='account/%Y/%m/%d', blank=True, null=True)
+
+    blog_url = models.URLField(max_length=100, blank=True, null=True)
+    facebook_url = models.URLField(max_length=100, blank=True, null=True)
+    instagram_url = models.URLField(max_length=100, blank=True, null=True)
+
     likes = GenericRelation(Like, related_query_name='accounts')
 
     USERNAME_FIELD = 'email'

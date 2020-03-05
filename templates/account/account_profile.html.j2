@@ -29,29 +29,32 @@
             {% else %}
             <img src="{% static "img/anonymous_user.png" %}" class="img-circle" width="150" height="150">
             {% endif %}
+            <div style="text-align:center;">
+                <span class="btn" data-id="{{ account.pk }}" data-type="account" data-action="like" title="Like">
+                    {% if likedprofileuser is None %}
+                        <i class="fa fa-heart"></i>
+                    {% else %}
+                        <i class="far fa-heart"></i>
+                    {% endif %}
+                    <span data-count="like">{{ account.likes.likes.count }}</span>
+                    <!--
+                    <li data-id="{{ account.pk }}" data-type="account" data-action="dislike" title="Dislike">
+                        <span class="glyphicon glyphicon-thumbs-down"></span>
+                        <span data-count="dislike">{{ account.likes.dislikes.count }}</span>
+                    </li>
+                    -->
+                </span>
+            </div>
          </div>
         <div class="col-10">
             <h5> {{ account.name}} </h5>
-            <br/>
-            <pre>{{ account.bio | default_if_none:"" }}</pre>
         </div>
     </div>
     <div class="row">
-        <div class="col-2" style="text-align:center;">
-            <span class="btn" data-id="{{ account.pk }}" data-type="account" data-action="like" title="Like">
-                {% if likedprofileuser is None %}
-                    <i class="fa fa-heart"></i>
-                {% else %}
-                    <i class="far fa-heart"></i>
-                {% endif %}
-                <span data-count="like">{{ account.likes.likes.count }}</span>
-            </span>
-            <!--
-            <li data-id="{{ account.pk }}" data-type="account" data-action="dislike" title="Dislike">
-                <span class="glyphicon glyphicon-thumbs-down"></span>
-                <span data-count="dislike">{{ account.likes.dislikes.count }}</span>
-            </li>
-            -->
+        <div class="col-12">
+            {% if account.bio %}
+                <pre class="well pt-2 pl-2 pr-2 pb-2">{{ account.bio }}</pre>
+            {% endif %}
         </div>
     </div>
     <hr>
