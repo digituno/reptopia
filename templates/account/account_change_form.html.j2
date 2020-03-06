@@ -141,7 +141,7 @@
         <div class="row justify-content-center">
             <div class="btn-group">
                 <button id="submit_btn" type="button" class="btn btn-default">정보수정</button>
-                <button id="back_btn" type="button" class="btn btn-default">돌아가기</button>
+                <button id="back_btn" type="button" class="btn btn-default">취소하기</button>
             </div>
         </div>
         <input type="hidden" id="is_usable_name" value="True" />
@@ -193,7 +193,7 @@
         });
 
         $('#back_btn').click(function(){
-            history.go(-1);
+            window.location = "{{ account.get_absolute_url }}";
         });
 
         $('#name_check').click(function(){

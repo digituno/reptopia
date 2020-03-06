@@ -73,16 +73,16 @@ class AccountDetailView(DetailView):
 
         try:
             if self.request.user.is_authenticated:
-                ikedprofileuser = Like.objects.get(content_type=ContentType.objects.get_for_model(profile_user), object_id=profile_user.id, user=self.request.user)
+                likedprofileuser = Like.objects.get(content_type=ContentType.objects.get_for_model(profile_user), object_id=profile_user.id, user=self.request.user)
             else:
                 likedprofileuser = None
         except ObjectDoesNotExist:
             likedprofileuser = None
 
-        userlike = Like.objects.filter(content_type=ContentType.objects.get_for_model(profile_user),  user=profile_user)
+        userlike = Like.objects.filter(content_type=ContentType.objects.get_for_model(profile_user), user=profile_user)
 
         context['likedprofileuser'] = likedprofileuser
-        context['userlike'] = userlike 
+        context['userlike'] = userlike
 
 
         return context

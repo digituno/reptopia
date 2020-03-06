@@ -3,6 +3,37 @@
 
 {% block stylesheet %}
     <link rel="stylesheet" type="text/css" href="{% static 'lib/magnific-popup/css/magnific-popup.css' %}" />
+    <style>
+
+        .profile-header-img {
+            padding: 10px;
+        }
+
+        .profile-header-img > img.rounded-circle {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #51D2B7;
+        }
+
+        .profile-header {
+            margin-top: 10px;
+        }
+
+        /**
+         * Ranking component
+         */
+        .rank-label-container {
+            margin-top: -19px;
+            /* z-index: 1000; */
+            text-align: center;
+        }
+
+        .label.label-default.rank-label {
+            background-color: rgb(81, 210, 183);
+            padding: 5px 10px 5px 10px;
+            border-radius: 27px;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -13,20 +44,19 @@
         <div class="float-right">
             <div class="btn-group" role="group">
                 {% if account == user %}
-                    <a href="{% url 'account-update' pk=account.pk %}">
-                        <button type="button" class="btn btn-default">정보수정</button>
-                    </a>
+                    <button id="update_btn" type="button" class="btn btn-default">정보수정</button>
                 {% endif %}
+                <button id="back_btn" type="button" class="btn btn-default">돌아가기</button>
             </div>
         </div>
     </div>
     <hr>
    <div class="row">
-        <div class="col-2">
+        <div class="col-xs-4 col-sm-2">
             {% if account.image %}
-            <img src="{{ account.image.url }}" class="img-circle" width="150" height="150">
+                <img src="{{ account.image.url }}" class="rounded-circle" width="150" height="150">
             {% else %}
-            <img src="{% static "img/anonymous_user.png" %}" class="img-circle" width="150" height="150">
+                <img src="{% static "img/anonymous_user.png" %}" class="rounded-circle" width="150" height="150">
             {% endif %}
             <div style="text-align:center;">
                 <span class="btn" data-id="{{ account.pk }}" data-type="account" data-action="like" title="Like">
@@ -45,15 +75,15 @@
                 </span>
             </div>
          </div>
-        <div class="col-10">
-            <h4 class="title">{{ account.name}} - {{ account.email }}</h4>
+        <div class="col-xs-8 col-sm-10">
+            <h4 class="title">{{ account.name}}</h4>
             <h5><i class="fab fa-blogger"></i> <a href="{{ account.blog_url | default_if_none:"#" }}" target="_blank"> {{ account.blog_url | default_if_none:"" }} </a> </h5>
             <h5><i class="fab fa-instagram-square"></i>  <a href="{{ account.instagram_url | default_if_none:"#" }}" target="_blank">{{ account.instagram_url | default_if_none:"" }} </a> </h5>
             <h5><i class="fab fa-facebook-square"></i>  <a href="{{ account.facebook_url | default_if_none:"#" }}" target="_blank">{{ account.facebook_url | default_if_none:"" }} </a> </h5>
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
+        <div class="col-xs-12 col-sm-12">
             {% if account.bio %}
                 <pre class="well pt-2 pl-2 pr-2 pb-2">{{ account.bio }}</pre>
             {% endif %}
@@ -122,24 +152,36 @@
             > {{ account.name }} 님을 좋아하는 사용자들
             <div class="row container">
                 {% for liked in account.likes.likes %}
-                    {% if liked.user.image %}
-                        <img src="{{ liked.user.image.url }}" class="img-circle" width="20" height="20" title="{{ liked.user.name }}">
-                    {% else %}
-                        <img src="{% static "img/anonymous_user.png" %}" class="img-circle" width="20" height="20" title="{{ liked.user.name }}">
-                    {% endif %}
+                    <div class="profile-header-img">
+                        {% if liked.user.image %}
+                            <img src="{{ liked.user.image.url }}" class="rounded-circle">
+                        {% else %}
+                            <img src="{% static "img/anonymous_user.png" %}" class="rounded-circle">
+                        {% endif %}
+                        <div class="rank-label-container">
+                            <span class="label label-default rank-label">{{ liked.user.name }}</span>
+                        </div>
+                    </div>
                 {% endfor %}
             </div>
+            <!--
             <hr>
             > {{ account.name }} 님이 좋아하는 사용자들
             <div class="row container">
                 {% for like in userlike %}
-                    {% if like.user.image %}
-                        <img src="{{ like.user.image.url }}" class="img-circle" width="20" height="20" title="{{ like.user.name }}">
-                    {% else %}
-                        <img src="{% static "img/anonymous_user.png" %}" class="img-circle" width="20" height="20" title="{{ like.user.name }}">
-                    {% endif %}
+                    <div class="profile-header-img">
+                        {% if like.user.image %}
+                            <img src="{{ like.user.image.url }}" class="rounded-circle">
+                        {% else %}
+                            <img src="{% static "img/anonymous_user.png" %}" class="rounded-circle">
+                        {% endif %}
+                        <div class="rank-label-container">
+                            <span class="label label-default rank-label">{{ like.object.user.name }}</span>
+                        </div>
+                    </div>
                 {% endfor %}
             </div>
+            -->
         </div>
     </div>
 </div>
@@ -198,6 +240,14 @@
             $('[data-action="like"]').click(like);
             /*$('[data-action="dislike"]').click(dislike);*/
         {% endif %}
+    });
+
+    $('#update_btn').click(function(){
+        window.location = "{% url 'account-update' pk=account.pk %}";
+    });
+
+    $('#back_btn').click(function(){
+        history.go(-1);
     });
 
     $(document).ready(function() {

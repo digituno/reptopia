@@ -43,11 +43,11 @@
             <tbody>
                 {% for pet in pet_list %}
                     <tr>
-                        <th scope="row">{{ forloop.counter }}</th>
+                        <th class="d-none d-sm-table-cell" scope="row">{{ forloop.counter }}</th>
                         <td><a href="{{ pet.get_absolute_url }}">{{ pet.name }}</a></td>
                         <td>{{ pet.species.common_name_kor}}</td>
-                        <td>{{ pet.gender.item_name }}</td>
-                        <td>
+                        <td class="d-none d-sm-table-cell">{{ pet.gender.item_name }}</td>
+                        <td class="d-none d-sm-table-cell">
                             {% if pet.image %}
                                 <a class="image-popup-no-margins" href="{{ pet.image.url }}"><img src="{{ pet.image.url }}" width="75" height="75"></a>
                             {% endif %}

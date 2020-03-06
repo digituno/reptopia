@@ -3,20 +3,21 @@
 {% block content %}
 <div class="container">
 <!-- start container -->
-    <div class="page-header">
-        <h1>태그전체보기</h1>
+    <div class="clearfix">
+        <h1 class="float-left">태그 검색 결과</h1>
     </div>
+    <hr>
     <div class="row">
         <div class="col-sm-12">
             <h2><i class="fa fa-angle-right"></i> 개체목록</h2>
-            <div class="table-responsive">
+            <div class="table-responsive mt-4">
                 <table class="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col" class="d-none d-sm-table-cell">#</th>
-                            <th scope="col" class="d-none d-sm-table-cell">이름</th>
-                            <th scope="col" class="d-none d-sm-table-cell">사육자</th>
-                            <th scope="col" class="d-none d-sm-table-cell">종</th>
+                            <th scope="col" >이름</th>
+                            <th scope="col" >사육자</th>
+                            <th scope="col" >종</th>
                             <th scope="col" class="d-none d-sm-table-cell">출생년월일</th>
                             <th scope="col" class="d-none d-sm-table-cell">성별</th>
                         </tr>
@@ -25,12 +26,12 @@
                         {% for item in taggeditem_list %}
                             {% if item.content_object.get_model_name  == 'Pet' %}
                             <tr>
-                                <th scope="row">{{ forloop.counter }}</th>
+                                <th scope="row" class="d-none d-sm-table-cell">{{ forloop.counter }}</th>
                                 <td><a href="{{ item.content_object.get_absolute_url }}">{{ item.content_object.name}}</a></td>
                                 <td><a href="{{ item.content_object.owner.get_absolute_url }}">{{ item.content_object.owner.name }}</a></td>
-                                <td>{{ item.content_object.species.common_name_kor }}</td>
-                                <td>{{ item.content_object.bod }}</td>
-                                <td>{{ item.content_object.gender.item_name }}</td>
+                                <td >{{ item.content_object.species.common_name_kor }}</td>
+                                <td class="d-none d-sm-table-cell">{{ item.content_object.bod }}</td>
+                                <td class="d-none d-sm-table-cell">{{ item.content_object.gender.item_name }}</td>
                             </tr>
                             {% endif %}
                         {% endfor %}
