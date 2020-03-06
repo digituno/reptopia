@@ -9,7 +9,7 @@
             padding: 10px;
         }
 
-        .profile-header-img > img.rounded-circle {
+        .profile-header-img > a > img.rounded-circle {
             width: 100px;
             height: 100px;
             border: 2px solid #51D2B7;
@@ -153,11 +153,13 @@
             <div class="row container">
                 {% for liked in account.likes.likes %}
                     <div class="profile-header-img">
+                        <a href="{{ liked.user.get_absolute_url }}">
                         {% if liked.user.image %}
                             <img src="{{ liked.user.image.url }}" class="rounded-circle">
                         {% else %}
                             <img src="{% static "img/anonymous_user.png" %}" class="rounded-circle">
                         {% endif %}
+                        </a>
                         <div class="rank-label-container">
                             <span class="label label-default rank-label">{{ liked.user.name }}</span>
                         </div>
