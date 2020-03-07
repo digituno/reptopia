@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from datetime import datetime
-from dal import autocomplete
+# from dal import autocomplete
 from taggit.models import Tag
 from account.models import Account
 from pet.models import Pet, Care
@@ -31,6 +31,7 @@ class IndexView(TemplateView):
         return context
 
 
+"""
 class TagAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         if not self.request.user.is_authenticated:
@@ -42,3 +43,4 @@ class TagAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(name__istartswith=self.q)
 
         return qs
+"""

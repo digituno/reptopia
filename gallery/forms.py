@@ -1,5 +1,5 @@
 from django import forms
-from dal import autocomplete
+#from dal import autocomplete
 from .models import Photo
 
 
@@ -7,9 +7,9 @@ class PhotoCreateForm(forms.ModelForm):
     class Meta:
         model = Photo
         fields = ('image', 'title', 'desc', 'tags')
-        widgets = {
-            'tags': autocomplete.TagSelect2(url='tag-autocomplete', attrs={'class': 'form-control'})
-        }
+        #widgets = {
+        #    'tags': autocomplete.TagSelect2(url='tag-autocomplete', attrs={'class': 'form-control'})
+        #}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
