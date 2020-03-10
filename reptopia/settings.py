@@ -27,7 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
+    '127.0.0.1',
+    '15.164.125.252',
     '.ap-northeast-2.compute.amazonaws.com',
+    '.reptopia.kr',
 ]
 
 
@@ -99,7 +102,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'reptopiadb',
         'USER': 'reptopia',
-        'PASSWORD': '',
+        'PASSWORD': 'WOwls*#73',
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -175,11 +178,11 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 STATIC_URL = '/static/'
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-    '/Users/jaejinkim/Workspace/reptopia/staic/',
+    STATIC_DIR,
 ]
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, '.static_root')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
