@@ -3,8 +3,7 @@ import json
 import os
 from .base import *
 
-ROOT_DIR = os.path.dirname(BASE_DIR)
-CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secret')
+CONFIG_SECRET_DIR = os.path.join(BASE_DIR, '.config_secret')
 CONFIG_SETTINGS_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.json')
 
 config_secret = json.loads(open(CONFIG_SETTINGS_COMMON_FILE).read())
