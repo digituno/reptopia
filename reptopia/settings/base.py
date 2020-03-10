@@ -65,7 +65,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'reptopia.wsgi.application'
 
 
 # Password validation

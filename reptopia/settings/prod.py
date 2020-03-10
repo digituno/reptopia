@@ -23,6 +23,7 @@ ALLOWED_HOSTS = [
     '15.164.125.252',
 ]
 
+WSGI_APPLICATION = 'reptopia.wsgi.prod.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
