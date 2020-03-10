@@ -130,10 +130,11 @@ class NameCheckTemplateView(View):
         item = request.GET.get('item').upper()
         if item.find("REPTOPIA") > 0 or item.find("ADMIN") > 0 or \
                 item.find("ROOT") > 0 or item.find("렙토피아") > 0 or \
-                item.find("관리자"):
+                item.find("관리자") > 0:
             rtn_value = False
         else:
             user = Account.objects.filter(name=request.GET.get('item'))
+            logger.debug(user)
             rtn_value = not user.exists()
 
         return HttpResponse(rtn_value)
