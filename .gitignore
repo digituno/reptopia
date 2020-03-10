@@ -9,3 +9,5 @@ db.sqlite3
 *~
 venv
 .python-version
+.static_root/
+.config_secret/
