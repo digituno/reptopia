@@ -30,9 +30,10 @@
 
 {% block content %}
 <div class="container">
-    <div class="page-header">
-    <h1>회원가입</h1>
+    <div class="clearfix">
+        <h1 class="float-left">회원가입</h1>
     </div>
+    <hr>
     <form id="signup_form" method="post" action="" class="form-horizontal" enctype="multipart/form-data"
         data-email-check-url="{% url 'ajax-email-check' %}" data-name-check-url="{% url 'ajax-name-check' %}">
         {% csrf_token %}
