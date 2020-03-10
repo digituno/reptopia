@@ -1,0 +1,16 @@
+{
+    "production" : {
+        "SECRET_KEY" : "_4)b6r!_+d5ywsyj-ra#txsm+&0x5v#*esn+xi8$5h$%hfn5ky",
+        "DATABASES" : {
+            "default": {
+                "ENGINE": "django.db.backends.postgresql",
+                "NAME": "reptopiadb",
+                "USER": "reptopia",
+                "PASSWORD": "WOwls*#73",
+                "HOST": "reptopiadb.ciamduldpubh.ap-northeast-2.rds.amazonaws.com",
+                "PORT": "5432"
+            }
+        },
+        "EMAIL_PASSWORD": "WOwls*#73"
+    }
+}
