@@ -150,8 +150,10 @@ class CareCreateView(LoginRequiredMixin, CreateView):
         care_feeding = get_object_or_404(Dictionary, item=reptopia._FEEDING_)
         if form.cleaned_data['type'].id == care_feeding.id:
             feeding = Feeding()
+            feeding.eat_type = get_object_or_404(Dictionary, pk=form.cleaned_data['eat_type'].id)
             feeding.prey_type = get_object_or_404(Dictionary, pk=form.cleaned_data['prey_type'].id)
-            feeding.prey_size = get_object_or_404(Dictionary, pk=form.cleaned_data['prey_size'].id)
+            if form.cleaned_data['prey_size'] is not None:
+                feeding.prey_size = get_object_or_404(Dictionary, pk=form.cleaned_data['prey_size'].id)
             feeding.prey_weight = form.cleaned_data['prey_weight']
             feeding.prey_quantity = form.cleaned_data['prey_quantity']
             feeding.save()

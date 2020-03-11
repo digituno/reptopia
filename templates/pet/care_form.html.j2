@@ -69,14 +69,15 @@
         </div>
 
         <div class="form-group" id="prey_layer" style="display: none;">
-            <label for="cname" >{{ form.prey_type.label_tag }}</label>
+            <label for="cname" >{{ form.eat_type.label_tag }}</label>
             <div >
-                {% if form.prey_type.errors %}
+                {% if form.eat_type.errors %}
                     <div class="alert alert-danger alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        {{ form.prey_type.errors }}
+                        {{ form.eat_type.errors }}
                     </div>
                 {% endif %}
+                {{ form.eat_type}}
                 {{ form.prey_type }}
                 {{ form.prey_size }}
                 {{ form.prey_weight }}
@@ -147,21 +148,29 @@
                 success: function (data) {
                     if (data.length > 0) {
                         obj.html(data);
+                        obj.attr('disabled',false);
+                        obj.attr('readonly', false);
+                    } else {
+                        obj.attr('disabled',true);
                     }
-                    obj.attr('disabled',false);
                 }
             });
         }
 
         $('#{{ form.type.id_for_label}}').change(function(){
             initCareDetail();
+            $('#weight_layer').hide()
+            $('#prey_layer').hide()
             // 먹이주기
             if ($(this).val() == '2') {
+                /*
                 setAjaxData('{{ pet.species.eating.id}}', $('#id_prey_type'));
                 $('#id_prey_type').change(function() {
                     setAjaxData($(this).val(),$('#id_prey_size'));
                 });
+                */
                 $('#prey_layer').show()
+                //$('#{{ form.eat_type.id_for_label }}').val('{{ pet.species.eating.id }}')
             }
             // 체중
             else if ($(this).val() == '6') {
@@ -169,16 +178,22 @@
             }
         });
 
-        var initCareDetail = function () {
-            // 사육일지 상세 내역 숨기기
-            $('#weight_layer').hide()
-            $('#prey_layer').hide()
+        $('#{{ form.eat_type.id_for_label }}').change(function() {
+            initCareDetail();
+            setAjaxData($(this).val(), $('#id_prey_type'));
+            $('#id_prey_type').change(function() {
+                setAjaxData($(this).val(),$('#id_prey_size'));
+            });
+        });
 
+        var initCareDetail = function () {
             // 체중초기화
             $('#id_weight').val('');
             // 먹이유형 초기화
             $('#id_prey_type').val('');
+            $('#id_prey_type').attr('readonly', true);
             $('#id_prey_size').val('');
+            $('#id_prey_size').attr('readonly', true);
             $('#id_prey_weight').val('');
             $('#id_prey_quantity').val('');
 
@@ -254,6 +269,9 @@
 
 
         $('#{{ form.type.id_for_label}}').change()
+        if ($('#{{ form.eat_type.id_for_label}}').val()) {
+            $('#{{ form.eat_type.id_for_label}}').change()
+        }
     });
 </script>
 {% endblock%}
