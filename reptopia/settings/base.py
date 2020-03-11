@@ -65,7 +65,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'reptopia.wsgi.application'
 
 
 # Password validation
@@ -141,9 +140,9 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, '.static_root')
 
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 CKEDITOR_UPLOAD_PATH = 'ckeditor/'
 CKEDITOR_IMAGE_BACKEND = "pillow"

@@ -101,9 +101,10 @@
                     <thead>
                         <tr>
                             <th scope="col" class="d-none d-sm-table-cell">#</th>
-                            <th scope="col">펫이름</th>
+                            <th scope="col">이름</th>
+                            <th scope="col">개체종류</th>
+                            <th scope="col" class="d-none d-sm-table-cell">부화일자</th>
                             <th scope="col" class="d-none d-sm-table-cell">성별</th>
-                            <th scope="col">종이름</th>
                             <th scope="col" class="d-none d-sm-table-cell">펫사진</th>
                         </tr>
                     </thead>
@@ -112,8 +113,9 @@
                             <tr>
                                 <th class="d-none d-sm-table-cell" scope="row">{{ forloop.counter }}</th>
                                 <td><a href="{{ pet.get_absolute_url }}">{{ pet.name}}</a></td>
-                                <td class="d-none d-sm-table-cell">{{ pet.gender.item_name }}</td>
                                 <td>{{ pet.species.common_name_kor}}</td>
+                                <td class="d-none d-sm-table-cell">{{ pet.bod }}</td>
+                                <td class="d-none d-sm-table-cell">{{ pet.gender.item_name }}</td>
                                 <td class="d-none d-sm-table-cell">
                                     {% if pet.image %}
                                         <a class="image-popup-no-margins" href="{{ pet.image.url }}"><img src="{{ pet.image.url }}" width="75" height="75"></a>

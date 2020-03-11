@@ -20,6 +20,7 @@ from .forms import AccountCreationForm, AccountChangeForm
 from .models import Account
 from pet.models import Pet
 from social.models import Like
+import reptopia
 import logging
 import json
 
@@ -60,12 +61,12 @@ class AccountDetailView(DetailView):
         profile_user = get_object_or_404(Account, pk=self.kwargs['pk'])
         pet_list_all = Pet.objects.filter(owner=profile_user)
 
-        paginator = Paginator(pet_list_all, 10)
+        paginator = Paginator(pet_list_all, reptopia._PAGE_CNT_)
         page = self.request.GET.get('page')
         try:
             pet_list = paginator.page(page)
         except PageNotAnInteger:
-            pet_list = paginator.page(1)
+            pet_list = paginator.page(reptopia._FIRST_PAGE_)
         except EmptyPage:
             pet_list = paginator.page(paginator.num_pages)
 
@@ -130,10 +131,11 @@ class NameCheckTemplateView(View):
         item = request.GET.get('item').upper()
         if item.find("REPTOPIA") > 0 or item.find("ADMIN") > 0 or \
                 item.find("ROOT") > 0 or item.find("렙토피아") > 0 or \
-                item.find("관리자"):
+                item.find("관리자") > 0:
             rtn_value = False
         else:
             user = Account.objects.filter(name=request.GET.get('item'))
+            logger.debug(user)
             rtn_value = not user.exists()
 
         return HttpResponse(rtn_value)

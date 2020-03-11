@@ -21,7 +21,7 @@ class AccountCreationForm(UserCreationForm):
         self.fields['bio'].widget.attrs.update({'class': 'form-control'})
         self.fields['image'].widget.attrs.update({'class': 'form-control'})
 
-        self.fields['name'].label = "이름"
+        self.fields['name'].label = "사용자명"
         self.fields['bio'].label = "소개"
         self.fields['image'].label = "대표사진"
         self.fields['blog_url'].widget.attrs.update({'class': 'form-control'})
