@@ -21,7 +21,7 @@ class PetListView(LoginRequiredMixin, ListView):
     model = Pet
     template_name = 'pet/pet_list.html.j2'
     context_object_name = 'pet_list'
-    paginate_by = 10
+    paginate_by = reptopia._PAGE_CNT_ 
 
     def get_queryset(self):
         current_user = get_object_or_404(Account, pk=self.kwargs['userid'])
@@ -115,17 +115,17 @@ class PetDetailView(DetailView):
         if 'care_type' in self.request.GET:
             care_list_all = care_list_all.filter(type_id=self.request.GET['care_type'])
 
-        paginator = Paginator(care_list_all, 10)
+        paginator = Paginator(care_list_all, reptopia._PAGE_CNT_)
         page = self.request.GET.get('page')
         try:
             care_list = paginator.page(page)
         except PageNotAnInteger:
-            care_list = paginator.page(1)
+            care_list = paginator.page(reptopia._FIRST_PAGE_)
         except EmptyPage:
             care_list = paginator.page(paginator.num_pages)
         context['care_list'] = care_list
 
-        dict_weight = get_object_or_404(Dictionary, pk=6)
+        dict_weight = get_object_or_404(Dictionary, item=reptopia._WEIGHT_)
         weight_list = Care.objects.filter(pet=pet).filter(type=dict_weight).order_by('-date', '-created_datetime')
         context['weight_list'] = weight_list[:10]
 
@@ -146,7 +146,9 @@ class CareCreateView(LoginRequiredMixin, CreateView):
     @transaction.atomic
     def form_valid(self, form):
         # 사육일지유형이 먹이주기 일 때
-        if form.cleaned_data['type'].id == reptopia._CARE_FEEDING_:
+        # if form.cleaned_data['type'].id == reptopia._CARE_FEEDING_:
+        care_feeding = get_object_or_404(Dictionary, item=reptopia._FEEDING_)
+        if form.cleaned_data['type'].id == care_feeding.id:
             feeding = Feeding()
             feeding.prey_type = get_object_or_404(Dictionary, pk=form.cleaned_data['prey_type'].id)
             feeding.prey_size = get_object_or_404(Dictionary, pk=form.cleaned_data['prey_size'].id)

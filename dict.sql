@@ -6,12 +6,13 @@ insert into dict_dictionary(id, category, item, item_name, item_name_en, display
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (5 ,  'CT00000000', 'CT50000000', '탈피', '', 5, 1);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (6 ,  'CT00000000', 'CT60000000', '체중', '', 6, 1);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (7 ,  'CT00000000', 'CT70000000', '짝짓기', '', 7, 1);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (8 ,  'CT00000000', 'CT80000000', '산란', '', 8, 1);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (9 ,  'CT00000000', 'CT90000000', '부화', '', 9, 1);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (10 , 'CT00000000', 'CT10000000', '분양', '', 10, 1);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (11 , 'CT00000000', 'CT11000000', '폐사', '', 11, 1);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (12 , 'CT00000000', 'CT12000000', '병/진료', '', 12, 1);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (13 , 'CT00000000', 'CT13000000', '기타', '', 13, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (8 ,  'CT00000000', 'CT80000000', '짝짓기', '', 8, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (9 ,  'CT00000000', 'CT90000000', '산란', '', 9, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (10 , 'CT00000000', 'CT10000000', '부화', '', 10, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (11 , 'CT00000000', 'CT11000000', '분양', '', 11, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (12 , 'CT00000000', 'CT12000000', '폐사', '', 12, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (13 , 'CT00000000', 'CT13000000', '병/진료', '', 13, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (14 , 'CT00000000', 'CT14000000', '기타', '', 14, 1);
 
 /* 성별 유형 */
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (14 , 'GT00000000', 'GT10000000', '미구분', 'Unclassified', 1, 1);
@@ -19,7 +20,7 @@ insert into dict_dictionary(id, category, item, item_name, item_name_en, display
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (16 , 'GT00000000', 'GT30000000', '암컷', 'Female', 3, 1);
 
 /*Cites 부속서 */
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (17 , 'CA00000000', 'CA10000000', '논사이테', 'None', 1, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (17 , 'CA00000000', 'CA10000000', '논사이테스', 'None', 1, 1);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (18 , 'CA00000000', 'CA20000000', '1급', 'Appendices I', 2, 1);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (19 , 'CA00000000', 'CA30000000', '2급', 'Appendices II', 3, 1);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (20 , 'CA00000000', 'CA40000000', '3급', 'Appendices III', 4, 1);
@@ -116,5 +117,25 @@ insert into dict_dictionary(id, category, item, item_name, item_name_en, display
 /* animal dictionary */
 insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (1,100,101,102,103,'L. californiae',  'Lampropeltis californiae',     '캘리포니아 킹스네이크',    17,21);
 insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (2,100,101,102,103,'L. getula',       'Lampropeltis getula nigrita',  '멕시칸 블랙 킹스네이크',   17,21);
-insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (3,100,101,102,104,'P. guttatus',     'Pantherophis guttatus',        '콘스네이크',            17,21);
-insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (4,100,101,108,109,'R. auriculatus',  'Rhacodactylus auriculatus',    '가고일게코',            17,22);
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (3,100,101,102,104,'P. guttatus',     'Pantherophis guttatus',        '콘스네이크',               17,21);
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (4,100,101,108,109,'R. auriculatus',  'Rhacodactylus auriculatus',    '가고일게코',               17,22);
+
+게코류
+  레오파드게코
+  크레스티드게코
+  펫테일게코
+카멜레온
+
+콜루
+  렛스네이크
+  불스네이크
+  파인스네이크
+  고퍼스네이크
+  그레이밴디드킹스네이크
+  프레이리킹스네이크
+파이톤류
+  볼파이톤
+  카펫파이톤
+  그린트리파이톤
+거북류
+
