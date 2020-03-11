@@ -40,6 +40,12 @@ class Pet(models.Model):
 
 
 class Feeding(models.Model):
+    eat_type = models.ForeignKey(
+        Dictionary,
+        related_name='eat_type',
+        on_delete=models.CASCADE,
+        default=21
+    )
     prey_type = models.ForeignKey(
         Dictionary,
         related_name='prey_type',
@@ -49,6 +55,8 @@ class Feeding(models.Model):
         Dictionary,
         related_name='prey_size',
         on_delete=models.CASCADE,
+        blank=True,
+        null=True
     )
     prey_weight = models.IntegerField(blank=True, null=True)
     prey_quantity = models.IntegerField(default=1)

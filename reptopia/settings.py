@@ -29,8 +29,12 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     '.ap-northeast-2.compute.amazonaws.com',
+<<<<<<< HEAD:reptopia/settings.py
+    '127.0.0.1',
+=======
     '.reptopia.kr',
     '15.164.125.252',
+>>>>>>> 4bc4a5d800aca14ddf95dffeda8798579962f80b:reptopia/__settings.py.bak
 ]
 
 
@@ -89,13 +93,14 @@ WSGI_APPLICATION = 'reptopia.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+<<<<<<< HEAD:reptopia/settings.py
+=======
 """
 DATABASES = {
     'default': {
@@ -107,6 +112,7 @@ DATABASES = {
         'PASSWORD': 'WOwls*#73',
     }
 }
+>>>>>>> 4bc4a5d800aca14ddf95dffeda8798579962f80b:reptopia/__settings.py.bak
 
 
 # Password validation
