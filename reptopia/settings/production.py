@@ -9,8 +9,8 @@ CONFIG_SETTINGS_COMMON_FILE = os.path.join(CONFIG_SECRET_DIR, 'settings_common.j
 config_secret = json.loads(open(CONFIG_SETTINGS_COMMON_FILE).read())
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = config_secret['production']['SECRET_KEY']
-SECRET_KEY = '_4)b6r!_+d5ywsyj-ra#txsm+&0x5v#*esn+xi8$5h$%hfn5ky'
+SECRET_KEY = config_secret['production']['SECRET_KEY']
+# SECRET_KEY = '_4)b6r!_+d5ywsyj-ra#txsm+&0x5v#*esn+xi8$5h$%hfn5ky'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
