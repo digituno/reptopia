@@ -127,7 +127,7 @@ class PetDetailView(DetailView):
 
         dict_weight = get_object_or_404(Dictionary, pk=6)
         weight_list = Care.objects.filter(pet=pet).filter(type=dict_weight).order_by('-date', '-created_datetime')
-        context['weight_list'] = weight_list
+        context['weight_list'] = weight_list[:10]
 
         return context
 
