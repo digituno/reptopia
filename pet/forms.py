@@ -19,7 +19,7 @@ class PetCreateForm(ModelForm):
         self.fields['species'].widget.attrs.update({'style': 'visibility:hidden; width:0px; height:0px;'})
         self.fields['name'].widget.attrs.update({'class': 'form-control'})
         self.fields['gender'].widget.attrs.update({'class': 'form-control'})
-        self.fields['bod'].widget.attrs.update({'class': 'form-control'})
+        self.fields['bod'].widget.attrs.update({'class': 'form-control', 'readonly': 'true'})
         self.fields['desc'].widget.attrs.update({'class': 'form-control'})
         self.fields['image'].widget.attrs.update({'class': 'form-control'})
 
@@ -29,6 +29,8 @@ class PetCreateForm(ModelForm):
         self.fields['bod'].label = "출생년월일"
         self.fields['image'].label = "대표사진"
         self.fields['desc'].label = "펫 설명"
+
+        self.fields['species'].help_text = '개체의 종류를 한글로 두글자 이상 입력하고 자동완성 기능을 이용해 선택해주세요.'
 
 class CareCreateForm(ModelForm):
     class Meta:
