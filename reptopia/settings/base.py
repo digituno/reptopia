@@ -123,7 +123,7 @@ AUTH_USER_MODEL = 'account.Account'
 SESSION_COOKIE_AGE = 3600  # 20 Minute = 1200 MS
 SESSION_SAVE_EVERY_REQUEST = True
 
-# Email Setting
+# Email Setting 구글 메일인증 안될경우 https://accounts.google.com/b/0/displayunlockcaptcha
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
