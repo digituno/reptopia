@@ -45,53 +45,53 @@ insert into dict_dictionary(id, category, item, item_name, item_name_en, display
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (35 , 'PT20000000', 'PT25000000', '기타',    '', 5, true);
 
 /* 냉동 마우스 사이즈 */
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (35 , 'PT11000000', 'PT11100000', '핑키', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (36 , 'PT11000000', 'PT11200000', '퍼지', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (37 , 'PT11000000', 'PT11300000', '하퍼', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (38 , 'PT11000000', 'PT11400000', '소', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (39 , 'PT11000000', 'PT11500000', '중', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (40 , 'PT11000000', 'PT11600000', '대', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (36 , 'PT11000000', 'PT11100000', '핑키', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (37 , 'PT11000000', 'PT11200000', '퍼지', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (38 , 'PT11000000', 'PT11300000', '하퍼', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (39 , 'PT11000000', 'PT11400000', '소', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (40 , 'PT11000000', 'PT11500000', '중', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (41 , 'PT11000000', 'PT11600000', '대', '', 1, true);
 
 /* 냉동 렛 사이즈 */
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (41 , 'PT12000000', 'PT12100000', '핑키', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (42 , 'PT12000000', 'PT12200000', '퍼지', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (43 , 'PT12000000', 'PT12300000', '하퍼', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (44 , 'PT12000000', 'PT12400000', '소', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (45 , 'PT12000000', 'PT12500000', '중', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (46 , 'PT12000000', 'PT12600000', '대', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (42 , 'PT12000000', 'PT12100000', '핑키', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (43 , 'PT12000000', 'PT12200000', '퍼지', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (44 , 'PT12000000', 'PT12300000', '하퍼', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (45 , 'PT12000000', 'PT12400000', '소', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (46 , 'PT12000000', 'PT12500000', '중', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (47 , 'PT12000000', 'PT12600000', '대', '', 1, true);
 
 /* 마우스 사이즈 */
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (47 , 'PT14000000', 'PT14100000', '핑키', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (48 , 'PT14000000', 'PT14200000', '퍼지', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (49 , 'PT14000000', 'PT14300000', '하퍼', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (50 , 'PT14000000', 'PT14400000', '소', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (51 , 'PT14000000', 'PT14500000', '중', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (52 , 'PT14000000', 'PT14600000', '대', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (48 , 'PT14000000', 'PT14100000', '핑키', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (49 , 'PT14000000', 'PT14200000', '퍼지', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (50 , 'PT14000000', 'PT14300000', '하퍼', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (51 , 'PT14000000', 'PT14400000', '소', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (52 , 'PT14000000', 'PT14500000', '중', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (53 , 'PT14000000', 'PT14600000', '대', '', 1, true);
 
 /* 렛 사이즈 */
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (53 , 'PT15000000', 'PT15100000', '핑키', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (54 , 'PT15000000', 'PT15200000', '퍼지', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (55 , 'PT15000000', 'PT15300000', '하퍼', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (56 , 'PT15000000', 'PT15400000', '소', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (57 , 'PT15000000', 'PT15500000', '중', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (58 , 'PT15000000', 'PT15600000', '대', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (54 , 'PT15000000', 'PT15100000', '핑키', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (55 , 'PT15000000', 'PT15200000', '퍼지', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (56 , 'PT15000000', 'PT15300000', '하퍼', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (57 , 'PT15000000', 'PT15400000', '소', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (58 , 'PT15000000', 'PT15500000', '중', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (59 , 'PT15000000', 'PT15600000', '대', '', 1, true);
 
 /* 밀웜 사이즈 */
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (59 , 'PT21000000', 'PT21100000', '극소', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (60 , 'PT21000000', 'PT21200000', '소', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (61 , 'PT21000000', 'PT21300000', '중', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (62 , 'PT21000000', 'PT21400000', '대', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (60 , 'PT21000000', 'PT21100000', '극소', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (61 , 'PT21000000', 'PT21200000', '소', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (62 , 'PT21000000', 'PT21300000', '중', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (63 , 'PT21000000', 'PT21400000', '대', '', 1, true);
 
 /* 귀뚜라미 사이즈 */
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (63 , 'PT22000000', 'PT22100000', '핀헤드', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (64 , 'PT22000000', 'PT22200000', '소', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (65 , 'PT22000000', 'PT22300000', '중', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (66 , 'PT22000000', 'PT22400000', '대', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (64 , 'PT22000000', 'PT22100000', '핀헤드', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (65 , 'PT22000000', 'PT22200000', '소', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (66 , 'PT22000000', 'PT22300000', '중', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (67 , 'PT22000000', 'PT22400000', '대', '', 1, true);
 
 /* 슈퍼밀웜 사이즈 */
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (67 , 'PT23000000', 'PT23100000', '소', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (68 , 'PT23000000', 'PT23200000', '중', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (69 , 'PT23000000', 'PT23300000', '대', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (68 , 'PT23000000', 'PT23100000', '소', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (69 , 'PT23000000', 'PT23200000', '중', '', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (70 , 'PT23000000', 'PT23300000', '대', '', 1, true);
 
 /* 동물 분류 유형*/
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (100, 'AC00000000', 'AC10000000', '파충강',          'Reptila', 1, true);
@@ -142,7 +142,7 @@ insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_
 insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (8,100,101,107,112,'Hemitheconyx caudicinctus',   'Africa Fattail Gecko',             '펫테일게코',            17,22);
 insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (9,100,101,113,114,'Gekko gecko',                 'Tokay Gecko',                      '토케이게코',            19,22);
 insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (10,100,101,115,116,'Pogona vitticeps',           'Central bearded Dragon',           '비어디드드래곤',         17,22);
-insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (11,100,101,115,116,'Pogona henrylawsoni',        'Rankin\'s Dragon',                 '랜킨스드래곤',           17,22);
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (11,100,101,115,116,'Pogona henrylawsoni',        'Rankins Dragon',                   '랜킨스드래곤',           17,22);
 insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (12,100,101,115,117,'Uromastyx gyeri',            'Uromastyx Gyeri',                  '유로매스틱스 게리',       17,22);
 insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (13,100,101,115,117,'Uromastyx ornata',           'Uromastyx Ornata',                 '유로매스틱스 오네이트',    17,22);
 insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (14,100,101,115,117,'Uromastyx aegyptia',         'Uromastyx Aegyptia',               '유로매스틱스 이집티안',    17,22);
