@@ -97,20 +97,24 @@ insert into dict_dictionary(id, category, item, item_name, item_name_en, display
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (100, 'AC00000000', 'AC10000000', '파충강',          'Reptila', 1, 1);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (101, 'AC10000000', 'AC11000000', '뱀목',            'Squmata', 1, 1);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (102, 'AC11000000', 'AC11100000', '뱀과, 콜루브리드',  'Colubridae', 1, 1);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (103, 'AC11100000', 'AC11110000', '왕뱀, 킹스네이크',  'Lampropeltis', 1, 1);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (104, 'AC11100000', 'AC11120000', '콘스네이크속',      'Pantherophis', 1, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (103, 'AC11100000', 'AC11100100', '왕뱀, 킹스네이크',  'Lampropeltis', 1, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (104, 'AC11100000', 'AC11100200', '콘스네이크속',      'Pantherophis', 1, 1);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (105, 'AC11000000', 'AC11200000', '유린목보아과',      'Pythonidae', 1, 1);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (106, 'AC11200000', 'AC11210000', '파이톤',           'Python', 1, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (106, 'AC11200000', 'AC11200100', '파이썬속',           'Python', 1, 1);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (107, 'AC11000000', 'AC11300000', '표범도마뱀붙이과',   'Eublepharidae', 1, 1);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (108, 'AC11300000', 'AC11310000', '표범도마뱀붙이속',   'Eublepharis', 1, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (108, 'AC11300000', 'AC11300100', '표범도마뱀붙이속',   'Eublepharis', 1, 1);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (109, 'AC11000000', 'AC11400000', '돌도마뱀붙이과',     'Diplodactylidae', 1, 1);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (110, 'AC11400000', 'AC11410000', '리치도마뱀붙이속',   'Rhacodactylus', 1, 1);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (111, 'AC11400000', 'AC11420000', '볏도마뱀붙이속',     'Correlophus', 1, 1);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (112, 'AC11300000', 'AC11320000', '살찐꼬리도마뱀붙이속', 'Hemitheconyx', 1, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (110, 'AC11400000', 'AC11400100', '리치도마뱀붙이속',   'Rhacodactylus', 1, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (111, 'AC11400000', 'AC11400200', '볏도마뱀붙이속',     'Correlophus', 1, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (112, 'AC11300000', 'AC11300200', '살찐꼬리도마뱀붙이속', 'Hemitheconyx', 1, 1);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (113, 'AC11000000', 'AC11500000', '도마뱀붙이과',       'Gekkonidae', 1, 1);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (114, 'AC11500000', 'AC11510000', '도마뱀붙이속',       'Gekko', 1, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (114, 'AC11500000', 'AC11500100', '도마뱀붙이속',       'Gekko', 1, 1);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (115, 'AC11000000', 'AC11600000', '아가마과',          'Agamidae', 1, 1);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (116, 'AC11600000', 'AC11610000', '턱수염도마뱀속',     'Pogona', 1, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (116, 'AC11600000', 'AC11600100', '턱수염도마뱀속',     'Pogona', 1, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (117, 'AC11600000', 'AC11600200', '유로매스틱스속',     'Uromastyx', 1, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (118, 'AC11200000', 'AC11200200', '모렐리아속',        'Morelia', 1, 1);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (119, 'AC11100000', 'AC11100300', '돼지코뱀속',        'Heterodon', 1, 1);
+
 
 /*BBS Type
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (200, 'BT00000000', 'BT10000000', '공지사항', '', 1, 1);
@@ -122,8 +126,8 @@ insert into dict_dictionary(id, category, item, item_name, item_name_en, display
 
 
 /* animal dictionary */
-insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (1,100,101,102,103,'Lampropeltis californiae',    'California Kingsnake',     '캘리포니아 킹스네이크',   17,21);
-insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (2,100,101,102,103,'Lampropeltis getula nigrita', 'Maxican Black Kingsnake',  '멕시칸 블랙킹스네이크',   17,21);
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (1,100,101,102,103,'Lampropeltis californiae',    'California King Snake',     '캘리포니아 킹스네이크',   17,21);
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (2,100,101,102,103,'Lampropeltis getula nigrita', 'Maxican Black King Snake',  '멕시칸 블랙킹스네이크',   17,21);
 insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (3,100,101,102,104,'Pantherophis guttatus',       'Corn Snake',               '콘스네이크',            17,21);
 insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (4,100,101,108,109,'Rhacodactylus auriculatus',   'Gagoyle Gecko',            '가고일게코',            17,22);
 insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (5,100,101,107,108,'Eublepharis macularius',      'Leopard Gecko',            '레오파드게코',           17,22);
@@ -132,16 +136,23 @@ insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_
 insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (8,100,101,107,112,'Hemitheconyx caudicinctus',   'Africa Fattail Gecko',     '펫테일게코',            17,22);
 insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (9,100,101,113,114,'Gekko gecko',                 'Tokay Gecko',              '토케이게코',            19,22);
 insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (10,100,101,115,116,'Pogona vitticeps',           'Central bearded Dragon',   '비어디드드래곤',         17,22);
-
-
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (11,100,101,115,116,'Pogona henrylawsoni',        'Rankin\'s Dragon',         '랜킨스드래곤',           17,22);
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (12,100,101,115,117,'Uromastyx gyeri',            'Uromastyx Gyeri',          '유로매스틱스 게리',       17,22);
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (13,100,101,115,117,'Uromastyx ornata',           'Uromastyx Ornata',         '유로매스틱스 오네이트',    17,22);
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (14,100,101,115,117,'Uromastyx aegyptia',         'Uromastyx Aegyptia',       '유로매스틱스 이집티안',    17,22);
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (15,100,101,115,117,'Uromastyx ocellata',         'Uromastyx Ocellata',       '유로매스틱스 오셀라타',    17,22);
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (16,100,101,115,117,'Uromastyx princeps',         'Uromastyx Princeps',       '유로매스틱스 프린셉스',    17,22);
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (17,100,101,102,103,'Lampropeltis getula brooksi','Brooks King Snake',        '브룩스 킹스네이크',       17,21);
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (18,100,101,102,103,'Lampropeltis getula floridana','Flolida King Snake',     '플로리다 킹스네이크',      17,21);
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (19,100,101,102,103,'Lampropeltis triangulum',     'Eastern Milk Snake',      '동부 밀크스네이크',      17,21);
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (20,100,101,104,105,'Python regius',               'Ball Python',             '볼파이썬',              19,21);
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (21,100,101,104,118,'Morelia viridis',             'Green Tree Python',       '그린트리파이썬',         19,21);
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (22,100,101,102,119,'Heterodon nasicus',           'Westerm Hognose Snake',   '호그노즈스네이크',        17,21);
 
 
 게코류
     납테일 에이미아이
     납테일 휠러리
-리저드
-  비어디드래곤
-  유로메스틱스
 스킨크
   블루텅스킨크
   레드아이아머드스킨크
@@ -153,8 +164,6 @@ insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_
   사바나
 콜루
   렛스네이크
-  플로리다킹
-  브룩스킹
     인디고
     불스네이크
     파인스네이크
@@ -162,8 +171,6 @@ insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_
     그레이밴디드킹스네이크
     프레이리킹스네이크
 파이톤류
-  볼파이톤
-  그린트리파이톤
     카펫파이톤
     블러드파이톤
 보아
