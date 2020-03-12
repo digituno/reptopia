@@ -100,9 +100,6 @@ class AccountUpdateView(LoginRequiredMixin, UpdateView):
         form_user = form.save(commit=False)
 
         # 기존에 등록된 이미지와 다를 경우 기존의 이미지르로 삭제한다.
-        logger.debug("기등록 파일 삭제")
-        logger.debug(current_user.image)
-        logger.debug(form_user.image)
         if current_user.id == form_user.id and current_user.image != form_user.image:
             current_user.image.delete()
 
