@@ -24,13 +24,13 @@ class PetCreateForm(ModelForm):
         self.fields['image'].widget.attrs.update({'class': 'form-control'})
 
         self.fields['species'].label = "개체종류"
-        self.fields['name'].label = "펫 이름"
+        self.fields['name'].label = "이름"
         self.fields['gender'].label = "성별"
-        self.fields['bod'].label = "출생년월일"
+        self.fields['bod'].label = "부화일자"
         self.fields['image'].label = "대표사진"
-        self.fields['desc'].label = "펫 설명"
+        self.fields['desc'].label = "설명"
 
-        self.fields['species'].help_text = '개체의 종류를 한글로 두글자 이상 입력하고 자동완성 기능을 이용해 선택해주세요.'
+        self.fields['species'].help_text = '개체의 종류를 두글자 이상 입력하고 자동완성 기능을 이용해 선택해주세요.'
 
 class CareCreateForm(ModelForm):
     class Meta:
