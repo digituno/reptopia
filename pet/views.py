@@ -82,6 +82,12 @@ class PetUpdateView(LoginRequiredMixin, UpdateView):
         if form.is_valid():
             form.instance.owner = self.request.user
             pet = form.save(commit=False)
+
+            current_pet = get_object_or_404(Pet, pk=self.kwargs['pk'])
+            form_pet = form.save(commit=False)
+            if current_pet.id == form_pet.id and current_pet.image != form_pet.image:
+                current_pet.image.delete()
+
             pet.save()
             form.instance.tags.set(pet.species.common_name_kor, clear=True)
             form.save_m2m()

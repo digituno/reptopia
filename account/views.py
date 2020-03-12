@@ -96,7 +96,7 @@ class AccountUpdateView(LoginRequiredMixin, UpdateView):
 
     @transaction.atomic
     def form_valid(self, form):
-        current_user = self.request.user
+        current_user = get_object_or_404(Account, pk=self.kwargs['pk'])
         form_user = form.save(commit=False)
 
         # 기존에 등록된 이미지와 다를 경우 기존의 이미지르로 삭제한다.
