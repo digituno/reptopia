@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from django.db import transaction
+from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from account.models import Account
 from dict.models import AnimalDictionary, Dictionary
@@ -181,13 +182,13 @@ class SpeciesSearchTemplateView(View):
     def get(self, request):
         q = request.GET.get('term', '').capitalize()
         logger.debug(q)
-        search_qs = AnimalDictionary.objects.filter(common_name_kor__icontains=q)
+        search_qs = AnimalDictionary.objects.filter(Q(common_name_kor__icontains=q)|Q(common_name__icontains=q))
 
         results  = []
         for r in search_qs:
             value = {}
-            value['id'] =r.id
-            value['label'] =r.common_name_kor
+            value['id'] = r.id
+            value['label'] = '[' + r.common_name + '] '+ r.common_name_kor
             results.append(value)
         logger.debug(results)
         data = json.dumps(results)
