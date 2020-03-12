@@ -54,9 +54,9 @@
    <div class="row">
         <div class="col-xs-4 col-sm-2">
             {% if account.image %}
-                <img src="{{ account.image.url }}" class="rounded-circle" width="150" height="150">
+                <img src="{{ account.image.url }}" class="img-fluid">
             {% else %}
-                <img src="{% static "img/anonymous_user.png" %}" class="rounded-circle" width="150" height="150">
+                <img src="{% static "img/anonymous_user.png" %}" class="img-fluid">
             {% endif %}
             <div style="text-align:center;">
                 <span class="btn" data-id="{{ account.pk }}" data-type="account" data-action="like" title="Like">

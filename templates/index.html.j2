@@ -163,7 +163,7 @@
             "max": am4core.color("#CC00CC"),
             "dataField": "value"
         });
-        series.labels.template.url = "http://127.0.0.1:8000/tags/tag-list/{id}/{word}";
+        series.labels.template.url = "http://{{ request.META.HTTP_HOST }}/tags/tag-list/{id}/{word}";
         series.labels.template.urlTarget = "_self";
         series.labels.template.tooltipText = "{word}: {value}";
 
