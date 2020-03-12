@@ -87,7 +87,9 @@
                             <th scope="col">일지유형</th>
                             <th scope="col" class="d-none d-sm-table-cell">추가내용</th>
                             <th scope="col" class="d-none d-sm-table-cell">사진</th>
-                            <th></th>
+                            {% if user.is_authenticated and user == pet.owner %}
+                                <th></th>
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody>
@@ -117,9 +119,9 @@
                                     </a>
                                 {% endif %}
                             </td>
-                            <td>
-                                <button name="care_delete" class="btn btn-danger btn-xs" owner="{{ pet.owner.pk }}" pet="{{ pet.pk }}" care="{{ care.pk }}"><i class="fa fa-trash"></i></button>
-                            </td>
+                            {% if user.is_authenticated and user == pet.owner %}
+                                <td> <button name="care_delete" class="btn btn-danger btn-xs" owner="{{ pet.owner.pk }}" pet="{{ pet.pk }}" care="{{ care.pk }}"><i class="fa fa-trash"></i></button> </td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>
