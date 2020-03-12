@@ -32,7 +32,7 @@
             <hr />
             <h5>동물분류 종 :  {{ pet.species.common_name_kor }} </h5>
             <h5>성별 : {{ pet.gender.item_name }} </h5>
-            <h5>출생년월일 : {{ pet.bod | default_if_none:"" }} </h5>
+            <h5>부화일자 : {{ pet.bod | default_if_none:"" }} </h5>
             <h5>등록일시 : {{ pet.created_date }} </h5>
             <hr />
             {% if pet.desc %}
