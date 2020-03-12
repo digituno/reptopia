@@ -8,16 +8,6 @@
         <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
         <title>REPTOPIA</title>
         <!-- 부트스트랩 -->
-        <style>
-            a {
-                text-decoration:none !important;
-            }
-
-            a .linkblack {
-                color:black !important;
-            }
-        </style>
-
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="{% static 'lib/bootstrap/css/bootstrap-theme.min.css' %}" rel="stylesheet">
         <!-- fontawesome -->
@@ -25,6 +15,15 @@
         <!-- nav static bar -->
         <link href="{% static 'css/navbar-static-top.css' %}" rel="stylesheet">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+         <style>
+            a {
+                text-decoration:none !important;
+            }
+
+            .linkblack {
+                color:black !important;
+            }
+        </style>
 
         {% block stylesheet %}
         {% endblock %}
