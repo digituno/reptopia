@@ -33,6 +33,7 @@ class Pet(models.Model):
 
     def delete(self, *args, **kwargs):
         self.image.delete()
+        self.tags.clear()
         super(Pet, self).delete(*args, **kwargs)
 
     def get_model_name(self):
@@ -87,6 +88,8 @@ class Care(models.Model):
 
     def delete(self, *args, **kwargs):
         self.image.delete()
+        if self.feeding:
+            self.feeding.delete()
         super(Care, self).delete(*args, **kwargs)
 
     def get_absolute_url(self):
