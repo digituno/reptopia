@@ -224,7 +224,6 @@
                         '확인': function() {
                             $('#delete_form').attr("action", "{% url 'pet-delete' userid=pet.owner.pk pk=pet.pk %}");
                             $('#delete_form').submit();
-                            // window.location = "{% url 'pet-delete' userid=pet.owner.pk pk=pet.pk %}";
                         },
                         '취소': function() {
                             $( this ).dialog( "close" );
