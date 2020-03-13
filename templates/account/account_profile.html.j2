@@ -33,6 +33,10 @@
             padding: 5px 10px 5px 10px;
             border-radius: 27px;
         }
+
+        .linkblack {
+            color:black !important;
+        }
     </style>
 {% endblock %}
 
@@ -54,9 +58,9 @@
    <div class="row">
         <div class="col-xs-4 col-sm-2">
             {% if account.image %}
-                <img src="{{ account.image.url }}" class="rounded-circle" width="150" height="150">
+                <img src="{{ account.image.url }}" class="img-fluid img-thumbnail">
             {% else %}
-                <img src="{% static "img/anonymous_user.png" %}" class="rounded-circle" width="150" height="150">
+                <img src="{% static "img/anonymous_user.png" %}" class="img-fluid img-thumbnail">
             {% endif %}
             <div style="text-align:center;">
                 <span class="btn" data-id="{{ account.pk }}" data-type="account" data-action="like" title="Like">
@@ -77,9 +81,9 @@
          </div>
         <div class="col-xs-8 col-sm-10">
             <h4 class="title">{{ account.name}}</h4>
-            <h5><i class="fab fa-blogger"></i> <a href="{{ account.blog_url | default_if_none:"#" }}" target="_blank"> {{ account.blog_url | default_if_none:"" }} </a> </h5>
-            <h5><i class="fab fa-instagram-square"></i>  <a href="{{ account.instagram_url | default_if_none:"#" }}" target="_blank">{{ account.instagram_url | default_if_none:"" }} </a> </h5>
-            <h5><i class="fab fa-facebook-square"></i>  <a href="{{ account.facebook_url | default_if_none:"#" }}" target="_blank">{{ account.facebook_url | default_if_none:"" }} </a> </h5>
+            <pre><i class="fab fa-blogger"></i> <a href="{{ account.blog_url | default_if_none:"#" }}" target="_blank" class="linkblack"> {{ account.blog_url | default_if_none:"" }} </a> </pre>
+            <pre><i class="fab fa-instagram-square"></i>  <a href="{{ account.instagram_url | default_if_none:"#" }}" target="_blank" class="linkblack">{{ account.instagram_url | default_if_none:"" }} </a> </pre>
+            <pre><i class="fab fa-facebook-square"></i>  <a href="{{ account.facebook_url | default_if_none:"#" }}" target="_blank" class="linkblack">{{ account.facebook_url | default_if_none:"" }} </a> </pre>
         </div>
     </div>
     <div class="row">

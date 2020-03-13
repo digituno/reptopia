@@ -1,5 +1,5 @@
 from django.views.generic import View, ListView, DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -7,6 +7,7 @@ from django.conf import settings
 from django.db import transaction
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.urls import reverse_lazy
 from account.models import Account
 from dict.models import AnimalDictionary, Dictionary
 from .models import Pet, Care, Feeding
@@ -96,15 +97,22 @@ class PetUpdateView(LoginRequiredMixin, UpdateView):
             return super().form_invalid(form)
 
 
-class PetDeleteView(LoginRequiredMixin, View):
+class PetDeleteView(LoginRequiredMixin, DeleteView):
     login_url = settings.LOGIN_URL
+    model = Pet 
 
+    def get_success_url(self):
+        owner = self.object.owner
+        return reverse_lazy('pet-list', kwargs={'userid': owner.id})
+
+    """
+    @transaction.atomic
     def get(self, request, userid, pk):
         pet = get_object_or_404(Pet, pk=pk)
-        pet.tags.clear()
+        # pet.tags.clear()
         pet.delete()
         return redirect('pet-list', userid=userid)
-
+    """
 
 class PetDetailView(DetailView):
     model = Pet
@@ -169,19 +177,13 @@ class CareCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class CareDeleteView(LoginRequiredMixin, View):
+class CareDeleteView(LoginRequiredMixin, DeleteView):
     login_url = settings.LOGIN_URL
+    model = Care
 
-    @transaction.atomic
-    def get(self, request, userid, petid, careid):
-        care = get_object_or_404(Care, pk=careid)
-
-        if care.feeding:
-            feeding = care.feeding
-            feeding.delete()
-
-        care.delete()
-        return redirect('pet-detail', userid=userid, pk=petid)
+    def get_success_url(self):
+        pet = self.object.pet
+        return reverse_lazy('pet-detail', kwargs={'userid': pet.owner.id, 'pk':pet.id})
 
 
 class SpeciesSearchTemplateView(View):

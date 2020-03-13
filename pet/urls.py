@@ -9,6 +9,6 @@ urlpatterns = [
     path('<int:userid>/pet/<int:pk>/update', pet_views.PetUpdateView.as_view(), name='pet-update'),
     path('<int:userid>/pet/<int:pk>/delete', pet_views.PetDeleteView.as_view(), name='pet-delete'),
     path('<int:userid>/pet/<int:petid>/care/add', pet_views.CareCreateView.as_view(), name='care-add'),
-    path('<int:userid>/pet/<int:petid>/care/<int:careid>/delete', pet_views.CareDeleteView.as_view(), name='care-delete'),
+    path('<int:userid>/pet/<int:petid>/care/<int:pk>/delete', pet_views.CareDeleteView.as_view(), name='care-delete'),
     path('ajax/ajax-search-species', pet_views.SpeciesSearchTemplateView.as_view(), name='ajax-search-species'),
 ]

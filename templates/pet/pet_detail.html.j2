@@ -24,7 +24,7 @@
     <div class="row mt-5">
         <div class="col-xs-6 col-sm-4">
             {% if pet.image %}
-            <img src="{{ pet.image.url }}" class="img-fluid">
+            <img src="{{ pet.image.url }}" class="img-fluid img-thumbnail">
             {% endif %}
         </div>
         <div class="col-xs-6 col-sm-8">
@@ -32,8 +32,7 @@
             <hr />
             <h5>동물분류 종 :  {{ pet.species.common_name_kor }} </h5>
             <h5>성별 : {{ pet.gender.item_name }} </h5>
-            <h5>출생년월일 : {{ pet.bod | default_if_none:"" }} </h5>
-            <h5>등록일시 : {{ pet.created_date }} </h5>
+            <h5>부화일자 : {{ pet.bod | default_if_none:"" }} </h5>
             <hr />
             {% if pet.desc %}
                 <pre class="well pt-2 pl-2 pr-2 pb-2">{{ pet.desc }}</pre>
@@ -48,7 +47,7 @@
             -->
         </div>
     </div>
-    <ul class="nav nav-tabs" role="tablist">
+    <ul class="nav nav-tabs mt-5" role="tablist">
         <li role="presentation" class="nav-item"><a class="nav-link active" href="#carelog" data-toggle="tab" >사육일지</a></li>
         <li role="presentation" class="nav-item"><a class="nav-link" href="#graph" data-toggle="tab" >체중그래프</a></li>
     </ul>
@@ -87,7 +86,9 @@
                             <th scope="col">일지유형</th>
                             <th scope="col" class="d-none d-sm-table-cell">추가내용</th>
                             <th scope="col" class="d-none d-sm-table-cell">사진</th>
-                            <th></th>
+                            {% if user.is_authenticated and user == pet.owner %}
+                                <th></th>
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody>
@@ -117,9 +118,9 @@
                                     </a>
                                 {% endif %}
                             </td>
-                            <td>
-                                <button name="care_delete" class="btn btn-danger btn-xs" owner="{{ pet.owner.pk }}" pet="{{ pet.pk }}" care="{{ care.pk }}"><i class="fa fa-trash"></i></button>
-                            </td>
+                            {% if user.is_authenticated and user == pet.owner %}
+                                <td> <button name="care_delete" class="btn btn-danger btn-xs" owner="{{ pet.owner.pk }}" pet="{{ pet.pk }}" care="{{ care.pk }}"><i class="fa fa-trash"></i></button> </td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -156,6 +157,7 @@
         </div>
     </div>
 </div>
+<form id="delete_form" method="post" action=""> {% csrf_token %} </form>
 
 {% endblock %}
 
@@ -219,7 +221,8 @@
                     title: "개체 삭제확인",
                     buttons: {
                         '확인': function() {
-                            window.location = "{% url 'pet-delete' userid=pet.owner.pk pk=pet.pk %}";
+                            $('#delete_form').attr("action", "{% url 'pet-delete' userid=pet.owner.pk pk=pet.pk %}");
+                            $('#delete_form').submit();
                         },
                         '취소': function() {
                             $( this ).dialog( "close" );
@@ -239,7 +242,8 @@
                     title: "사육일지 삭제확인",
                     buttons: {
                         '확인': function() {
-                            window.location = "{% url 'care-delete' userid=12345 petid=34567 careid=56789 %}".replace(/12345/, _owner).replace(/34567/, _pet).replace(/56789/, _care);
+                            $('#delete_form').attr("action", "{% url 'care-delete' userid=12345 petid=34567 pk=56789 %}".replace(/12345/, _owner).replace(/34567/, _pet).replace(/56789/, _care));
+                            $('#delete_form').submit();
                         },
                         '취소': function() {
                             $( this ).dialog( "close" );
