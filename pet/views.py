@@ -97,16 +97,22 @@ class PetUpdateView(LoginRequiredMixin, UpdateView):
             return super().form_invalid(form)
 
 
-class PetDeleteView(LoginRequiredMixin, View):
+class PetDeleteView(LoginRequiredMixin, DeleteView):
     login_url = settings.LOGIN_URL
+    model = Pet 
 
+    def get_success_url(self):
+        owner = self.object.owner
+        return reverse_lazy('pet-list', kwargs={'userid': owner.id})
+
+    """
     @transaction.atomic
     def get(self, request, userid, pk):
         pet = get_object_or_404(Pet, pk=pk)
         # pet.tags.clear()
         pet.delete()
         return redirect('pet-list', userid=userid)
-
+    """
 
 class PetDetailView(DetailView):
     model = Pet
@@ -178,19 +184,6 @@ class CareDeleteView(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         pet = self.object.pet
         return reverse_lazy('pet-detail', kwargs={'userid': pet.owner.id, 'pk':pet.id})
-
-    """
-    @transaction.atomic
-    def post(self, request, userid, petid, careid):
-        care = get_object_or_404(Care, pk=careid)
-
-        if care.feeding:
-            feeding = care.feeding
-            feeding.delete()
-
-        care.delete()
-        return redirect('pet-detail', userid=userid, pk=petid)
-    """
 
 
 class SpeciesSearchTemplateView(View):
