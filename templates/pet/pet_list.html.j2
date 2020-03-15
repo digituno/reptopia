@@ -47,7 +47,7 @@
                         <th class="d-none d-sm-table-cell" scope="row">{{ forloop.counter }}</th>
                         <td><a href="{{ pet.get_absolute_url }}">{{ pet.name }}</a></td>
                         <td>{{ pet.species.common_name_kor}}</td>
-                        <td class="d-none d-sm-table-cell">{{ pet.bod | default_if_none:"" }}</td>
+                        <td class="d-none d-sm-table-cell">{{ pet.bod | default_if_none:"" }} </td>
                         <td class="d-none d-sm-table-cell">{{ pet.gender.item_name }}</td>
                         <td class="d-none d-sm-table-cell">
                             {% if pet.image %}
