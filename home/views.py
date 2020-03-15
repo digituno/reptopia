@@ -40,7 +40,7 @@ class UserCardSearchView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        qs_all = Account.objects.all()
+        qs_all = Account.objects.filter(is_active=True)
         context['user_list'] = qs_all
         paginator = Paginator(qs_all, reptopia._PAGE_CNT_*2)
         page = self.request.GET.get('page')
