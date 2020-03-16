@@ -24,7 +24,7 @@ urlpatterns = [
     path('accounts/', include('account.urls')),
     path('dicts/', include('dict.urls')),
     path('', include('pet.urls')),
-    path('bbs/', include('bbs.urls')),
+    path('', include('bbs.urls')),
     path('gallery/', include('gallery.urls')),
     path('', include('home.urls')),
     path('', include('social.urls')),

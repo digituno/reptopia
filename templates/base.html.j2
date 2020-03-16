@@ -42,14 +42,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'board-list' bbs_type='notice' %}">공지사항</a>
+                </li>
                 {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'pet-list' userid=user.pk %}">개체관리</a>
                     </li>
                 {% endif %}
-                <!--
-                <li><a href="{% url 'board-list' bbs_type=200 %}" class="nav_linker">공지사항</a></li>
-                -->
                 <!--
                 <li><a href="{% url 'photo-list' %}">갤러리</a></li>
                 <li class="nav-item">

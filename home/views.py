@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, ListView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from datetime import datetime
@@ -6,6 +6,8 @@ from datetime import datetime
 from taggit.models import Tag
 from account.models import Account
 from pet.models import Pet, Care
+from dict.models import Dictionary
+from bbs.models import Post
 import reptopia
 import logging
 
@@ -17,14 +19,10 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        bbs_type = get_object_or_404(Dictionary, item=reptopia._NOTICE_)
+        notice_list = Post.objects.filter(board_type_id=bbs_type).order_by('-created_date')[:3]
+        context['notice_list'] = notice_list
 
-        """
-        today = datetime.today().date()
-        notice_list = Notice.objects.filter(notice_from_date__lte=today).filter(notice_to_date__gte=today)
-
-        if notice_list:
-            context['notice'] = notice_list[0]
-        """
 
         context['account_count'] = Account.objects.count()
         context['pet_count'] = Pet.objects.count()

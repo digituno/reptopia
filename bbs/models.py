@@ -18,13 +18,15 @@ class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     content = RichTextUploadingField()
+    """
     board_status = models.ForeignKey(
                   Dictionary,
                   related_name='board_status',
                   on_delete=models.CASCADE,
                   limit_choices_to={'category': reptopia._BBS_STATUS_},
     )
+    """
     created_date = models.DateTimeField(default=timezone.now)
 
     def get_absolute_url(self):
-        return reverse('board-detail', kwargs={'pk': self.pk, 'bbs_type': self.board_type.pk })
+        return reverse('board-detail', kwargs={'pk': self.pk, 'bbs_type': self.board_type.item_name_en })

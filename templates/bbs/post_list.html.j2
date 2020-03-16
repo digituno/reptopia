@@ -4,39 +4,50 @@
 {% block content %}
 <!-- Begin page content -->
 <div class="container">
-    <div class="page-header">
-        <div class="pull-right">
-            <div class="form-inline">
-                {% if user.is_authenticated %}
-                <a href="{% url 'board-add' bbs_type=bbs_type.pk %}" style="margin-left:10px;">
-                    <button type="button" class="btn btn-default">등록하기</button>
-                </a>
-                {% endif %}
+     <div class="clearfix">
+        <h1 class="float-left">{{ bbs_type.item_name }}</h1>
+        {% if user.is_authenticated %}
+            <div class="float-right">
+                <div class="btn-group">
+                    <a href="{% url 'board-add' bbs_type=bbs_type.item_name_en %}" style="margin-left:10px;">
+                        <button type="button" class="btn btn-default">등록하기</button>
+                    </a>
+                </div>
             </div>
-        </div>
-        <h1>{{ bbs_type.item_name }}</h1>
+        {% endif %}
     </div>
+    <hr>
     <div class="table-responsive">
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th scope="col" class="d-none d-sm-table-cell">#</th>
                     <th scope="col">제목</th>
-                    <th scope="col">등록일자</th>
-                    <th scope="col">작성자</th>
+                    <th scope="col" class="d-none d-sm-table-cell">등록일자</th>
+                    <th scope="col "class="d-none d-sm-table-cell">작성자</th>
                 </tr>
             </thead>
             <tbody>
             {% for post in post_list %}
                 <tr>
-                    <th scope="row">{{ forloop.counter }}</th>
+                    <th scope="row" class="d-none d-sm-table-cell">{{ forloop.counter }}</th>
                     <td><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></td>
-                    <td>{{ post.pub_date}}</a></td>
-                    <td>{{ post.author.name}}</td>
+                    <td class="d-none d-sm-table-cell">{{ post.pub_date}}</a></td>
+                    <td class="d-none d-sm-table-cell">{{ post.author.name}}</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
+{% endblock %}
+
+{% block script_content %}
+<script>
+    $(document).ready(function() {
+        $('#insert_btn').click(function(){
+            window.location = "{% url 'pet-add' userid=user.pk %}";
+        })
+    });
+</script>
 {% endblock %}

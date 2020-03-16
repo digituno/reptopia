@@ -4,38 +4,61 @@
 {% block content %}
 <!-- Begin page content -->
 <div class="container">
-    <div class="page-header">
-        <div class="pull-right">
-            <div class="btn-group" role="group" aria-label="Basic example">
+    <div class="clearfix">
+        <h1 class="float-left"> {{ post.board_type.item_name }}</h1>
+        <div class="float-right">
+            <div class="btn-group" role="group">
                 {% if user.is_authenticated and user == post.author %}
-                    <a href="{% url 'board-update' pk=post.pk bbs_type=post.board_type.pk %}">
-                        <button type="button" class="btn btn-default">정보수정</button>
-                    </a>
-                    <a href="{% url 'board-delete' pk=post.pk bbs_type=post.board_type.pk %}">
-                        <button type="button" class="btn btn-danger">삭제</button>
-                    </a>
+                    <button id="udpate_btn" type="button" class="btn btn-default">정보수정</button>
+                    <button id="delete_btn" type="button" class="btn btn-default">삭제</button>
                 {% endif %}
-                <a href="{% url 'board-list' bbs_type=post.board_type.pk %}">
-                    <button type="button" class="btn btn-default">목록으로</button>
-                </a>
+                <button id="list_btn" type="button" class="btn btn-default">목록으로</button>
             </div>
         </div>
-        <h1>{{ post.board_type.item_name }}</h1>
     </div>
+    <hr>
     <div class="row">
-        <div class="col-sm-2"> 제목 </div>
-        <div class="col-sm-10"> {{ post.title }} </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2"> 작성자 </div>
-        <div class="col-sm-10"> {{ post.author.name}} </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-2"> 작성일자 </div>
-        <div class="col-sm-10"> {{ post.pub_date }} </div>
+        <div class="col-sm-12">
+            <h2>{{ post.title }}</h2> 
+            <small class="form-text text-muted">{{ post.pub_date }} by {{ post.author.name}}</small>
+        </div>
     </div>
     <div class="row">
         <div class="col-sm-12"> {{ post.content|safe }} </div>
     </div>
 </div>
+<form id="delete_form" method="post" action=""> {% csrf_token %} </form>
 {% endblock %}
+
+
+
+{% block script_content %}
+<script>
+    $(document).ready(function() {
+        $('#update_btn').click(function(){
+            window.location = "{% url 'board-update' pk=post.pk bbs_type=post.board_type.item_name_en %}";
+        });
+
+        $('#delete_btn').click(function(){
+            $('#dialog-body').text('게시물을 삭제하시겠습니까?');
+            $( "#dialog-message" ).dialog({
+                modal: true,
+                title: "게시물 삭제확인",
+                buttons: {
+                    '확인': function() {
+                        $('#delete_form').attr("action", "{% url 'board-delete' pk=post.pk bbs_type=post.board_type.pk %}");
+                        $('#delete_form').submit();
+                    },
+                    '취소': function() {
+                        $( this ).dialog( "close" );
+                    }
+                },
+            });
+        });
+
+        $('#list_btn').click(function(){
+            window.location = "{% url 'board-list' bbs_type=post.board_type.item_name_en %}";
+        });
+    });
+</script>
+{% endblock%}

@@ -21,12 +21,12 @@ class PostListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        bbs_type = get_object_or_404(Dictionary, pk=self.kwargs['bbs_type'])
+        bbs_type = get_object_or_404(Dictionary, item_name_en=self.kwargs['bbs_type'])
         return Post.objects.filter(board_type_id=bbs_type)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        bbs_type = get_object_or_404(Dictionary, pk=self.kwargs['bbs_type'])
+        bbs_type = get_object_or_404(Dictionary, item_name_en=self.kwargs['bbs_type'])
         context['bbs_type'] = bbs_type
 
         return context
@@ -40,13 +40,12 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        form.instance.board_status = get_object_or_404(Dictionary, pk=210)
-        form.instance.board_type = get_object_or_404(Dictionary, pk=self.kwargs['bbs_type'])
+        form.instance.board_type = get_object_or_404(Dictionary, item_name_en=self.kwargs['bbs_type'])
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        bbs_type = get_object_or_404(Dictionary, pk=self.kwargs['bbs_type'])
+        bbs_type = get_object_or_404(Dictionary, item_name_en=self.kwargs['bbs_type'])
         context['bbs_type'] = bbs_type
 
         return context
@@ -60,7 +59,7 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        bbs_type = get_object_or_404(Dictionary, pk=self.kwargs['bbs_type'])
+        bbs_type = get_object_or_404(Dictionary, item_name_en=self.kwargs['bbs_type'])
         context['bbs_type'] = bbs_type
 
         return context
