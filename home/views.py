@@ -24,7 +24,7 @@ class IndexView(TemplateView):
         context['notice_list'] = notice_list
 
 
-        context['account_count'] = Account.objects.filter(is_active=True)
+        context['account_count'] = Account.objects.filter(is_active=True).count()
         context['pet_count'] = Pet.objects.count()
         context['care_count'] = Care.objects.count()
 
