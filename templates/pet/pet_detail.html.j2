@@ -30,7 +30,7 @@
         <div class="col-xs-6 col-sm-8">
             <h4 class="title">{{ pet.name }}</h4>
             <hr />
-            <h5>동물분류 종 :  {{ pet.species.common_name_kor }} </h5>
+            <h5>개체종류 :  {{ pet.species.common_name_kor }} </h5>
             <h5>성별 : {{ pet.gender.item_name }} </h5>
             <h5>부화일자 : {{ pet.bod | default_if_none:"" }} </h5>
             <hr />
