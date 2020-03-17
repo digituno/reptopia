@@ -25,8 +25,8 @@ class PostListView(TemplateView):
 
         qs_all = Post.objects.filter(board_type_id=bbs_type)
         if bbs_type.item == reptopia._REQUEST_ and not self.request.user.is_staff:
-            qs_all.filter(author=self.request.user)
-        qs_all.order_by('-created_date')
+            qs_all = qs_all.filter(author=self.request.user)
+        qs_all = qs_all.order_by('-created_date')
 
         paginator = Paginator(qs_all, reptopia._PAGE_CNT_)
         page = self.request.GET.get('page')

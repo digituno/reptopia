@@ -33,7 +33,7 @@ class PetListView(LoginRequiredMixin, ListView):
             species = get_object_or_404(AnimalDictionary, pk=self.request.GET['speciesid'])
             query_set = query_set.filter(species=species)
 
-        query_set.order_by('-created_date')
+        query_set = query_set.order_by('-created_date')
         return query_set
 
     def get_context_data(self, **kwargs):
@@ -105,14 +105,6 @@ class PetDeleteView(LoginRequiredMixin, DeleteView):
         owner = self.object.owner
         return reverse_lazy('pet-list', kwargs={'userid': owner.id})
 
-    """
-    @transaction.atomic
-    def get(self, request, userid, pk):
-        pet = get_object_or_404(Pet, pk=pk)
-        # pet.tags.clear()
-        pet.delete()
-        return redirect('pet-list', userid=userid)
-    """
 
 class PetDetailView(DetailView):
     model = Pet

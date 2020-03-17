@@ -39,9 +39,10 @@ class UserCardSearchView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         qs_all = Account.objects.filter(is_active=True).order_by('-date_joined')[:100]
-        context['user_list'] = qs_all
         paginator = Paginator(qs_all, reptopia._PAGE_CNT_*2)
         page = self.request.GET.get('page')
+
+
         try:
             user_list = paginator.page(page)
         except PageNotAnInteger:
