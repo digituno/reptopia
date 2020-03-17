@@ -1,5 +1,6 @@
 {% extends 'base.html.j2' %}
 {% load static %}
+{% load comments %}
 
 {% block content %}
 <!-- Begin page content -->
@@ -27,10 +28,14 @@
         <div class="col-sm-12"> {{ post.content|safe }} </div>
     </div>
 </div>
-<form id="delete_form" method="post" action=""> {% csrf_token %} </form>
+<hr>
+{% render_comment_form for object %}
+<hr>
+{% render_comment_list for object %}
+<form id="delete_form" method="post" action=""> {% csrf_token %} 
+    <input type="hidden" name="next" value="{{ post.get_absolute_url }}" />
+</form>
 {% endblock %}
-
-
 
 {% block script_content %}
 <script>
@@ -46,7 +51,7 @@
                 title: "게시물 삭제확인",
                 buttons: {
                     '확인': function() {
-                        $('#delete_form').attr("action", "{% url 'board-delete' pk=post.pk bbs_type=post.board_type.pk %}");
+                        $('#delete_form').attr("action", "{% url 'board-delete' pk=post.pk bbs_type=post.board_type.item_name_en %}");
                         $('#delete_form').submit();
                     },
                     '취소': function() {
@@ -59,6 +64,27 @@
         $('#list_btn').click(function(){
             window.location = "{% url 'board-list' bbs_type=post.board_type.item_name_en %}";
         });
+
+        $('i[name="comment_delete"]').click(function(){
+            _pk = $(this).attr("pk");
+
+                $('#dialog-body').text('선택하신 댓글을 삭제하시겠습니까?');
+                $( "#dialog-message" ).dialog({
+                    modal: true,
+                    title: "댓글 삭제확인",
+                    buttons: {
+                        '확인': function() {
+                            $('#delete_form').attr("action", "/comments/delete/" + _pk + "/");
+                            $('#delete_form').submit();
+                        },
+                        '취소': function() {
+                            $( this ).dialog( "close" );
+                        }
+                    },
+                });
+            });
+
+
     });
 </script>
 {% endblock%}

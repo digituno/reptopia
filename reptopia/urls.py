@@ -30,6 +30,7 @@ urlpatterns = [
     path('', include('social.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('tags/', include('taggit_templatetags2.urls')),
+    path('comments/', include('django_comments_xtd.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

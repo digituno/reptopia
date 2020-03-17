@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
+from django.views.generic import TemplateView, ListView, CreateView, DetailView, DeleteView, UpdateView
 from django.views import View
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from django.urls import reverse_lazy
@@ -14,21 +15,29 @@ import logging
 logger = logging.getLogger('reptopia.log')
 
 
-class PostListView(ListView):
-    model = Post
+class PostListView(TemplateView):
     template_name = 'bbs/post_list.html.j2'
-    context_object_name = 'post_list'
-    paginate_by = 10
-
-    def get_queryset(self):
-        bbs_type = get_object_or_404(Dictionary, item_name_en=self.kwargs['bbs_type'])
-        return Post.objects.filter(board_type_id=bbs_type)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         bbs_type = get_object_or_404(Dictionary, item_name_en=self.kwargs['bbs_type'])
         context['bbs_type'] = bbs_type
 
+        qs_all = Post.objects.filter(board_type_id=bbs_type)
+        if bbs_type.item == reptopia._REQUEST_ and not self.request.user.is_staff:
+            qs_all.filter(author=self.request.user)
+        qs_all.order_by('-created_date')
+
+        paginator = Paginator(qs_all, reptopia._PAGE_CNT_)
+        page = self.request.GET.get('page')
+        try:
+            post_list = paginator.page(page)
+        except PageNotAnInteger:
+            post_list = paginator.page(reptopia._FIRST_PAGE_)
+        except EmptyPage:
+            post_list = paginator.page(paginator.num_pages)
+
+        context['post_list'] = post_list
         return context
 
 
@@ -47,6 +56,10 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         bbs_type = get_object_or_404(Dictionary, item_name_en=self.kwargs['bbs_type'])
         context['bbs_type'] = bbs_type
+
+
+        if bbs_type.item == reptopia._REQUEST_:
+            context['bbs_help_text'] = '등록하고자 하는 개체가 없거나 서비스가 정상적으로 동작하지 못하는 경우 내역을 등록해주세요.' 
 
         return context
 
