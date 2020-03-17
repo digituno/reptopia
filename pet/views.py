@@ -161,9 +161,7 @@ class CareCreateView(LoginRequiredMixin, CreateView):
     @transaction.atomic
     def form_valid(self, form):
         # 사육일지유형이 먹이주기 일 때
-        # if form.cleaned_data['type'].id == reptopia._CARE_FEEDING_:
-        care_feeding = get_object_or_404(Dictionary, item=reptopia._FEEDING_)
-        if form.cleaned_data['type'].id == care_feeding.id:
+        if form.cleaned_data['type'].item == reptopia._FEEDING_:
             feeding = Feeding()
             feeding.eat_type = get_object_or_404(Dictionary, pk=form.cleaned_data['eat_type'].id)
             feeding.prey_type = get_object_or_404(Dictionary, pk=form.cleaned_data['prey_type'].id)

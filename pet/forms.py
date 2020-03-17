@@ -3,6 +3,7 @@ from django.forms import ModelForm, HiddenInput
 from django.shortcuts import get_object_or_404
 from dict.models import Dictionary, AnimalDictionary
 from .models import Pet, Care, Feeding
+import reptopia
 import logging
 
 logger = logging.getLogger('reptopia.log')
@@ -57,8 +58,8 @@ class CareCreateForm(ModelForm):
         self.fields['eat_type'].widget.attrs.update({'class': 'form-control'})
         self.fields['prey_type'].widget.attrs.update({'class': 'form-control', 'disabled': True})
         self.fields['prey_size'].widget.attrs.update({'class': 'form-control', 'disabled': True})
-        self.fields['prey_weight'].widget.attrs.update({'class': 'form-control', 'placeholder': '그램(gram) 단위로 숫자만 입력해주세요.'})
-        self.fields['prey_quantity'].widget.attrs.update({'class': 'form-control', 'placeholder': '먹이 수량을 숫자로 입력해주세요.'})
+        self.fields['prey_weight'].widget.attrs.update({'class': 'form-control', 'placeholder': '그램(gram) 단위로 정수만 입력해주세요.'})
+        self.fields['prey_quantity'].widget.attrs.update({'class': 'form-control', 'placeholder': '먹이 수량을 정수로 입력해주세요.'})
 
 
         self.fields['date'].label = "사육일자"
@@ -72,7 +73,11 @@ class CareCreateForm(ModelForm):
     def clean(self):
         cleaned_data = super(CareCreateForm, self).clean()
 
-        type = cleaned_data.get("type").id
+        type = cleaned_data.get("type")
+        if type is None:
+            self.add_error('type', "사육일지 유형은 필수 입력 항목입니다.")
+            raise forms.ValidationError("사육일지에 필수 항목이 누락되었습니다.")
+
         weight = cleaned_data.get("weight")
         eat_type = cleaned_data.get("eat_type")
         prey_type = cleaned_data.get("prey_type")
@@ -80,10 +85,11 @@ class CareCreateForm(ModelForm):
         prey_weight = cleaned_data.get("prey_weight")
         prey_quantity = cleaned_data.get("prey_quantity")
 
-        if type == 6 and weight is None:
+
+        if type.item == reptopia._WEIGHT_ and weight is None:
             self.add_error('weight', "체중은 필수 입력 항목입니다.")
-            raise forms.ValidationError("체육 사육일지에 필수 항목이 누락되었습니다.")
-        elif type == 2:
+            raise forms.ValidationError("체중 사육일지에 필수 항목이 누락되었습니다.")
+        elif type.item == reptopia._FEEDING_:
             if eat_type is None:
                 self.add_error('eat_type', "먹이 분류가 선택되지 않았습니다.")
                 raise forms.ValidationError("먹이주기 사육일지에 필수 항목이 누락되었습니다.")
