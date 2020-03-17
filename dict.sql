@@ -120,7 +120,6 @@ insert into dict_dictionary(id, category, item, item_name, item_name_en, display
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (123, 'AC11800000', 'AC11800100', '태구도마뱀속',      'Salvator', 1, true);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (124, 'AC11000000', 'AC11900000', '도마뱀과',         'Scincidae', 1, true);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (125, 'AC11900000', 'AC11900100', 'Tiliqua',         'Tiliqua', 1, true);
-
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (126, 'AC10000000', 'AC12000000', '거북목',           'Testudines', 1, true);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (127, 'AC12000000', 'AC12100000', 'Kinosternidae',   'Kinosternidae', 1, true);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (128, 'AC12100000', 'AC12100100', 'Sternotherus',    'Sternotherus', 1, true);
@@ -130,21 +129,18 @@ insert into dict_dictionary(id, category, item, item_name, item_name_en, display
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (132, 'AC12300000', 'AC12300100', '우드터틀속',          'Rhinoclemmys', 1, true);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (133, 'AC12000000', 'AC12400000', '늑대거북과',           'Chelydridae', 1, true);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (134, 'AC12400000', 'AC12400100', '늑대거북속',          'Chelydra', 1, true);
-
-
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (135, 'AC12000000', 'AC12500000', '땅거북과',           'Testudinidae', 1, true);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (136, 'AC12000000', 'AC12500100', 'Stigmochelys',     'Stigmochelys', 1, true);
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (137, 'AC12000000', 'AC12500200', 'Agrionemys',       'Agrionemys', 1, true);
+
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (138, 'AC11100000', 'AC11100400', 'Elaphe',        'Elaphe', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (139, 'AC11100000', 'AC11100500', 'Pantherophis',        'Pantherophis', 1, true);
 	
 
 
-/*BBS Type
+/*BBS Type */
 insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (200, 'BT00000000', 'BT10000000', '공지사항', '', 1, true);
 
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (210, 'BS00000000', 'BS10000000', '등록완료', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (211, 'BS00000000', 'BS20000000', '삭제', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (212, 'BS00000000', 'BS30000000', '임시저장', '', 1, true);
-*/
 
 
 /* animal dictionary */
@@ -178,9 +174,13 @@ insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_
 insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (28,100,101,124,125,'Tiliqua sp',                  'Irian Jaya Bluetongued Skink',    '이리안자야 블루텅 스킨크', 17,21);
 insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (29,100,101,124,125,'Tiliqua rugosa',              'Shingleback Skink',               '슁글백 스킨크',          17,21);
 insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (30,100,101,124,125,'Tiliqua nigrolutea',          'Blotched Bluetongued Skink',      '블로치드 블루텅 스킨크',  17,21);
-insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (31,100,126,127,128,'Sternotherus odoratus',        'The Common Musk Turtle',              '커먼머스크터틀',  17,21);
-insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (32,100,126,129,130,'Chrysemys picta dorsalis',      'The Southern Painted Turtle',       '서던페인티드터틀',  17,21);
-insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (33,100,126,131,132,'Rhinoclemmys pulcherrima',      'Painted Wood Turtle',               '페인티드우드터틀',  17,21);
-insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (34,100,126,133,134,'Chelydra serpentina',           'Common Snapping Turtle',             '커먼늑대거북',  17,21);
-insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (35,100,126,135,137,'Agrionemys horsfieldii',           'Russian Tortoise',             '호스필드육지거북',  17,21);
-insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (36,100,126,135,136,'Stigmochelys pardalis',           'Leopard Tortoise',             '레오파드육지거북',  17,21);
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (31,100,126,127,128,'Sternotherus odoratus',       'The Common Musk Turtle',           '커먼머스크터틀',  17,21);
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (32,100,126,129,130,'Chrysemys picta dorsalis',    'The Southern Painted Turtle',       '서던페인티드터틀',  17,21);
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (33,100,126,131,132,'Rhinoclemmys pulcherrima',    'Painted Wood Turtle',               '페인티드우드터틀',  17,21);
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (34,100,126,133,134,'Chelydra serpentina',         'Common Snapping Turtle',             '커먼늑대거북',  17,21);
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (35,100,126,135,137,'Agrionemys horsfieldii',      'Russian Tortoise',             '호스필드육지거북',  17,21);
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (36,100,126,135,136,'Stigmochelys pardalis',       'Leopard Tortoise',             '레오파드육지거북',  17,21);
+
+insert into dict_animaldictionary(id, class_name_id, order_id, family_id, genus_id, species, common_name, common_name_kor, cites_appendices_id, eating_id) values (37,100,101,102,138,'Elaphe obsoleta lindheimeri',  'Texas Rat Snake',           '텍사스랫스네이크',        17,21);
+
+
