@@ -7,6 +7,7 @@
    <div class="clearfix">
        <h1 class="float-left">{{ bbs_type.item_name }} 등록하기</h1>
    </div>
+   <small class="text-muted">{{ bbs_help_text }}</small>
     <hr>
     <form method="post" action="" class="form-horizontal" enctype="multipart/form-data" id="form_post"> {% csrf_token %}
         {{ form.media }} 

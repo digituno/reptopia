@@ -138,13 +138,10 @@ insert into dict_dictionary(id, category, item, item_name, item_name_en, display
 	
 
 
-/*BBS Type
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (200, 'BT00000000', 'BT10000000', '공지사항', '', 1, true);
+/*BBS Type*/
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (200, 'BT00000000', 'BT10000000', '공지사항', 'notice', 1, true);
+insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (201, 'BT00000000', 'BT20000000', '요청/제안', 'request', 1, true);
 
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (210, 'BS00000000', 'BS10000000', '등록완료', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (211, 'BS00000000', 'BS20000000', '삭제', '', 1, true);
-insert into dict_dictionary(id, category, item, item_name, item_name_en, display_order, is_usable) values (212, 'BS00000000', 'BS30000000', '임시저장', '', 1, true);
-*/
 
 
 /* animal dictionary */

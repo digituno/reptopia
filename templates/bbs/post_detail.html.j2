@@ -46,7 +46,7 @@
                 title: "게시물 삭제확인",
                 buttons: {
                     '확인': function() {
-                        $('#delete_form').attr("action", "{% url 'board-delete' pk=post.pk bbs_type=post.board_type.pk %}");
+                        $('#delete_form').attr("action", "{% url 'board-delete' pk=post.pk bbs_type=post.board_type.item_name_en %}");
                         $('#delete_form').submit();
                     },
                     '취소': function() {

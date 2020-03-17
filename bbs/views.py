@@ -22,7 +22,10 @@ class PostListView(ListView):
 
     def get_queryset(self):
         bbs_type = get_object_or_404(Dictionary, item_name_en=self.kwargs['bbs_type'])
-        return Post.objects.filter(board_type_id=bbs_type)
+        qs = Post.objects.filter(board_type_id=bbs_type)
+        if bbs_type.item == reptopia._REQUEST_:
+            qs.filter(author=self.request.user)
+        return qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -47,6 +50,10 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         bbs_type = get_object_or_404(Dictionary, item_name_en=self.kwargs['bbs_type'])
         context['bbs_type'] = bbs_type
+
+
+        if bbs_type.item == reptopia._REQUEST_:
+            context['bbs_help_text'] = '등록하고자 하는 개체가 없거나 서비스가 정상적으로 동작하지 못하는 경우 내역을 등록해주세요.' 
 
         return context
 
