@@ -264,7 +264,7 @@
         });
 
         $('#btn_cancle').click( function() {
-            history.go(-1);
+            window.location = "{{ pet.get_absolute_url }}";
         });
 
 
