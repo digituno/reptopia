@@ -3,9 +3,11 @@
 {% if comment_count %}
 {% get_comment_list for object as comment_list %}
 {% for comment in comment_list %}
-<div class="group-rom">
-    <div class="mt-3">{{ comment.comment }}</div>
-    <small class="text-muted">{{ comment.submit_date }} by {{ comment.user.name }} - <i name="comment_delete" pk="{{ comment.pk }}" class="fa fa-trash"></i></small>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="mt-3">{{ comment.comment }}</div>
+        <small class="text-muted">{{ comment.submit_date }} by {{ comment.user.name }} - <i name="comment_delete" pk="{{ comment.pk }}" class="fa fa-trash"></i></small>
+    </div>
 </div>
 {% endfor %}
 {% endif %}
