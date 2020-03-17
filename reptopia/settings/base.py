@@ -144,9 +144,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, '.static_root')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# 태그 클라우드 제한 갯수 디폴트:10
+TAGGIT_LIMIT = 234
+
 CKEDITOR_UPLOAD_PATH = 'ckeditor/'
 CKEDITOR_IMAGE_BACKEND = "pillow"
-
 
 SITE_ID = 1
 COMMENTS_APP = 'django_comments_xtd'
