@@ -65,17 +65,11 @@
             <div style="text-align:center;">
                 <span class="btn" data-id="{{ account.pk }}" data-type="account" data-action="like" title="Like">
                     {% if likedprofileuser is None %}
-                        <i class="fa fa-heart"></i>
+                        <i class="far fa-heart text-danger"></i>
                     {% else %}
-                        <i class="far fa-heart"></i>
+                        <i class="fa fa-heart text-danger"></i>
                     {% endif %}
                     <span data-count="like">{{ account.likes.likes.count }}</span>
-                    <!--
-                    <li data-id="{{ account.pk }}" data-type="account" data-action="dislike" title="Dislike">
-                        <span class="glyphicon glyphicon-thumbs-down"></span>
-                        <span data-count="dislike">{{ account.likes.dislikes.count }}</span>
-                    </li>
-                    -->
                 </span>
             </div>
          </div>
@@ -155,7 +149,7 @@
             {% endif %}
         </div>
         <div id="like_list" class="tab-pane">
-            > {{ account.name }} 님을 좋아하는 사용자들
+            <i class="fa fa-heart text-danger"></i> {{ account.name }} 님을 좋아하는 사용자들
             <div class="row container">
                 {% for liked in account.likes.likes %}
                     <div class="profile-header-img">
