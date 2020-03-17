@@ -31,7 +31,6 @@ class IndexView(TemplateView):
         return context
 
 class UserCardSearchView(TemplateView):
-    model = Account
     template_name = 'home/user_card_search.html.j2'
 
     # custom user model 의 paginator 가 정상작동하지않음에 따른 직접구현
@@ -53,6 +52,50 @@ class UserCardSearchView(TemplateView):
 
         return context
 
+
+class PetCardSearchView(TemplateView):
+    template_name = 'home/pet_card_search.html.j2'
+
+    # custom user model 의 paginator 가 정상작동하지않음에 따른 직접구현
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        qs_all = Pet.objects.order_by('-created_date')[:100]
+        paginator = Paginator(qs_all, reptopia._PAGE_CNT_*2)
+        page = self.request.GET.get('page')
+
+
+        try:
+            pet_list = paginator.page(page)
+        except PageNotAnInteger:
+            pet_list = paginator.page(reptopia._FIRST_PAGE_)
+        except EmptyPage:
+            pet_list = paginator.page(paginator.num_pages)
+        context['pet_list'] = pet_list
+
+        return context
+
+
+class CareCardSearchView(TemplateView):
+    template_name = 'home/care_card_search.html.j2'
+
+    # custom user model 의 paginator 가 정상작동하지않음에 따른 직접구현
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        qs_all = Care.objects.order_by('-created_datetime')[:100]
+        paginator = Paginator(qs_all, reptopia._PAGE_CNT_*2)
+        page = self.request.GET.get('page')
+
+        try:
+            care_list = paginator.page(page)
+        except PageNotAnInteger:
+            care_list = paginator.page(reptopia._FIRST_PAGE_)
+        except EmptyPage:
+            care_list = paginator.page(paginator.num_pages)
+        context['care_list'] = care_list
+
+        return context
 
 """
 class TagAutocomplete(autocomplete.Select2QuerySetView):

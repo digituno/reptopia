@@ -1,0 +1,77 @@
+{% extends 'base.html.j2' %}
+{% load static %}
+{% block stylesheet %}
+<style>
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<!-- start container -->
+    <div class="clearfix">
+        <h1 class="float-left">사육일지 카드 검색 결과</h1>
+    </div>
+    <small class="text-muted">최근에 등록 된 사육일지 목록입니다. 사용자와 개체를 눌러 상세 내용을 볼 수 있습니다.</small>
+    <hr>
+    <div class="table-responsive mt-5">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" class="d-none d-sm-table-cell">#</th>
+                    <th scope="col">사육자</th>
+                    <th scope="col">개체이름</th>
+                    <th scope="col" class="d-none d-sm-table-cell">등록일자</th>
+                    <th scope="col">일지유형</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for care in care_list %}
+                <tr>
+                    <th class="d-none d-sm-table-cell" scope="row">{{ forloop.counter }}</th>
+                    <td><a href="{{ care.pet.owner.get_absolute_url }}">{{ care.pet.owner.name }}</a></td>
+                    <td><a href="{{ care.pet.get_absolute_url }}">{{ care.pet.name }}</a></td>
+                    <td class="d-none d-sm-table-cell">{{ care.date}}</td>
+                    <td>
+                        {{ care.type.item_name }}
+                        {% if care.type.item_name == '체중' %}
+                            - {{ care.weight }} 그램
+                        {% elif care.type.item_name == '먹이주기' %}
+                            - {{ care.feeding.prey_type.item_name}} {{ care.feeding.prey_size.item_name }}
+                            {% if care.feeding.prey_weight > 0 %}
+                            , {{ care.feeding.prey_weight}}g
+                            {% endif %}
+                            {% if care.feeding.prey_quantity > 0 %}
+                            , {{ care.feeding.prey_quantity }}개
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% if care_list.paginator.num_pages > 1 %}
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% if care_list.has_previous %}
+                <li class="page-item"> <a class="page-link" href="?page={{ care_list.previous_page_number }}">&laquo;</a> </li>
+                {% else %}
+                <li class="page-item disabled"> <span class="page-link">&laquo;</span> </li>
+                {% endif %}
+                {% for i in care_list.paginator.page_range %}
+                    {% if care_list.number == i %}
+                        <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if care_list.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ care_list.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                    <li class="page-item disabled"> <span class="page-link">&raquo;</span></li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+</div>
+{% endblock %}

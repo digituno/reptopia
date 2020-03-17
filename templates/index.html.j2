@@ -90,7 +90,7 @@
     <div class="col-sm-4 mb-1">
         <div class="card text-white bg-success">
             <div class="card-header"><h4 class="text-white">등록된 개체</h4></div>
-            <div class="card-body">
+            <div class="card-body btn text-white" id="pet_card">
                 <p class="card-text" style="text-align:right;">{{ pet_count }} 마리</p>
             </div>
         </div>
@@ -98,7 +98,7 @@
     <div class="col-sm-4 mb-1">
         <div class="card text-white bg-warning">
             <div class="card-header"><h4 class="text-white">등록된 사육일지</h4></div>
-            <div class="card-body">
+            <div class="card-body btn text-white" id="care_card">
                 <p class="card-text" style="text-align:right;">{{ care_count }} 건</p>
             </div>
         </div>
@@ -164,6 +164,14 @@
 
         $('#user_card').click(function(){
             window.location = "{% url 'card-user' %}";
+        });
+
+        $('#pet_card').click(function(){
+            window.location = "{% url 'card-pet' %}";
+        });
+
+        $('#care_card').click(function(){
+            window.location = "{% url 'card-care' %}";
         });
     });
 
