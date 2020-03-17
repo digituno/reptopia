@@ -180,7 +180,7 @@ class SpeciesSearchTemplateView(View):
     def get(self, request):
         q = request.GET.get('term', '').capitalize()
         logger.debug(q)
-        search_qs = AnimalDictionary.objects.filter(Q(common_name_kor__icontains=q)|Q(common_name__icontains=q))
+        search_qs = AnimalDictionary.objects.filter(Q(common_name_kor__icontains=q)|Q(common_name__icontains=q)|Q(species__icontains=q))
 
         results  = []
         for r in search_qs:
