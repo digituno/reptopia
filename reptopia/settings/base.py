@@ -24,6 +24,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django_comments_xtd',
+    'django_comments',
     'home',
     'account',
     'dict',
@@ -105,7 +108,6 @@ LOGGING = {
     },
 }
 
-
 # Internationalization
 LANGUAGE_CODE = 'ko'
 TIME_ZONE = 'Asia/Seoul'
@@ -142,6 +144,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, '.static_root')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
 CKEDITOR_UPLOAD_PATH = 'ckeditor/'
 CKEDITOR_IMAGE_BACKEND = "pillow"
+
+
+SITE_ID = 1
+COMMENTS_APP = 'django_comments_xtd'
+COMMENTS_XTD_MAX_THREAD_LEVEL = 2

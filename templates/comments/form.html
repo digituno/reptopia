@@ -1,0 +1,28 @@
+
+{% load comments %}
+{% get_comment_form for object as form %}
+{% if user.is_authenticated %}
+<form method="POST" action="/comments/post/"> {% csrf_token %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="alert alert-danger" data-comment-element="errors" hidden> </div>
+            {{ form.content_type }}
+            {{ form.object_pk }}
+            {{ form.timestamp }}
+            {{ form.security_hash }}
+            <input type="hidden" name="next" value="/comments/sent/"/>
+            <div><input type="hidden" name="reply_to" value="0" id="id_reply_to"></div>
+            <div style="display:none"><input type="text" name="honeypot" id="id_honeypot"></div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <input type="text" name="name" value="{{ user.name }}" class="form-control" required id="id_name" readonly>
+                </div>
+                <textarea name="comment" placeholder="댓글을 입력해주세요." rows="1" class="form-control" maxlength="1000" required id="id_comment"></textarea>
+                <div class="input-group-append">
+                    <input type="submit" name="post" value="등록하기" class="btn btn-outline-secondary" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endif %}
