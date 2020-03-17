@@ -32,7 +32,7 @@ class IndexView(TemplateView):
 
 class UserCardSearchView(TemplateView):
     model = Account
-    template_name = 'home/card_search.html.j2'
+    template_name = 'home/user_card_search.html.j2'
 
     # custom user model 의 paginator 가 정상작동하지않음에 따른 직접구현
     def get_context_data(self, **kwargs):
