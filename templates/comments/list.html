@@ -7,7 +7,7 @@
     <div class="col-sm-12">
         <div class="mt-3">{{ comment.comment }}</div>
         <small class="text-muted">{{ comment.submit_date }} by {{ comment.user.name }}
-        {% if comment.user == user %}
+        {% if user.is_staff %}
             - <i name="comment_delete" pk="{{ comment.pk }}" class="fa fa-trash"></i>
         {% endif %}
         </small>
