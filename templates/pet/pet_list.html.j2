@@ -113,7 +113,7 @@
         });
 
 
-        $('#insert_btn').click(function(){
+        $('#insert_btn').on('click', function(){
             window.location = "{% url 'pet-add' userid=user.pk %}";
         })
     });

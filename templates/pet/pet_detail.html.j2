@@ -95,7 +95,7 @@
                     {% for care in care_list %}
                         <tr>
                             <th class="d-none d-sm-table-cell" scope="row">{{ forloop.counter }}</th>
-                            <td>{{ care.date}}</td>
+                            <td name="care_date" data-desc="{{ care.desc }}">{{ care.date}}</td>
                             <td>
                                 {{ care.type.item_name }}
                                 {% if care.type.item_name == '체중' %}
@@ -210,11 +210,11 @@
                 window.location.href = url;
             });
 
-            $('#update_btn').click(function(){
+            $('#update_btn').on('click', function(){
                 window.location = "{% url 'pet-update' userid=pet.owner.pk pk=pet.pk%}";
             });
 
-            $('#delete_btn').click(function(){
+            $('#delete_btn').on('click', function(){
                 $('#dialog-body').text('{{ pet.name }} 개체를 삭제하시겠습니까?');
                 $( "#dialog-message" ).dialog({
                     modal: true,
@@ -231,7 +231,7 @@
                 });
             });
 
-            $('button[name="care_delete"]').click(function(){
+            $('button[name="care_delete"]').on('click', function(){
                 _owner = $(this).attr("owner");
                 _pet = $(this).attr("pet");
                 _care = $(this).attr("care");
@@ -252,13 +252,35 @@
                 });
             });
 
-            $('#list_btn').click(function(){
+            $('#list_btn').on('click', function(){
                 window.location = "{% url 'pet-list' userid=pet.owner.pk %}";
             });
 
-            $('#care_insert_btn').click(function(){
+            $('#care_insert_btn').on('click', function(){
                 window.location = "{% url 'care-add' userid=pet.owner.pk petid=pet.pk %}";
             });
+
+            var pop_care_detail = function(td_obj) {
+                var desc = td_obj.attr("data-desc");
+                alert(desc);
+            };
+
+            if ($(window).width() < 576){
+                $('td[name="care_date"]').on('click', function(){
+                    pop_care_detail($(this));
+                });
+            }
+
+            $(window).resize( function() {
+                if ($(window).width() < 576){
+                    $('td[name="care_date"]').on('click', function(){
+                        pop_care_detail($(this));
+                    });
+                } else {
+                    $('td[name="care_date"]').off('click');
+                }
+            });
+
         });
     </script>
 {% endblock%}

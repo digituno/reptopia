@@ -247,7 +247,7 @@
         });
         $("#id_date").datepicker($.datepicker.regional[ "ko" ]);
 
-        $('#btn_submit').click( function() {
+        $('#btn_submit').on('click', function() {
             $( function() {
                 $('#dialog-body').text('입력하신 내용으로 사육일지를 등록하시겠습니까?');
                 $( "#dialog-message" ).dialog({
@@ -265,7 +265,7 @@
             });
         });
 
-        $('#btn_cancle').click( function() {
+        $('#btn_cancle').on('click', function() {
             window.location = "{{ pet.get_absolute_url }}";
         });
 
