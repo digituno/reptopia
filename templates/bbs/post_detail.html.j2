@@ -6,27 +6,24 @@
     <link href="{% static 'css/carousel.css' %}" rel="stylesheet">
     <style>
         /* min size style*/
-        @media screen and (min-width:410px) {
+        @media screen and (max-width:410px) {
            /* put your css style in there */
            img {
-               max-height: 300px;
-               max-width: 100%;
+               max-height: 300px !important;
            }
         }
 
         /* middle size style */
         @media screen and (min-width:730px) {
             img {
-                max-height: 500px;
-                max-width: 100%;
+                max-height: 500px !important;
             }
         }
 
         /* large size style */
         @media screen and (min-width:1280px) {
             img {
-                max-height: 800px;
-                max-width: 100%;
+                max-height: 800px !important;
             }
         }
 
@@ -116,6 +113,8 @@
                 },
             });
         });
+
+        $("img").addClass("img-fluid");
     });
 </script>
 {% endblock%}
