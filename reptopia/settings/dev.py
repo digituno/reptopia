@@ -18,7 +18,6 @@ ALLOWED_HOSTS = [
 ]
 
 INSTALLED_APPS += [
-    'gallery',
 ]
 
 WSGI_APPLICATION = 'reptopia.wsgi.dev.application'

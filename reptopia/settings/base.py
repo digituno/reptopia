@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'taggit',
     'taggit_templatetags2',
     'social',
+    'gallery',
 ]
 
 MIDDLEWARE = [
