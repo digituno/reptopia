@@ -6,7 +6,13 @@
 <div class="container">
      <div class="clearfix">
         <h1 class="float-left">{{ bbs_type.item_name }}</h1>
-        {% if user.is_authenticated %}
+        {% if bbs_type.item_name == '공지사항' and user.is_staff %}
+            <div class="float-right">
+                <div class="btn-group">
+                    <button id="insert_btn" type="button" class="btn btn-default">등록하기</button>
+                </div>
+            </div>
+        {% elif user.is_authenticated %}
             <div class="float-right">
                 <div class="btn-group">
                     <button id="insert_btn" type="button" class="btn btn-default">등록하기</button>
