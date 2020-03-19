@@ -2,6 +2,39 @@
 {% load static %}
 {% load comments %}
 
+{% block stylesheet %}
+    <link href="{% static 'css/carousel.css' %}" rel="stylesheet">
+    <style>
+        /* min size style*/
+        @media screen and (min-width:410px) {
+           /* put your css style in there */
+           img {
+               max-height: 300px;
+               max-width: 100%;
+           }
+        }
+
+        /* middle size style */
+        @media screen and (min-width:730px) {
+            img {
+                max-height: 500px;
+                max-width: 100%;
+            }
+        }
+
+        /* large size style */
+        @media screen and (min-width:1280px) {
+            img {
+                max-height: 800px;
+                max-width: 100%;
+            }
+        }
+
+
+
+    </style>
+{% endblock %}
+
 {% block content %}
 <!-- Begin page content -->
 <div class="container">
@@ -10,7 +43,7 @@
         <div class="float-right">
             <div class="btn-group" role="group">
                 {% if user.is_authenticated and user == post.author %}
-                    <button id="udpate_btn" type="button" class="btn btn-default">정보수정</button>
+                    <button id="update_btn" type="button" class="btn btn-default">정보수정</button>
                     <button id="delete_btn" type="button" class="btn btn-default">삭제</button>
                 {% endif %}
                 <button id="list_btn" type="button" class="btn btn-default">목록으로</button>
@@ -20,7 +53,7 @@
     <hr>
     <div class="row">
         <div class="col-sm-12">
-            <h2>{{ post.title }}</h2> 
+            <h2>{{ post.title }}</h2>
             <small class="form-text text-muted">{{ post.pub_date }} by {{ post.author.name}}</small>
         </div>
     </div>
@@ -32,7 +65,7 @@
 {% render_comment_form for object %}
 <hr>
 {% render_comment_list for object %}
-<form id="delete_form" method="post" action=""> {% csrf_token %} 
+<form id="delete_form" method="post" action=""> {% csrf_token %}
     <input type="hidden" name="next" value="{{ post.get_absolute_url }}" />
 </form>
 {% endblock %}
@@ -68,23 +101,21 @@
         $('i[name="comment_delete"]').click(function(){
             _pk = $(this).attr("pk");
 
-                $('#dialog-body').text('선택하신 댓글을 삭제하시겠습니까?');
-                $( "#dialog-message" ).dialog({
-                    modal: true,
-                    title: "댓글 삭제확인",
-                    buttons: {
-                        '확인': function() {
-                            $('#delete_form').attr("action", "/comments/delete/" + _pk + "/");
-                            $('#delete_form').submit();
-                        },
-                        '취소': function() {
-                            $( this ).dialog( "close" );
-                        }
+            $('#dialog-body').text('선택하신 댓글을 삭제하시겠습니까?');
+            $( "#dialog-message" ).dialog({
+                modal: true,
+                title: "댓글 삭제확인",
+                buttons: {
+                    '확인': function() {
+                        $('#delete_form').attr("action", "/comments/delete/" + _pk + "/");
+                        $('#delete_form').submit();
                     },
-                });
+                    '취소': function() {
+                        $( this ).dialog( "close" );
+                    }
+                },
             });
-
-
+        });
     });
 </script>
 {% endblock%}
