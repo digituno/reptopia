@@ -43,11 +43,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-                <!--
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'board-list' bbs_type='notice' %}">공지사항</a>
                 </li>
-                -->
                 {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'pet-list' userid=user.pk %}">개체관리</a>
